@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './ReportWebVitals';
+import Navbar from './components/navbar/Navbar';
 import './styles/app.scss';
-import Test from './components/Test'
 
 ReactDOM.render(
     <React.StrictMode>
         {/* Components in here! */}
-        <Test></Test>
+        <Navbar></Navbar>
     </React.StrictMode>,
     document.getElementById('root')
 );

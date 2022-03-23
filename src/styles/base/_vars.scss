@@ -3,7 +3,7 @@
 $primaryDark: #333;
 $secondaryDark: #222;
 $backgroundDark: #111;
-$primaryLight: #fff;
+$primaryLight: #eefffe;
 
 //* Breakpoints
 $sm-mobile: 480px;
@@ -13,7 +13,9 @@ $desktop: 1200px;
 $lg-desktop: 1720px;
 
 //* Fonts
-$font: "Nunita Sans", sans-serif;
+$primaryFont: 'Spartan', sans-serif;
+$secondaryFont: 'Roboto', sans-serif;
+$coolFont: 'Major Mono Display', monospace;
 
 //* Font weights
 $extraLight: 200;
