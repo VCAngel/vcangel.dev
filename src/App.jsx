@@ -4,7 +4,7 @@ import reportWebVitals from './ReportWebVitals';
 import Navbar from './components/navbar/Navbar';
 import Main from './components/main/Main';
 import Contact from './components/contact/Contact';
-import './styles/app.scss';
+import './scss/app.scss';
 
 ReactDOM.render(
     <React.StrictMode>

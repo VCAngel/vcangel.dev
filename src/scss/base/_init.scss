@@ -16,6 +16,7 @@ body {
     font-size: 1.6rem;
     font-family: $primaryFont;
     font-weight: $light;
+    color: $primaryLight;
     height: 100%;
 }
 
@@ -53,10 +54,16 @@ p {
     margin: 0;
     line-height: 1.4;
     font-size: 1.6rem;
+    font-family: $secondaryFont;
     font-weight: $light;
 }
 a {
     text-decoration: none;
+}
+
+#root {
+    background-color: $backgroundDark;
+
 }
 
 .container {

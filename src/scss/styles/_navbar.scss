@@ -1,0 +1,12 @@
+.navbar {
+    width: 100%;
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__icon{
+        font-family: $coolFont;
+        font-size: 3rem;
+    }
+}   

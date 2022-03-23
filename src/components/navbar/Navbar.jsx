@@ -3,7 +3,7 @@ import React from 'react';
 const Navbar = () => {
     return(
         <header className="navbar">
-            <span className="navbar__icon">VA</span>
+            <a href='#' className="navbar__icon">VA</a>
         </header>
     )
 }
