@@ -1,0 +1,35 @@
+@mixin sm-mobile {
+    @media (min-width: $sm-mobile) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (min-width: $mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
+@mixin lg-desktop {
+    @media (min-width: $lg-desktop) {
+        @content;
+    }
+}
+
+@mixin gridDisplay($columns, $gap) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+}
