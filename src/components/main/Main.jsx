@@ -9,7 +9,7 @@ export default class Main extends Component {
         this.threeContainer = React.createRef(); // <== main container
         this.initThree();
         this.state = {
-            isLoading: true
+            canvasAttrs: []
         }
     }
 
@@ -30,22 +30,59 @@ export default class Main extends Component {
 
     bodiesRender = (renderer, ref) => {
         const { domElement } = renderer;
-        console.log(renderer);
-
-        domElement.id = 'threeCanvas'
-        domElement.className = 'main__canvas'
-        ref.current.appendChild(domElement)
-        // let canvas = document.createElement('canvas')
-        //TODO CREATE COMPONENT FOR CANVAS WITH document.createElement
+        console.log(domElement);
+        const attributes = []
+        for (let i = 0; i < domElement.attributes.length; i++) {
+            if (i == 0)
+                continue;
+            else
+                attributes.push(domElement.attributes[i])
+        }
+        attributes.unshift(domElement.style.height)
+        attributes.unshift(domElement.style.width)
+        this.setState({ canvasAttrs: attributes })
     }
 
     render() {
         //! If we wanna keep app size, but lower res, do this:
         //-> this.renderer.setSize(window.innerWidth/2, window.innerHeight/2, false)
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        return (
-            <main className='main container' ref={this?.threeContainer} onLoad={this.animate}>
-            </main>
-        );
+
+        if (this.state.canvasAttrs.length == 0) {
+            return (
+                <main className='main container' ref={this?.threeContainer}>Loading...</main>
+            );
+        }
+        else {
+            console.log(this.state)
+            return (
+                //TODO correct canvas attrs
+                <main className='main container' ref={this?.threeContainer} onLoad={this.animate}>
+                    <canvas id='threeCanvas'
+                        className='main__canvas'
+                        style={{ width: this.state.canvasAttrs[0], height: this.state.canvasAttrs[1] }}
+                        data-engine={this.state.canvasAttrs[2].value}
+                        width={this.state.canvasAttrs[3]}
+                        height={this.state.canvasAttrs[4]}></canvas>
+                </main>
+            )
+        }
     }
 }
+
+// //? ThreeJS canvas wrapper class
+// const Bodies = (attrs, parentNodeRef) => {
+//     const cvsAttrs = [['style', attrs[0]], ['data-engine', attrs[1]], ['width', attrs[2]], ['height', attrs[3]]];
+//     const canvas = document.createElement('canvas');
+//     canvas.id = 'threeCanvas';
+//     canvas.className = 'main__canvas'
+//     cvsAttrs.forEach(attr => {
+//         canvas.setAttribute(attr[0], attr[1].value)
+//     })
+//     // console.warn(canvas)
+//     console.warn(parentNodeRef)
+//     return <div ref={(current => {
+//         parentNodeRef.current.appendChild(canvas);
+//         current.remove
+//     })}></div>
+// }
