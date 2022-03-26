@@ -20,8 +20,6 @@ const Social = ({ social }) => {
             socialLink = Object.values(links)[i]
     }
 
-    console.log(LinkedIn)
-
     const importSVG = (social) => {
         switch (social) {
             case 'linkedIn': return <LinkedIn></LinkedIn>
