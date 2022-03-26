@@ -13,15 +13,19 @@ $desktop: 1200px;
 $lg-desktop: 1720px;
 
 //* Fonts
-$primaryFont: 'Spartan', sans-serif;
-$secondaryFont: 'Roboto', sans-serif;
-$coolFont: 'Major Mono Display', monospace;
+$primaryFont: "Spartan", sans-serif;
+$secondaryFont: "Roboto", sans-serif;
+$coolFont: "Major Mono Display", monospace;
 
-//* Font weights
+//-> Font weights
 $extraLight: 200;
 $light: 300;
 $regular: 400;
 $bold: 700;
 $extraBold: 900;
 
-//* Other
+//? Other
+$linkedIn: #0e76a8;
+$github: #171515;
+$platzi: #98ca3f;
+$twitter: #00acee;

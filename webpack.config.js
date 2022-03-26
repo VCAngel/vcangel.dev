@@ -19,7 +19,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.js|jsx?$/,
                 exclude: /node_modules/,
                 loader: require.resolve("babel-loader"),
             },
@@ -32,7 +32,7 @@ module.exports = {
                 use: ["style-loader", "css-loader", "sass-loader"],
             },
             {
-                test: /\.png|svg|jpe?g|gif$/i,
+                test: /\.png|jpe?g|gif$/i,
                 use: [{
                     loader: "image-webpack-loader",
                     options: {
@@ -57,6 +57,15 @@ module.exports = {
                     }
                 }, "file-loader"],
                 type: "asset/resource",
+            },
+            {
+                test: /\.svg$/,
+                use: [{
+                    loader: '@svgr/webpack',
+                    options: {
+                        exportType: 'named',
+                    }
+                }, 'file-loader']
             }
         ]
     },

@@ -3,13 +3,14 @@ import Social from './Social';
 
 const Contact = () => {
     return (
-        <footer>
-            <h2>Contact me!</h2>
-            <h3>My email: <a href="#">vcangel00@gmail.com</a></h3>
-            <ul>
-                <li><Social social='LinkedIn' /></li>
-                <li><Social social='Github' /></li>
-                <li><Social social='Twitter' /></li>
+        <footer className="contact">
+            <h2 className="contact__title">Let's work together!</h2>
+            <h3 className="contact__email"><a href="#">vcangel00@gmail.com</a></h3>
+            <ul className="contact__socials">
+                <Social social='linkedIn' />
+                <Social social='github' />
+                <Social social='platzi' />
+                <Social social='twitter' />
             </ul>
         </footer>
     )
