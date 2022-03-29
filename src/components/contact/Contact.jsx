@@ -31,7 +31,7 @@ const Contact = () => {
                     <Social social='platzi' />
                     <Social social='twitter' />
                 </ul>
-                <p className="end__cr">©2022 Angel Vargas</p>
+                <p className="end__cr">© 2022 Angel Vargas</p>
                 <p className="end__msg">the only limit is your imagination</p>
             </section>
         </footer>
