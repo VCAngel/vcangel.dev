@@ -33,3 +33,7 @@
     grid-template-columns: repeat($columns, 1fr);
     gap: $gap;
 }
+
+@mixin transition($prop, $time){
+    transition: $prop $time ease-in-out;
+}

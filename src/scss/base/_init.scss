@@ -34,7 +34,7 @@ h4 {
 
 h1 {
     font-size: 6rem;
-    font-weight: $extraBold;
+    font-weight: $black;
 }
 
 h2 {
@@ -52,13 +52,14 @@ h4 {
 
 p {
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.6;
     font-size: 1.6rem;
     font-family: $secondaryFont;
     font-weight: $light;
 }
 a {
     text-decoration: none;
+    font-weight: $bold;
 }
 
 #root {
@@ -68,14 +69,20 @@ a {
 
 .container {
     //-> Base container template
-    width: 100rem;
+    width: 160rem;
     max-width: 80%;
     margin: 0 auto;
+    @include transition(max-width, 1s);
 
     @include mobile {
+        max-width: 60%;
+    }
+
+    @include desktop {
         max-width: 70%;
     }
-    @include desktop {
-        max-width: 60%;
+
+    @include lg-desktop{
+        max-width: 90%;
     }
 }

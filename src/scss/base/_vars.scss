@@ -4,6 +4,10 @@ $primaryDark: #333;
 $secondaryDark: #222;
 $backgroundDark: #111;
 $primaryLight: #efffef;
+$jsYellow: #ffd43b;
+$pyBlue: #4b8bbe;
+$csPurple: #9b4993;
+$vueGreen: #42b883;
 
 //* Breakpoints
 $sm-mobile: 480px;
@@ -13,19 +17,20 @@ $desktop: 1200px;
 $lg-desktop: 1720px;
 
 //* Fonts
-$primaryFont: "Spartan", sans-serif;
-$secondaryFont: "Roboto", sans-serif;
+$primaryFont: 'Source Code Pro', monospace;
+$secondaryFont: 'Ubuntu', sans-serif;
 $coolFont: "Major Mono Display", monospace;
 
 //-> Font weights
-$extraLight: 200;
+$thin: 200;
 $light: 300;
 $regular: 400;
 $bold: 700;
-$extraBold: 900;
+$black: 900;
 
 //? Other
 $linkedIn: #0e76a8;
-$github: #171515;
+$github: #f0f6fc;
 $platzi: #98ca3f;
 $twitter: #00acee;
+$iconBg: #292929;

@@ -1,1 +1,10 @@
 //! Add user usefull utils
+.btn{
+    font-weight: $regular;
+    font-size: 1.8rem;
+    padding: 1.2rem 3.2rem;
+    margin: 1rem;
+    border-radius: 5rem;
+    cursor: pointer;
+    @include transition(all, 0.2s);
+}
