@@ -1,9 +1,12 @@
 .navbar {
     width: 100%;
+    position: fixed; //* Set the navbar to fixed position
+    top: 0; //* Position the navbar at the top of the page
     padding: 1rem 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 
     &__icon{
         font-family: $coolFont;
