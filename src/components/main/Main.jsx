@@ -1,7 +1,9 @@
 import React, { Component, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import { Blackhole, ProjectList, About } from './Bodies';
+import { OrbitControls, Stars } from '@react-three/drei';
+import Blackhole from './bodies/Blackhole';
+import About from './bodies/About';
+import ProjectList from './bodies/ProjectList';
 
 //TODO threeJS models and scenes
 //TODO Creating groups and making the solar system structure
@@ -12,14 +14,15 @@ export default class Main extends Component {
 
     render() {
         return (
-            <main className='main container' ref={this?.threeContainer}>
-                <Canvas className='main__canvas'>
+            <main className='main' ref={this?.threeContainer}>
+                <Canvas className='main__canvas' camera={{fov: 90, near: 0.1, far: 1000}}>
+                    <Stars radius={100} fade/>
                     <OrbitControls />
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <Blackhole />
-                    <About />
-                    <ProjectList />
+                    {/* <About /> */}
+                    {/* <ProjectList /> */}
                 </Canvas>
             </main>
         )
