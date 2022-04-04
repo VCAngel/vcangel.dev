@@ -7,24 +7,22 @@ title: Naruto _ Frog Wallet
 */
 
 import React from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 
-export default function Model({ body, type, ...props }) {
+export default function Model({ body, type, controls, ...props }) {
   const { nodes, materials } = useGLTF('/frog.glb')
   let orbit = 2 * Math.PI * (1 / 60) * (1 / 60);
-  let angle = 1/12 * Math.PI;
+  let angle = 1 / 12 * Math.PI;
 
   switch (type) {
     case 'moon':
       orbit *= -0.035;
-      angle = 1/5 * Math.PI;
+      angle = 1 / 5 * Math.PI;
       break;
     case 'ship':
       orbit *= 3;
-      angle = -1/5 * Math.PI;
-      break;
-    default:
+      angle = -1 / 5 * Math.PI;
       break;
   }
 
@@ -34,20 +32,23 @@ export default function Model({ body, type, ...props }) {
   })
 
   return (
-    <group ref={body}>
+    <group ref={body}
+      onPointerDown={(evt) => {
+      }}
+    >
       <group {...props} dispose={null}>
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
             {/* TODO Create kurzgesagt-like models!
             <mesh geometry={nodes} material={materials.Material__2} /> */}
             <mesh>
-              <sphereGeometry/>
-              <meshLambertMaterial/>
+              <sphereGeometry />
+              <meshLambertMaterial />
             </mesh>
           </group>
         </group>
       </group>
-    </group>
+    </group >
   )
 }
 
