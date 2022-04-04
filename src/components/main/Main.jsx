@@ -1,6 +1,7 @@
 import React, { Component, Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
+import Frog from './bodies/Frog';
 import Blackhole from './bodies/Blackhole';
 import About from './bodies/About';
 import ProjectList from './bodies/ProjectList';
@@ -10,6 +11,12 @@ import ProjectList from './bodies/ProjectList';
 export default class Main extends Component {
     constructor(props) {
         super(props);
+        this.system = {
+            group: React.createRef(),
+            earth: React.createRef(),
+            moon: React.createRef(),
+            ship: React.createRef(),
+        }
     }
 
     render() {
@@ -17,12 +24,16 @@ export default class Main extends Component {
         return (
             <main className='main' ref={this?.threeContainer}>
                 <Canvas className='main__canvas' camera={{ fov: 75, near: 0.1, far: 1000 }}>
-                    <ambientLight intensity={0.5} />
+                    <ambientLight intensity={1} />
                     <pointLight position={[10, 10, 10]} />
-                    <OrbitControls autoRotate autoRotateSpeed={0.5} enableZoom={false}/>
+                    <OrbitControls autoRotateSpeed={0.5} enableZoom={true} />
                     <Stars radius={100} fade />
                     <Suspense fallback={null}>
-                        <Blackhole />
+                        <group ref={this.system.group}>
+                            <Frog body={this.system.earth} type='earth' scale={0.1} position={[0, 0, 0]} />
+                            <Frog body={this.system.moon} type='moon' scale={0.025} position={[30, 0, 0]} />
+                            <Frog body={this.system.ship} type='ship' scale={0.015} position={[13, 0, 0]} />
+                        </group>
                     </Suspense>
                     {/* <About /> */}
                     {/* <ProjectList /> */}
