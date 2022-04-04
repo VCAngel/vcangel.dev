@@ -38,7 +38,12 @@ export default function Model({ body, type, ...props }) {
       <group {...props} dispose={null}>
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
-            <mesh geometry={nodes.defaultMaterial.geometry} material={materials.Material__2} />
+            {/* TODO Create kurzgesagt-like models!
+            <mesh geometry={nodes} material={materials.Material__2} /> */}
+            <mesh>
+              <sphereGeometry/>
+              <meshLambertMaterial/>
+            </mesh>
           </group>
         </group>
       </group>
