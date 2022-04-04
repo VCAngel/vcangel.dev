@@ -13,13 +13,16 @@ import { useGLTF } from '@react-three/drei'
 export default function Model({ body, type, ...props }) {
   const { nodes, materials } = useGLTF('/frog.glb')
   let orbit = 2 * Math.PI * (1 / 60) * (1 / 60);
+  let angle = 1/12 * Math.PI;
 
   switch (type) {
     case 'moon':
-      orbit *= 1;
+      orbit *= -0.035;
+      angle = 1/5 * Math.PI;
       break;
     case 'ship':
       orbit *= 3;
+      angle = -1/5 * Math.PI;
       break;
     default:
       break;
@@ -27,6 +30,7 @@ export default function Model({ body, type, ...props }) {
 
   useFrame(({ clock }) => {
     body.current.rotation.y += orbit;
+    body.current.rotation.x = angle;
   })
 
   return (
