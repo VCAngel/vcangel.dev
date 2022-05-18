@@ -12,9 +12,10 @@ export default class Main extends Component {
     constructor(props) {
         super(props);
         this.rotatingTitles = [
-            ' a software developer 💻',
-            ' an open source enjoyer 🐧',
-            ' a coffee junkie ☕',
+            ' a Software Developer 💻',
+            ' a UI/UX Designer 🖌',
+            ' an Open Source Enjoyer 🐧',
+            ' a Coffee Junkie ☕',
             ' becoming my best self 🤘',
         ]
         this.controls = React.createRef();
@@ -34,6 +35,9 @@ export default class Main extends Component {
                 <div className='landing'>
                     <h1 className='landing--name'>Angel Vargas</h1>
                     <RotatingTitles list={this.rotatingTitles} />
+                    <h4 className='landing__resume'>Check out my
+                        <a className="landing__resume--button" href="#">resume</a>
+                    </h4>
                 </div>
                 <span>THREEJS</span>
             </main>
@@ -45,7 +49,7 @@ function RotatingTitles({ list }) {
     let listItems = list.map((item, index) => {
         return (
             <React.Fragment key={index}>
-                {item} < br/>
+                {item} < br />
             </React.Fragment >
         )
     });

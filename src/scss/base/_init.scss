@@ -81,12 +81,12 @@ a {
     margin: 0 auto;
     @include transition(max-width, 1s, ease-out);
 
-    @include mobile {
-        max-width: 60%;
+    @include tablet {
+        max-width: 70%;
     }
 
     @include desktop {
-        max-width: 75%;
+        max-width: 80%;
     }
 
     @include lg-desktop {
