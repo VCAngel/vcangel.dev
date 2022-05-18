@@ -17,6 +17,7 @@ body {
     font-family: $primaryFont;
     font-weight: $light;
     color: $primaryLight;
+    background-color: $backgroundDark;
     height: 100%;
 }
 
@@ -57,32 +58,38 @@ p {
     font-family: $secondaryFont;
     font-weight: $light;
 }
+
 a {
     text-decoration: none;
-    font-weight: $bold;
+    font-weight: $regular;
+    color: #666;
+    @include transition(color, 0.2s, ease-in);
+
+    &:hover {
+        color: $primaryLight;
+    }
 }
 
 #root {
-    background-color: $backgroundDark;
     height: 100%;
 }
 
 .container {
     //-> Base container template
-    width: 160rem;
+    width: 180rem;
     max-width: 80%;
     margin: 0 auto;
-    @include transition(max-width, 1s);
+    @include transition(max-width, 1s, ease-out);
 
     @include mobile {
         max-width: 60%;
     }
 
     @include desktop {
-        max-width: 70%;
+        max-width: 75%;
     }
 
-    @include lg-desktop{
+    @include lg-desktop {
         max-width: 90%;
     }
 }
