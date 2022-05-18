@@ -34,6 +34,6 @@
     gap: $gap;
 }
 
-@mixin transition($prop, $time){
-    transition: $prop $time ease-in-out;
+@mixin transition($prop, $time, $bezier){
+    transition: $prop $time $bezier;
 }

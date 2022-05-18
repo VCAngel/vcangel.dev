@@ -17,6 +17,7 @@ body {
     font-family: $primaryFont;
     font-weight: $light;
     color: $primaryLight;
+    background-color: $backgroundDark;
     height: 100%;
 }
 
@@ -33,56 +34,62 @@ h4 {
 }
 
 h1 {
-    font-size: 6rem;
-    font-weight: $black;
+    font-size: $h1;
+    font-weight: $extraBold;
 }
 
 h2 {
-    font-size: 4.4rem;
+    font-size: $h2;
     font-weight: $bold;
 }
 
 h3 {
-    font-size: 3.6rem;
+    font-size: $h3;
 }
 
 h4 {
-    font-size: 2.8rem;
+    font-size: $h4;
 }
 
 p {
     margin: 0;
-    line-height: 1.6;
-    font-size: 1.6rem;
+    line-height: 1.4;
+    font-size: $p;
     font-family: $secondaryFont;
     font-weight: $light;
 }
+
 a {
     text-decoration: none;
-    font-weight: $bold;
+    font-weight: $regular;
+    color: #666;
+    @include transition(color, 0.2s, ease-in);
+
+    &:hover {
+        color: $primaryLight;
+    }
 }
 
 #root {
-    background-color: $backgroundDark;
-
+    height: 100%;
 }
 
 .container {
     //-> Base container template
-    width: 160rem;
+    width: 180rem;
     max-width: 80%;
     margin: 0 auto;
-    @include transition(max-width, 1s);
+    @include transition(max-width, 1s, ease-out);
 
-    @include mobile {
-        max-width: 60%;
-    }
-
-    @include desktop {
+    @include tablet {
         max-width: 70%;
     }
 
-    @include lg-desktop{
+    @include desktop {
+        max-width: 80%;
+    }
+
+    @include lg-desktop {
         max-width: 90%;
     }
 }

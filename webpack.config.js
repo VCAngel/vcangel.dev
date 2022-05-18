@@ -16,10 +16,15 @@ module.exports = {
         modules: [__dirname, "src", "node_modules"],
         extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
     },
+    ignoreWarnings: [
+        {
+            module: /\index.jsx?/
+        }
+    ],
     module: {
         rules: [
             {
-                test: /\.js|jsx?$/,
+                test: /\.jsx?|tsx?$/,
                 exclude: /node_modules/,
                 loader: require.resolve("babel-loader"),
             },

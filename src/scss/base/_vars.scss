@@ -1,7 +1,5 @@
 //! Change variables to prefered values
 //* Colors
-$primaryDark: #333;
-$secondaryDark: #222;
 $backgroundDark: #111;
 $primaryLight: #efffef;
 $jsYellow: #ffd43b;
@@ -21,12 +19,20 @@ $primaryFont: 'Source Code Pro', monospace;
 $secondaryFont: 'Ubuntu', sans-serif;
 $coolFont: "Major Mono Display", monospace;
 
-//-> Font weights
+//* Font sizes
+$h1: 6rem;
+$h2: 4.4rem;
+$h3: 3.6rem;
+$h4: 2.8rem;
+$h5: 2rem;
+$p: 1.6rem;
+
+//* Font weights
 $thin: 200;
 $light: 300;
 $regular: 400;
 $bold: 700;
-$black: 900;
+$extraBold: 900;
 
 //? Other
 $linkedIn: #0e76a8;
