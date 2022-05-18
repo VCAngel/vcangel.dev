@@ -1,0 +1,77 @@
+main.container {
+    height: 100vh;
+    @include gridDisplay(2, 1rem);
+
+    .landing {
+        margin: auto 0;
+
+        &--name {
+            font-family: $coolFont;
+            font-size: 7rem;
+            background: linear-gradient(to top, silver, $primaryLight);
+            // background: linear-gradient(to right, $jsYellow, $csPurple);
+            background-clip: text;
+            text-shadow: 0 0 80px rgb(192 219 255 / 75%), 0 0 32px rgb(65 120 255 / 24%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        &--staticTitle {
+            float: left;
+            font-size: $h5;
+            color: lightgrey;
+        }
+
+        &__rotatingTitle {
+            font-size: $h5;
+            float: left;
+            overflow: hidden;
+            position: relative;
+            height: 1.4em;
+
+            &--content {
+                background: linear-gradient(to right, #9900F0, #CD113B, #FF7600, #FFA900);
+                // background: linear-gradient(to right, $jsYellow, $csPurple);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+
+                //TODO change padding values on resize
+                line-height: 1.4em;
+                margin-top: 0.2rem;
+                margin-left: 0.8rem;
+                display: inline-block;
+                color: #e74c3c;
+                position: relative;
+                white-space: nowrap;
+                top: 0;
+                left: 0;
+                animation: move 5s cubic-bezier(.38, 0.8, .19, 1);
+                animation-iteration-count: infinite;
+                animation-delay: 1s;
+            }
+
+
+        }
+    }
+}
+
+
+//-> Animations
+@keyframes move {
+    0% {
+        top: 0px;
+    }
+
+    25% {
+        top: -1.4em;
+    }
+
+    50% {
+        top: -1.4em*2;
+    }
+
+    75% {
+        top: -1.4em*3;
+    }
+}
