@@ -11,6 +11,12 @@ import ProjectList from './bodies/ProjectList';
 export default class Main extends Component {
     constructor(props) {
         super(props);
+        this.rotatingTitles = [
+            ' a software developer 💻',
+            ' an open source enjoyer 🐧',
+            ' a coffee junkie ☕',
+            ' becoming my best self 🤘',
+        ]
         this.controls = React.createRef();
         this.system = {
             group: React.createRef(),
@@ -23,26 +29,60 @@ export default class Main extends Component {
     render() {
 
         return (
-            <main className='main' ref={this?.threeContainer}>
-                <Canvas className='main__canvas' camera={{ fov: 75, near: 0.1, far: 1000 }} >
-                <ambientLight intensity={1} />
-                <pointLight position={[0, 0, 10]} />
-                <pointLight position={[0, 0, -10]} />
-                <OrbitControls autoRotateSpeed={0.5} enableZoom={true} ref={this.controls} />
-                <Stars radius={100} fade />
-                <Suspense fallback={null}>
-                    <group ref={this.system.group}>
-                        <Frog body={this.system.earth} controls={this.controls} type='earth' scale={1} position={[0, 0, 0]} />
-                        <Frog body={this.system.moon} type='moon' scale={0.25} position={[20, 0, 0]} />
-                        <Frog body={this.system.ship} type='ship' scale={0.15} position={[8, 0, 0]} />
-                    </group>
-                </Suspense>
-                {/* <About /> */}
-                {/* <ProjectList /> */}
-            </Canvas>
-            </main >
+            <main className="container" ref={this?.threeContainer}>
+                {/* TODO Rotating titles */}
+                <div className='landing'>
+                    <h1 className='landing--name'>Ángel Vargas</h1>
+                    <RotatingTitles list={this.rotatingTitles} />
+                </div>
+                <span>THREEJS</span>
+            </main>
         )
     }
+}
+
+function RotatingTitles({ list }) {
+    let listItems = list.map((item, index) => {
+        return (
+            <React.Fragment     >
+                {item} < br />
+            </React.Fragment >
+        )
+    });
+
+    return (
+        <section>
+            <p className='landing--staticTitle'>I'm </p>
+            <div className="landing__rotatingTitle">
+                <span className="landing__rotatingTitle--content">
+                    {listItems}
+                </span>
+            </div>
+        </section>
+    );
+
+}
+
+const System = (props) => {
+    return (
+        <Canvas className='main__canvas' camera={{ fov: 75, near: 0.1, far: 1000 }} >
+            <ambientLight intensity={1} />
+            <h1>asd</h1>
+            <pointLight position={[0, 0, 10]} />
+            <pointLight position={[0, 0, -10]} />
+            {/* <OrbitControls autoRotateSpeed={0.5} enableZoom={true} ref={this.controls} /> */}
+            <Stars radius={100} fade />
+            <Suspense fallback={null}>
+                <group ref={this.system.group}>
+                    <Frog body={this.system.earth} controls={this.controls} type='earth' scale={1} position={[0, 0, 0]} />
+                    <Frog body={this.system.moon} type='moon' scale={0.25} position={[20, 0, 0]} />
+                    <Frog body={this.system.ship} type='ship' scale={0.15} position={[8, 0, 0]} />
+                </group>
+            </Suspense>
+            {/* <About /> */}
+            {/* <ProjectList /> */}
+        </Canvas>
+    );
 }
 
 const Box = (props) => {
