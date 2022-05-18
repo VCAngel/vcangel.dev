@@ -32,7 +32,7 @@ export default class Main extends Component {
             <main className="container" ref={this?.threeContainer}>
                 {/* TODO Rotating titles */}
                 <div className='landing'>
-                    <h1 className='landing--name'>Ángel Vargas</h1>
+                    <h1 className='landing--name'>Angel Vargas</h1>
                     <RotatingTitles list={this.rotatingTitles} />
                 </div>
                 <span>THREEJS</span>
@@ -44,8 +44,8 @@ export default class Main extends Component {
 function RotatingTitles({ list }) {
     let listItems = list.map((item, index) => {
         return (
-            <React.Fragment     >
-                {item} < br />
+            <React.Fragment key={index}>
+                {item} < br/>
             </React.Fragment >
         )
     });
