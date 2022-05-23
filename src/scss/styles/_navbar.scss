@@ -2,14 +2,24 @@
     width: 100%;
     position: fixed; //* Set the navbar to fixed position
     top: 0; //* Position the navbar at the top of the page
-    padding: 1rem 3rem;
+    padding: 1rem 5rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     overflow: hidden;
 
-    &__icon{
+    &__icon {
         font-family: $coolFont;
         font-size: 3rem;
     }
-}   
+
+    &__links {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        gap: 3rem;
+        font-family: $primaryFont;
+        list-style-type: none;
+        // todo breakpoint structures
+    }
+}
