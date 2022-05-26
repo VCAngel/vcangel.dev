@@ -1,5 +1,8 @@
 .navbar {
-    background-color: $backgroundDark;
+    background: linear-gradient(to bottom, $backgroundDark 0%, rgba(17, 17, 17, 0.6) 33%, rgba(17, 17, 17, 0.3) 100%);
+    -webkit-backdrop-filter: blur(0.1rem);
+    backdrop-filter: blur(0.1rem);
+    // background: white;
     width: 100%;
     position: fixed; //* Set the navbar to fixed position
     top: 0; //* Position the navbar at the top of the page
@@ -8,6 +11,7 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
+    z-index: 100;
 
     &__icon {
         font-family: $coolFont;
@@ -23,4 +27,4 @@
         list-style-type: none;
         // todo breakpoint structures
     }
-}
+}   
