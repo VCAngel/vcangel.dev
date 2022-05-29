@@ -3,7 +3,7 @@ import Social from './Social';
 
 const Contact = () => {
     return (
-        <footer className="container">
+        <footer className="container" id="contact">
             <section className="contact">
                 <div className="contact__title">
                     <h2 className="contact__title--title">Let's work <span>together!</span></h2>

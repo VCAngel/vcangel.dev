@@ -30,7 +30,7 @@ export default class Main extends Component {
     render() {
 
         return (
-            <main className="container" ref={this?.threeContainer}>
+            <main className="container" id="home" ref={this?.threeContainer}>
                 {/* TODO Rotating titles */}
                 <div className='landing'>
                     <h1 className='landing--name'>Angel Vargas</h1>

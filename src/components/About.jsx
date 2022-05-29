@@ -16,7 +16,7 @@ export default function About() {
     }
 
     return (
-        <section className="container">
+        <section className="container" id="about">
             {/* TODO add selfie or something */}
             <div>
                 photo!
