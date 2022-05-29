@@ -19,6 +19,7 @@ body {
     color: $primaryLight;
     background-color: $backgroundDark;
     height: 100%;
+    scroll-behavior: smooth;
 }
 
 img {

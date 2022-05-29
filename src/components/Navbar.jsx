@@ -1,4 +1,5 @@
 import React from 'react';
+import jump from 'jump.js';
 
 const Navbar = () => {
     const links = ['Home', 'About', 'Projects', 'Contact']
@@ -16,9 +17,18 @@ const Navbar = () => {
 }
 
 function Navlink({ text }) {
+    const jumpTo = (target = "") => {
+        jump(target, {
+            duration: 800,
+            callback: undefined,
+            a11y: true
+        })
+    }
+
+    const jumpId = text.toLowerCase();
     return (
         <li className="navbar__links--item">
-            <a href="#">{text}</a>
+            <a href="#" onClick={() => jumpTo(`#${jumpId}`)}>{text}</a>
         </li>
     );
 }
