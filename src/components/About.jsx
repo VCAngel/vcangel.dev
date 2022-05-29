@@ -3,9 +3,8 @@ import { Canvas } from '@react-three/fiber';
 import { ConvexPolyhedronArgs } from '@react-three/cannon';
 
 export default function About() {
-    const technologies = ["HTML 5", "CSS 3", "JavaScript", "React", "Node.js", "Python", "Java", "SQL"];
-    const otherTechs = ["Git", "SASS", "Bootstrap", "Figma"];
-    const interests = ["GNU/Linux", "Rock/Metal", "Gaming", "Cats"];
+    const technologies = ["HTML 5", "CSS 3", "JavaScript", "React", "Vue", "Node.js", "Python", "Java", "C#", "SQL", "Git"];
+    const interests = ["GNU/Linux 🐧", "Rock/Metal 🤘", "Gaming 🎮", "Frogs 🐸"];
 
     function getAge() {
         const bday = new Date();
@@ -18,35 +17,34 @@ export default function About() {
 
     return (
         <section className="container">
+            {/* TODO add selfie or something */}
+            <div>
+                photo!
+            </div>
             <div className="about">
-                <h2 className="about--title">Hello there!</h2>
-                <div className="about__info">
-                    <p className="about__info--text">
-                        I'm <b>Ángel Vargas</b>, a <span>{getAge()}</span> year old passionate <i>Computer Systems Engineer</i> from Mexico. <br />
-                        I've been learning and developing code for the last <TimeCounter type="seconds" />!... or about <TimeCounter type="years" />. <br />
+                <h2 className="about--title"><span>Hello</span> there!</h2>
+                <p className="about--text">
+                    I'm <b>Ángel Vargas</b>, a {getAge()} year old passionate <i>Computer Systems Engineer</i> from Chihuahua, Mexico. 
+                    I've been learning and developing code for the last <TimeCounter type="seconds" />!... or about <TimeCounter type="years" />. <br />
 
-                        Building all kinds of high quality <span></span>applications is what I do and I'm always up for a challenge!
-                    </p>
-                    <div className="about__info--techstack">
-                        <AboutMiniSection title="Technologies" list={technologies} />
-                        <AboutMiniSection title="Others" list={otherTechs} />
-                    </div>
-                    <div className="about__info--interests">
-                        <AboutMiniSection title="Interests" list={interests} />
-                    </div>
-                </div>
+                    Building all kinds of high quality <span></span>applications is what I do and I'm always up for a challenge!
+                </p>
+            </div>
+            <div className="info">
+                <AboutMiniSection title="Skills" className="info--techstack" list={technologies} />
+                <AboutMiniSection title="Interests" className="info--interests" list={interests} />
             </div>
         </section>
     );
 }
 
-function AboutMiniSection({ title = [], list = [] }) {
+function AboutMiniSection({ title = [], list = [], className = "" }) {
     const items = list.map((item, index) => <li key={index}>{item}</li>)
 
     return (
         <section>
             <h5>{title}</h5>
-            <ul>
+            <ul className={className}>
                 {items}
             </ul>
         </section>
@@ -101,20 +99,22 @@ function TimeCounter({ type }) {
 
             intervalId = setInterval(() => {
                 let newCount = getTimeDiff(startDate, currentDate, currentTime) / timeFormat;
-                switch(type){
+                switch (type) {
                     case "seconds":
                         setCounter(newCount)
                         break;
                     default:
                         setCounter(newCount.toFixed(2))
-                    }
+                }
             }, 1000);
 
             return () => clearInterval(intervalId);
 
         }, [counter])
 
-        return <span>{counter} {type}</span>
+        return <React.Fragment>
+            <span>{counter}</span> {type}
+        </React.Fragment>
     }
 
     return <Timer />
