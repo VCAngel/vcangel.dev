@@ -23,7 +23,7 @@ export default function About() {
                 <div className="about__info">
                     <p className="about__info--text">
                         I'm <b>Ángel Vargas</b>, a <span>{getAge()}</span> year old passionate <i>Computer Systems Engineer</i> from Mexico. <br />
-                        I've been learning and developing code for the last <TimeCounter type="seconds"/> seconds!... or about <TimeCounter type="years"/> years. <br />
+                        I've been learning and developing code for the last <TimeCounter type="seconds" />!... or about <TimeCounter type="years" />. <br />
 
                         Building all kinds of high quality <span></span>applications is what I do and I'm always up for a challenge!
                     </p>
@@ -32,7 +32,7 @@ export default function About() {
                         <AboutMiniSection title="Others" list={otherTechs} />
                     </div>
                     <div className="about__info--interests">
-                        <AboutMiniSection title="interests" list={interests} />
+                        <AboutMiniSection title="Interests" list={interests} />
                     </div>
                 </div>
             </div>
@@ -53,52 +53,68 @@ function AboutMiniSection({ title = [], list = [] }) {
     );
 }
 
-function TimeCounter({type}) {
-    const [counter, setCounter] = useState(0);
+function TimeCounter({ type }) {
+    const [counter, setCounter] = useState(Infinity);
+    const [timeFormat, setTimeFormat] = useState(0);
     const [isFormatted, setIsFormatted] = useState(false);
     const startDate = new Date().setFullYear(2018, 7, 20);
     const currentDate = new Date();
-    let timeFormat, timeDiff;
+    const currentTime = (currentDate.getHours() * 60 * 60 * 1000) + (currentDate.getMinutes() * 60 * 1000) + (currentDate.getSeconds() * 1000); // Current day time in seconds
+
+    const getTimeDiff = (date1, date2, date2Seconds = 0) => {
+        return Math.abs(date1 - (date2.getTime() + date2Seconds));
+    }
 
     const Timer = () => {
         let intervalId;
 
         useEffect(() => {
             if (!isFormatted) {
+                let computed;
                 switch (type) {
                     case "seconds":
-                        timeFormat = (1000)
+                        computed = 1000
+                        setTimeFormat(computed)
                         break;
                     case "minutes":
-                        timeFormat = (1000 * 60)
+                        computed = 1000 * 60
+                        setTimeFormat(computed)
                         break;
                     case "hours":
-                        timeFormat = (1000 * 60 * 60)
+                        computed = 1000 * 60 * 60
+                        setTimeFormat(computed)
                         break;
                     case "days":
-                        timeFormat = (1000 * 60 * 60 * 24)
+                        computed = 1000 * 60 * 60 * 24
+                        setTimeFormat(computed)
                         break;
                     case "years":
-                        timeFormat = (1000 * 60 * 60 * 24 * 365)
+                        computed = 1000 * 60 * 60 * 24 * 365
+                        setTimeFormat(computed)
                         break;
                     default:
-                        timeFormat = 1000;
+                        computed = 1000
+                        setTimeFormat(computed)
                 }
-                timeDiff = Math.abs(startDate - currentDate);
                 setIsFormatted(true)
-                setCounter(timeDiff / timeFormat);
             }
 
             intervalId = setInterval(() => {
-                if (isFormatted)
-                    setCounter(counter => counter + 1)
+                let newCount = getTimeDiff(startDate, currentDate, currentTime) / timeFormat;
+                switch(type){
+                    case "seconds":
+                        setCounter(newCount)
+                        break;
+                    default:
+                        setCounter(newCount.toFixed(2))
+                    }
             }, 1000);
 
             return () => clearInterval(intervalId);
 
-        }, [isFormatted, counter])
+        }, [counter])
 
-        return <span>{counter}</span>
+        return <span>{counter} {type}</span>
     }
 
     return <Timer />
