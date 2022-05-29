@@ -7,7 +7,7 @@ const Navbar = () => {
     return (
         <header className="navbar">
             <div className="navbar__icon">
-                <a href='#'>VA</a>
+                <a href='#' onClick={() => jumpTo('#home')}>VA</a>
             </div>
             <ul className="navbar__links">
                 {links.map((link, index) => <Navlink text={link} key={index} />)}
@@ -17,13 +17,7 @@ const Navbar = () => {
 }
 
 function Navlink({ text }) {
-    const jumpTo = (target = "") => {
-        jump(target, {
-            duration: 800,
-            callback: undefined,
-            a11y: true
-        })
-    }
+
 
     const jumpId = text.toLowerCase();
     return (
@@ -31,6 +25,14 @@ function Navlink({ text }) {
             <a href="#" onClick={() => jumpTo(`#${jumpId}`)}>{text}</a>
         </li>
     );
+}
+
+function jumpTo(target = "") {
+    jump(target, {
+        duration: 800,
+        callback: undefined,
+        a11y: true
+    })
 }
 
 export default Navbar;
