@@ -4,6 +4,7 @@ import reportWebVitals from './ReportWebVitals';
 import Navbar from './components/Navbar';
 import Main from './components/main/Main';
 import About from './components/About';
+import Projects from './components/Projects';
 import Contact from './components/contact/Contact';
 import './scss/app.scss';
 
@@ -13,6 +14,7 @@ ReactDOM.render(
         <Navbar></Navbar>
         <Main></Main>
         <About/>
+        <Projects/>
         <Contact></Contact>
     </React.StrictMode>,
     document.getElementById('root')

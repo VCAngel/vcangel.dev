@@ -17,8 +17,6 @@ const Navbar = () => {
 }
 
 function Navlink({ text }) {
-
-
     const jumpId = text.toLowerCase();
     return (
         <li className="navbar__links--item">
@@ -31,7 +29,7 @@ function jumpTo(target = "") {
     jump(target, {
         duration: 800,
         callback: undefined,
-        a11y: true
+        a11y: false
     })
 }
 
