@@ -22,16 +22,17 @@ main.container {
 
         &--staticTitle {
             float: left;
-            font-size: $h5;
+            font-size: $h6;
             color: lightgrey;
         }
 
         &__rotatingTitle {
-            font-size: $h5;
+            font-size: $h6;
+            font-family: $secondaryFont;
             float: left;
             overflow: hidden;
             position: relative;
-            height: 1.4em;
+            height: 1.6em;
 
             &--content {
                 font-weight: $bold;
@@ -42,7 +43,7 @@ main.container {
                 -webkit-text-fill-color: transparent;
 
                 //TODO change padding values on resize
-                line-height: 1.4em;
+                line-height: $lineHeight;
                 margin-left: 0.8rem;
                 display: inline-block;
                 color: $primaryLight;
@@ -117,19 +118,19 @@ main.container {
     }
 
     20% {
-        top: -1.4em;
+        top: -1.6em;
     }
 
     40% {
-        top: -1.4em*2;
+        top: -1.6em*2;
     }
 
     60% {
-        top: -1.4em*3;
+        top: -1.6em*3;
     }
 
     80% {
-        top: -1.4em*4;
+        top: -1.6em*4;
     }
 }
 
