@@ -38,29 +38,6 @@ module.exports = {
             },
             {
                 test: /\.png|jpe?g|gif$/i,
-                use: [{
-                    loader: "image-webpack-loader",
-                    options: {
-                        name: "public/imgs/[name].[ext]",
-                        disable: true,
-                        mozjpeg: {
-                            quality: "50",
-                            progressive: true,
-                        },
-                        optipng: {
-                            optimizationLevel: 5,
-                        },
-                        pngquant: {
-                            enabled: false,
-                        },
-                        gifsicle: {
-                            enabled: false,
-                        },
-                        webp: {
-                            enabled: false,
-                        }
-                    }
-                }, "file-loader"],
                 type: "asset/resource",
             },
             {

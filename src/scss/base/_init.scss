@@ -17,8 +17,8 @@ body {
     font-family: $primaryFont;
     font-weight: $light;
     color: $secondaryLight;
-    background-color: $backgroundDark;
     height: 100%;
+    background-color: $backgroundDark;
     scroll-behavior: smooth;
 }
 
@@ -75,6 +75,17 @@ a {
 
 #root {
     height: 100%;
+}
+
+#spaceBg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -10;
+
+    filter: brightness(50%);
 }
 
 .container {
