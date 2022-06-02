@@ -12,7 +12,10 @@ import './scss/app.scss';
 ReactDOM.render(
     <React.StrictMode>
         {/* Components in here! */}
-        <img src={SpaceBg} alt="spaceWoah" id="spaceBg" />
+        {/* ? stars background, maybe threeJS */}
+        <div id="spaceBg">
+            <img src={SpaceBg} alt="spaceWoah" />
+        </div>
         <Navbar></Navbar>
         <Main></Main>
         <About />
