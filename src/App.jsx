@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useRef} from 'react';
+import {Canvas, useFrame} from '@react-three/fiber';
+import {Stars} from '@react-three/drei';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './ReportWebVitals';
-import SpaceBg from './img/spaceBg.jpg';
 import Navbar from './components/Navbar';
 import Main from './components/main/Main';
 import About from './components/About';
@@ -11,11 +12,9 @@ import './scss/app.scss';
 
 ReactDOM.render(
     <React.StrictMode>
-        {/* Components in here! */}
-        {/* ? stars background, maybe threeJS */}
-        <div id="spaceBg">
-            <img src={SpaceBg} alt="spaceWoah" />
-        </div>
+        <Canvas id="spaceBg" style={{position: "absolute", zIndex: -11}}>
+            <RotatingStars/>
+        </Canvas>
         <Navbar></Navbar>
         <Main></Main>
         <About />
@@ -24,5 +23,14 @@ ReactDOM.render(
     </React.StrictMode>,
     document.getElementById('root')
 );
+
+function RotatingStars(props){
+    const stars = useRef();
+    useFrame((state, delta) => stars.current.rotation.y += 0.01 * delta)
+
+    return(
+        <Stars ref={stars} fade depth={50}/>
+    )
+}
 
 reportWebVitals();
