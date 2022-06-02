@@ -4,7 +4,7 @@ import { ConvexPolyhedronArgs } from '@react-three/cannon';
 
 export default function About() {
     const technologies = ["HTML 5", "CSS 3", "JavaScript", "React", "Vue", "Node.js", "Python", "Java", "C#", "SQL", "Git"];
-    const interests = ["GNU/Linux 🐧", "Rock/Metal 🤘", "Gaming 🎮", "Frogs 🐸"];
+    const interests = ["GNU/Linux 🐧", "Rock/Metal 🤘", "Gaming 🎮", "Space 🌌", "Frogs 🐸"];
 
     function getAge() {
         const bday = new Date();
