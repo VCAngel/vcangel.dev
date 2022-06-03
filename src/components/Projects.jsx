@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Projects(props) {
     const cards = [
-        { title: "CIMAV", text: "Heat Equation calculator. Uses Finite Element Method for displaying results through an assigned model.", href: "https://github.com/" },
+        { title: "Finite Element", text: "Heat Equation calculator. Uses Finite Element Method for displaying results through an assigned model.", href: "https://github.com/" },
         { title: `House's Community`, text: "CRUD Application for resident management in a housing estate.", href: "https://github.com/VCAngel/House_Community" },
         { title: "Github User Search", text: "Web application that consumes Github's API. Displays searched user's information", href: "https://github.com/VCAngel/GH_User_Search" }
     ]

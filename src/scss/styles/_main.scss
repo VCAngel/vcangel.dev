@@ -54,6 +54,10 @@ main.container {
                 animation: move 8s cubic-bezier(.38, 0.8, .19, 1);
                 animation-iteration-count: infinite;
                 animation-delay: 1s;
+
+                br{
+                    margin: 0;
+                }
             }
 
         }

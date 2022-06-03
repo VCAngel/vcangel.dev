@@ -8,14 +8,12 @@ const Contact = () => {
                 <div className="contact__title">
                     <h2 className="contact__title--title">Let's work <span>together!</span></h2>
                     <p className="contact__title--text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                        Impedit atque nihil, cumque iure ipsa perferendis adipisci voluptates
-                        quisquam recusandae consequuntur eveniet rem. Cumque veritatis voluptatem
-                        voluptate. Vero soluta cumque maxime!
+                        Got a project, inquiry or just want to say hi? Feel free to contact me! <br/>
+                        I'll be sure to reply ASAP.
                     </p>
                 </div>
 
-                <button className="btn contact__button">Get in touch</button>
+                <a className="btn btn-glow contact__button" href="mailto:vcangel00@gmail.com" target="_blank">Get in touch</a>
 
                 <div className="contact__avatar">
                     {/*TODO avatar model and import with Three package*/}
@@ -31,7 +29,7 @@ const Contact = () => {
                     <Social social='platzi' />
                     <Social social='twitter' />
                 </ul>
-                <p className="end__cr">©2022 Angel Vargas</p>
+                <p className="end__cr">©2022 Ángel Vargas</p>
                 <p className="end__msg">the only limit is your imagination</p>
             </section>
         </footer>

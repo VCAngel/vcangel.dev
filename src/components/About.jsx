@@ -27,7 +27,7 @@ export default function About() {
                     I'm <b>Ángel Vargas</b>, a {getAge()} year old passionate <i>Computer Systems Engineer</i> from Chihuahua, Mexico. 
                     I've been learning and developing code for the last <TimeCounter type="seconds" />!... or about <TimeCounter type="years" />. <br />
 
-                    Building all kinds of high quality <span></span>applications is what I do and I'm always up for a challenge!
+                    Building all kinds of <span>high quality applications is what I do</span> and I'm always up for a challenge!
                 </p>
             </div>
             <div className="info">
