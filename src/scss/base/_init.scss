@@ -4,8 +4,6 @@ html {
     //->16px * 62.5% = 10px
     box-sizing: border-box;
     height: 100%;
-    content-visibility: auto;
-    contain-intrinsic-size: 1px 500rem;
 }
 
 *,
@@ -115,6 +113,7 @@ a {
     width: 180rem;
     max-width: 80%;
     margin: 0 auto;
+    content-visibility: auto;
     @include transition(max-width, 1s, ease-out);
 
     @include tablet {
