@@ -15,10 +15,6 @@ section.container {
         }
 
         &--text {
-            br {
-                margin-bottom: 1rem;
-            }
-
             span {
                 background: linear-gradient(to right, $jsYellow, #FF7600);
                 background-clip: text;
