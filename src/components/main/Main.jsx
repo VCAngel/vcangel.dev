@@ -33,7 +33,10 @@ export default class Main extends Component {
             <main className="container" id="home" ref={this?.threeContainer}>
                 {/* TODO Rotating titles */}
                 <div className='landing'>
-                    <h1 className='landing--name'>Angel Vargas</h1>
+                    <h1 className='landing--name'>
+                        <span className="color">Hey there.</span><span> i'm</span><br/>
+                        Angel Vargas
+                    </h1>
                     <RotatingTitles list={this.rotatingTitles} />
                     <h4 className='landing__resume'>Check out my
                         <a className="landing__resume--button" href="#">resume</a>
