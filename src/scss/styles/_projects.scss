@@ -4,10 +4,10 @@
     text-align: center;
 
     &--title {
+        @include textShadow();
+
         span {
-            background: linear-gradient(to right, #37E2D5, #9900F0, #C70A80);
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            @include textBackground(linear-gradient(to right, $jsYellow, $sassPink))
         }
     }
 

@@ -6,7 +6,7 @@ const Contact = () => {
         <footer className="container" id="contact">
             <section className="contact">
                 <div className="contact__title">
-                    <h2 className="contact__title--title">Let's work <span>together!</span></h2>
+                    <h2 className="contact__title--title">Let's <span>work together!</span></h2>
                     <p className="contact__title--text">
                         Got a project, inquiry or just want to say hi? Feel free to contact me! <br/>
                         I'll be sure to reply ASAP.

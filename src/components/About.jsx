@@ -22,11 +22,10 @@ export default function About() {
                 photo!
             </div>
             <div className="about">
-                <h2 className="about--title"><span>Hello</span> there!</h2>
+                <h2 className="about--title">A little <span>about me!</span></h2>
                 <p className="about--text">
-                    I'm <b>Ángel Vargas</b>, a {getAge()} year old passionate <i>Computer Systems Engineer</i> from Chihuahua, Mexico. 
+                    I'm a {getAge()} year old passionate <i>Computer Systems Engineer</i> based in Chihuahua, Mexico.
                     I've been learning and developing code for the last <TimeCounter type="seconds" />!... or about <TimeCounter type="years" />. <br />
-
                     Building all kinds of <span>high quality applications is what I do</span> and I'm always up for a challenge!
                 </p>
             </div>
@@ -113,7 +112,7 @@ function TimeCounter({ type }) {
         }, [counter])
 
         return <React.Fragment>
-            <span>{counter}</span> {type}
+            <span>{counter} {type}</span>
         </React.Fragment>
     }
 

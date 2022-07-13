@@ -7,21 +7,17 @@ section.container {
         margin: auto 0;
 
         &--title {
-            span {
-                background: linear-gradient(to right, #37E2D5, #9900F0, #C70A80);
-                background-clip: text;
-                -webkit-text-fill-color: transparent;
+            @include textShadow();
+            span{
+                @include textBackground(linear-gradient(to right, $jsYellow, $sassPink));
             }
         }
 
         &--text {
             span {
-                background: linear-gradient(to right, $jsYellow, #FF7600);
-                background-clip: text;
-                -webkit-text-fill-color: transparent;
+                @include textBackground(linear-gradient(to right, $reactBlue, #61c2fb));
             }
         }
-
 
     }
 

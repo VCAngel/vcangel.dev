@@ -1,12 +1,21 @@
-//! Change variables to prefered values
 //* Colors
+//*: Main
 $backgroundDark: #111;
+$spacePurple: #2E0249;
 $primaryLight: #efffef;
 $secondaryLight: #d7e2d7;
-$jsYellow: #ffd43b;
-$pyBlue: #4b8bbe;
-$csPurple: #9b4993;
+
+//*: Technologies 
+$jsYellow: #f9e64f;
+$reactBlue: #61dafb;
 $vueGreen: #42b883;
+$svelteOrange: #ff3d00;
+$angularRed: #dd0531;
+$nodeGreen: #215732;
+$denoWhite: #f2f2f2;
+$pyBlue: #3776ab;
+$csPurple: #9b4993;
+$sassPink: #bf4080;
 
 //* Breakpoints
 $sm-mobile: 480px;
@@ -21,8 +30,8 @@ $secondaryFont: 'Ubuntu', sans-serif;
 $coolFont: "Major Mono Display", monospace;
 
 //* Font sizes
-$h1: 6rem;
-$h2: 4.4rem;
+$h1: 5rem;
+$h2: 4.2rem;
 $h3: 3.6rem;
 $h4: 2.8rem;
 $h5: 2rem;

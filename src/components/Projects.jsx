@@ -11,7 +11,7 @@ export default function Projects(props) {
         <section className="container" id="projects">
             <div className="projects">
                 <h2 className="projects--title">Here's some <span>stuff I made.</span></h2>
-                <p className="projects--mini">Made with care 🤍</p>
+                <p className="projects--mini">Made with love 🤍</p>
                 <div className="projects__showcase">
                     {cards.map((item, index) => <ProjectCard title={item.title}
                         text={item.text}

@@ -8,16 +8,20 @@ main.container {
         gap: 3rem;
         margin: auto 0;
 
+        
         &--name {
+            text-shadow: 3px 3px 1px rgba(128, 128, 128, 0.5);
             font-family: $coolFont;
-            font-weight: $extraBold ;
-            font-size: 7rem;
-            background: linear-gradient(to top, silver, $primaryLight);
-            // background: linear-gradient(to right, $jsYellow, $csPurple);
-            background-clip: text;
-            text-shadow: 0 0 80px rgba(214, 232, 255, 0.75), 0 0 32px rgb(65 120 255 / 24%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            
+            span{
+                text-shadow: none;
+                @include textShadow();
+                font-size: $h4;
+                
+                &.color{
+                    @include textBackground(linear-gradient(to right, $jsYellow, $svelteOrange));
+                }
+            }
         }
 
         &--staticTitle {
