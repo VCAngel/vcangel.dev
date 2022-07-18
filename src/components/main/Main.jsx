@@ -1,4 +1,4 @@
-import React, { Component, Suspense, useRef, useState } from 'react';
+import React, { Component, Suspense, useRef, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
 import Frog from './bodies/Frog';
@@ -11,13 +11,17 @@ import ProjectList from './bodies/ProjectList';
 export default class Main extends Component {
     constructor(props) {
         super(props);
-        this.rotatingTitles = [
-            ' a Software Developer 💻',
-            ' a UI/UX Designer 🖌',
-            ' an Open Source Enjoyer 🐧',
-            ' a Coffee Junkie ☕',
-            ' becoming my best self 🤘',
+        this.state = {
+            isLoading: true
+        }
+        this.texts = [
+            'a Software Developer 💻',
+            'a UI/UX Designer 🖌',
+            'an Open Source Enjoyer 🐧',
+            'a Coffee Junkie ☕',
+            'becoming my best self 🤘',
         ]
+        this.textSpan = React.createRef();
         this.controls = React.createRef();
         this.system = {
             group: React.createRef(),
@@ -27,17 +31,37 @@ export default class Main extends Component {
         }
     }
 
-    render() {
+    componentDidMount() {
+        this.setState({ isLoading: false });
+    }
 
+    renderTextFlicker() {
+        if (this.state.isLoading) {
+            return "nothing yet :c";
+        }
+
+        return <TextFlicker list={this.texts} element={this.textSpan} delay={100} />
+    }
+
+    render() {
         return (
             <main className="container" id="home" ref={this?.threeContainer}>
                 {/* TODO Rotating titles */}
                 <div className='landing'>
                     <h1 className='landing--name'>
-                        <span className="color">Hey there.</span><span> i'm</span><br/>
+                        <span className="color">Hey there.</span><span> i'm</span><br />
                         Angel Vargas
                     </h1>
-                    <RotatingTitles list={this.rotatingTitles} />
+
+                    <section>
+
+                        <p className='landing--staticTitle'>I'm
+                            <span className='landing--text' ref={this.textSpan}>&nbsp;
+                                {this.renderTextFlicker()}
+                            </span>
+                        </p>
+                    </section>
+
                     <h4 className='landing__resume'>Check out my
                         <a className="landing__resume--button" href="#">resume</a>
                     </h4>
@@ -45,29 +69,75 @@ export default class Main extends Component {
                 <span>THREEJS</span>
             </main>
         )
+
     }
 }
 
-function RotatingTitles({ list }) {
-    let listItems = list.map((item, index) => {
-        return (
-            <React.Fragment key={index}>
-                {item} < br />
-            </React.Fragment >
-        )
-    });
+function TextFlicker({ list, element, delay }) {
+    const [currentItem, setCurrentItem] = useState(list[0]);
+    const [glitchedText, setGlitchedText] = useState(currentItem);
+    const [bank, setBank] = useState([])
+    const [isMixing, setIsMixing] = useState(false);
+    const unicode = "!$0123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
 
-    return (
-        <section>
-            <p className='landing--staticTitle'>I'm </p>
-            <div className="landing__rotatingTitle">
-                <span className="landing__rotatingTitle--content">
-                    {listItems}
-                </span>
-            </div>
-        </section>
-    );
+    let timeOutId;
 
+    function initComponent() {
+        let tempBank = [];
+        for (let charIndex in currentItem) {
+            tempBank[charIndex] = (Math.floor(Math.random() * (unicode.length / 3 - 1 + 1)) + 1);
+        }
+        setBank(tempBank);
+        mixText(isMixing);
+    }
+
+    function randomCharacter() {
+        return unicode[Math.floor(Math.random() * unicode.length)]
+    }
+    function replaceAt(text, character, index) {
+        return text.substring(0, index) + character + text.substring(index + character.length);
+    }
+
+    function mixText(isMixing) {
+        let keepMixing = isMixing;
+        for (let charIndex in currentItem) {
+            if (bank[charIndex] != 0) {
+                keepMixing = true
+
+                if (currentItem[charIndex] != " ") {
+                    setGlitchedText(glitchedText => replaceAt(glitchedText, randomCharacter(), charIndex));
+                } else {
+                    setGlitchedText(glitchedText => glitchedText = replaceAt(glitchedText, " ", charIndex));
+                }
+                bank[charIndex]--;
+            } else {
+                if (glitchedText != currentItem)
+                    setGlitchedText(glitchedText => glitchedText = replaceAt(glitchedText, currentItem[charIndex], charIndex));
+                console.log(bank);
+            }
+        }
+
+        if (keepMixing)
+            setIsMixing(true)
+
+    }
+
+    useEffect(() => {
+        if (isMixing) {
+            timeOutId = setTimeout(() => {
+                mixText(isMixing)
+            }, delay)
+
+            return () => clearTimeout(timeOutId);
+
+        }
+    }, [glitchedText])
+
+
+    if (bank.length == 0)
+        initComponent()
+
+    return glitchedText
 }
 
 const System = (props) => {

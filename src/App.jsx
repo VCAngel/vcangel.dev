@@ -13,7 +13,7 @@ import './scss/app.scss';
 ReactDOM.render(
     <React.StrictMode>
         <Canvas id="spaceBg" style={{position: "absolute", zIndex: -11}}>
-            <RotatingStars/>
+            {/* <RotatingStars/> */}
         </Canvas>
         <Navbar></Navbar>
         <Main></Main>

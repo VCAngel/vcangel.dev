@@ -27,43 +27,30 @@ main.container {
         &--staticTitle {
             float: left;
             font-size: $h6;
-            color: lightgrey;
+            color: $primaryLight;
+            overflow: hidden;
+        }
+        
+        &--text{
+            position: relative;
+            display: inline-block;
+
+            &.glitched{
+                font-family: $coolFont;
+            }
+          
         }
 
-        &__rotatingTitle {
-            font-size: $h6;
-            font-family: $secondaryFont;
-            float: left;
-            overflow: hidden;
-            position: relative;
-            height: 1.6em;
+        &--cursor{
+            display: inline-block;
+            background-color: $primaryLight;
+            margin-left: 1rem;
+            width: 0.3rem;
+            animation: blink 1s infinite;
 
-            &--content {
-                font-weight: $bold;
-                background: linear-gradient(to right, #9900F0, #CD113B, #FF7600, #FFA900);
-                // background: linear-gradient(to right, $csPurple, #CD113B, #FF7600, $jsYellow);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-
-                //TODO change padding values on resize
-                line-height: $lineHeight;
-                margin-left: 0.8rem;
-                display: inline-block;
-                color: $primaryLight;
-                position: relative;
-                white-space: nowrap;
-                top: 0;
-                left: 0;
-                animation: move 8s cubic-bezier(.38, 0.8, .19, 1);
-                animation-iteration-count: infinite;
-                animation-delay: 1s;
-
-                br{
-                    margin: 0;
-                }
+            &.--typing{
+                animation: none;
             }
-
         }
 
         &__resume {
@@ -120,6 +107,19 @@ main.container {
 
 
 //-> Animations
+@keyframes slide {
+    0%{
+        left: 0;
+        width: 0;
+    }
+    33%{
+        width: 100%;
+    }
+    66%{
+        width: 0%;
+    }
+}
+
 @keyframes move {
     0% {
         top: 0px;
