@@ -1,6 +1,6 @@
 import React, { Component, Suspense, useRef, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars } from '@react-three/drei';
+import { OrbitControls, PresentationControls, Stars } from '@react-three/drei';
 import Frog from './bodies/Frog';
 import Blackhole from './bodies/Blackhole';
 import About from './bodies/About';
@@ -40,7 +40,7 @@ export default class Main extends Component {
             return "nothing yet :c";
         }
 
-        return <TextFlicker list={this.texts} element={this.textSpan} delay={100} />
+        return <TextFlicker list={this.texts} element={this.textSpan} unscrambleDelay={50} scrambleDelay={50} interludeDelay={2000} />
     }
 
     render() {
@@ -73,69 +73,140 @@ export default class Main extends Component {
     }
 }
 
-function TextFlicker({ list, element, delay }) {
-    const [currentItem, setCurrentItem] = useState(list[0]);
-    const [glitchedText, setGlitchedText] = useState(currentItem);
-    const [bank, setBank] = useState([])
-    const [isMixing, setIsMixing] = useState(false);
-    const unicode = "!$0123456789aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+function TextFlicker({ list, element, unscrambleDelay = 50, scrambleDelay = 50, interludeDelay = 1000 }) {
+    const [listItem, setListItem] = useState({
+        current: list[0],
+        prev: null,
+    });
+    const [glitchedText, setGlitchedText] = useState("");
+    const [isUnscrambling, setIsUnscrambling] = useState(true);
+    const [isInterlude, setIsInterlude] = useState(false);
+    const [banks, setBanks] = useState({
+        mainBank: [],
+        helperBank: [],
+    })
+    const unicode = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわゐゑをんゔ";
 
-    let timeOutId;
+    let timeoutId, intervalId;
 
-    function initComponent() {
+    function fillBank(text, minValue = 1, maxValue = 2) {
+        minValue = minValue < 0 ? 0 : minValue;
+        maxValue = maxValue < 0 ? 0 : maxValue;
+
         let tempBank = [];
-        for (let charIndex in currentItem) {
-            tempBank[charIndex] = (Math.floor(Math.random() * (unicode.length / 3 - 1 + 1)) + 1);
+        for (let charIndex in text) {
+            tempBank[charIndex] = (Math.floor(Math.random() * ((maxValue - 1) + minValue)) + 1);
         }
-        setBank(tempBank);
-        mixText(isMixing);
+        return tempBank;
     }
 
     function randomCharacter() {
         return unicode[Math.floor(Math.random() * unicode.length)]
     }
+
     function replaceAt(text, character, index) {
         return text.substring(0, index) + character + text.substring(index + character.length);
     }
 
-    function mixText(isMixing) {
-        let keepMixing = isMixing;
-        for (let charIndex in currentItem) {
-            if (bank[charIndex] != 0) {
-                keepMixing = true
+    function unscramble() {
+        for (let charIndex in listItem.current) {
+            if (banks.mainBank[charIndex] != 0) {
 
-                if (currentItem[charIndex] != " ") {
+                if (listItem.current[charIndex] != " ") {
                     setGlitchedText(glitchedText => replaceAt(glitchedText, randomCharacter(), charIndex));
                 } else {
-                    setGlitchedText(glitchedText => glitchedText = replaceAt(glitchedText, " ", charIndex));
+                    setGlitchedText(glitchedText => replaceAt(glitchedText, " ", charIndex));
                 }
-                bank[charIndex]--;
+                banks.mainBank[charIndex]--;
             } else {
-                if (glitchedText != currentItem)
-                    setGlitchedText(glitchedText => glitchedText = replaceAt(glitchedText, currentItem[charIndex], charIndex));
-                console.log(bank);
+                setGlitchedText(glitchedText => replaceAt(glitchedText, listItem.current[charIndex], charIndex));
             }
         }
 
-        if (keepMixing)
-            setIsMixing(true)
+        return isUnscrambling;
+    }
 
+    function scramble(prevArray, targetArray) {
+        for (let charIndex in banks.helperBank) {
+            if (banks.helperBank[charIndex] > 0) {
+                setGlitchedText(glitchedText => replaceAt(glitchedText, prevArray[charIndex], charIndex));
+
+                banks.helperBank[charIndex]--;
+            } else {
+                setGlitchedText(glitchedText => replaceAt(glitchedText, randomCharacter(), charIndex));
+            }
+        }
+        if (banks.helperBank[banks.helperBank.length - 1] == 0) {
+            if (prevArray.length > targetArray.length) {
+                let slice = prevArray.slice(0, prevArray.length - 1)
+                let helper = banks.helperBank;
+                helper.pop()
+                setListItem({ current: targetArray, prev: slice })
+                setBanks(obj => ({ mainBank: obj.mainBank, helperBank: helper }))
+            }
+
+            if (prevArray.length < targetArray.length) {
+                let concat = prevArray.concat(" ");
+                let helper = banks.helperBank;
+                helper.push(1);
+                setListItem({ current: targetArray, prev: concat })
+            }
+
+        }
     }
 
     useEffect(() => {
-        if (isMixing) {
-            timeOutId = setTimeout(() => {
-                mixText(isMixing)
-            }, delay)
+        if (banks.mainBank.length == 0) {
+            let mainBank = fillBank(listItem.current, 5, 15);
+            let helperBank = fillBank(listItem.prev, 1, 10);
+            setBanks({ mainBank: mainBank, helperBank: helperBank });
 
-            return () => clearTimeout(timeOutId);
-
+            return
         }
-    }, [glitchedText])
+
+        if (isUnscrambling) {
+            // console.log("unscrambleBank",bank);
+
+            timeoutId = setTimeout(() => {
+                if (glitchedText != listItem.current) {
+                    setIsUnscrambling(unscramble())
+                } else {
+                    let nextItemIndex = list.indexOf(listItem.current) + 1;
+                    setListItem(obj => ({
+                        current: list[nextItemIndex],
+                        prev: obj.current
+                    }));
+                    setBanks({ mainBank: [], helperBank: [] })
+                    setIsUnscrambling(false)
+                    setIsInterlude(true);
+                }
+            }, unscrambleDelay)
+
+            return () => clearTimeout(timeoutId);
+
+        } else {
+            // console.log("scrambleBank:",bank);
+            if (isInterlude) {
+                setTimeout(() => {
+                    setIsInterlude(false);
+                }, interludeDelay)
+            } else {
+                timeoutId = setTimeout(() => {
+                    if (listItem.prev.length != listItem.current.length) {
+                        scramble(listItem.prev, listItem.current)
+                    } else {
+                        setBanks({ mainBank: [], helperBank: [] });
+                        setIsUnscrambling(true);
+                    }
+                }, scrambleDelay)
 
 
-    if (bank.length == 0)
-        initComponent()
+            }
+
+            return () => clearTimeout(timeoutId);
+        }
+    }, [listItem, glitchedText, isUnscrambling, isInterlude, banks])
+
 
     return glitchedText
 }

@@ -34,11 +34,6 @@ main.container {
         &--text{
             position: relative;
             display: inline-block;
-
-            &.glitched{
-                font-family: $coolFont;
-            }
-          
         }
 
         &--cursor{
