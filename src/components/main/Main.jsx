@@ -17,9 +17,10 @@ export default class Main extends Component {
         this.texts = [
             'a Software Developer 💻',
             'a UI/UX Designer 🖌',
-            'an Open Source Enjoyer 🐧',
-            'a Coffee Junkie ☕',
-            'becoming my best self 🤘',
+            'an Open Source Enthusiast 🐧',
+            'a Coffee Enjoyer ☕',
+            'becoming my best self 🙇',
+            'a 3D model?... Woah! 👌',
         ]
         this.textSpan = React.createRef();
         this.controls = React.createRef();
@@ -199,9 +200,9 @@ function TextFlicker({ list, unicode, unscrambleDelay = 50, scrambleDelay = 50, 
                 }, interludeDelay)
             } else {
                 timeoutId = setTimeout(() => {
-                    if (listItem.prev.length != listItem.current.length) {
-                        scramble(listItem.prev, listItem.current)
-                    } else {
+                    scramble(listItem.prev, listItem.current)
+
+                    if ((listItem.prev.length == listItem.current.length) && banks.helperBank.every(val => val == 0)) {
                         setBanks({ mainBank: [], helperBank: [] });
                         setIsUnscrambling(true);
                     }

@@ -29,11 +29,14 @@ main.container {
             font-size: $h6;
             color: $primaryLight;
             overflow: hidden;
+            font-weight: $regular;
         }
         
         &--text{
             position: relative;
             display: inline-block;
+
+            @include textBackground(linear-gradient(to right,  $reactBlue, $sassPink))
         }
 
         &--cursor{
