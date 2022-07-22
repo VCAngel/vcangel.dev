@@ -8,18 +8,18 @@ main.container {
         gap: 3rem;
         margin: auto 0;
 
-        
+
         &--name {
-            text-shadow: 3px 3px 1px rgba(128, 128, 128, 0.5);
+            text-shadow: 3px 3px 1px rgba(128, 128, 128, 0.4);
             font-family: $coolFont;
-            
-            span{
+
+            span {
                 text-shadow: none;
                 @include textShadow();
                 font-size: $h4;
-                
-                &.color{
-                    @include textBackground(linear-gradient(to right, $jsYellow, $svelteOrange));
+
+                &.color {
+                    @include textBackground(linear-gradient(to right, $jsYellow, $sassPink));
                 }
             }
         }
@@ -31,22 +31,22 @@ main.container {
             overflow: hidden;
             font-weight: $regular;
         }
-        
-        &--text{
+
+        &--text {
             position: relative;
             display: inline-block;
 
-            @include textBackground(linear-gradient(to right,  $reactBlue, $sassPink))
+            @include textBackground(linear-gradient(to right, #AAFFA9, #11FFBD));
         }
 
-        &--cursor{
+        &--cursor {
             display: inline-block;
             background-color: $primaryLight;
             margin-left: 1rem;
             width: 0.3rem;
             animation: blink 1s infinite;
 
-            &.--typing{
+            &.--typing {
                 animation: none;
             }
         }
@@ -90,7 +90,7 @@ main.container {
                     -webkit-text-fill-color: transparent;
                 }
 
-                &::before{
+                &::before {
                     content: '';
                     position: absolute;
                     width: 100%;
@@ -105,40 +105,6 @@ main.container {
 
 
 //-> Animations
-@keyframes slide {
-    0%{
-        left: 0;
-        width: 0;
-    }
-    33%{
-        width: 100%;
-    }
-    66%{
-        width: 0%;
-    }
-}
-
-@keyframes move {
-    0% {
-        top: 0px;
-    }
-
-    20% {
-        top: -1.6em;
-    }
-
-    40% {
-        top: -1.6em*2;
-    }
-
-    60% {
-        top: -1.6em*3;
-    }
-
-    80% {
-        top: -1.6em*4;
-    }
-}
 
 @keyframes shine {
     from {

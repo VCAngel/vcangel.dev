@@ -54,7 +54,7 @@ export default class Main extends Component {
                 {/* TODO Rotating titles */}
                 <div className='landing'>
                     <h1 className='landing--name'>
-                        <span className="color">Hey there.</span><span> i'm</span><br />
+                        <span className="color">Hey there!</span><span> i'm</span><br />
                         Angel Vargas
                     </h1>
 
