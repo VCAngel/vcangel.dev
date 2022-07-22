@@ -40,7 +40,11 @@ export default class Main extends Component {
             return "nothing yet :c";
         }
 
-        return <TextFlicker list={this.texts} element={this.textSpan} unscrambleDelay={50} scrambleDelay={50} interludeDelay={2000} />
+        return <TextFlicker list={this.texts}
+            unicode={"⠁⠃⠉⠙⠑⠋⠛⠓⠊⠚⠅⠇⠍⠝⠻⠕⠏⠟⠗⠎⠞⠥⠧⠺⠭⠽⠵⠸⠷⠾⠿"}
+            unscrambleDelay={50}
+            scrambleDelay={50}
+            interludeDelay={3000} />
     }
 
     render() {
@@ -55,8 +59,8 @@ export default class Main extends Component {
 
                     <section>
 
-                        <p className='landing--staticTitle'>I'm
-                            <span className='landing--text' ref={this.textSpan}>&nbsp;
+                        <p className='landing--staticTitle'>I'm&nbsp;
+                            <span className='landing--text' ref={this.textSpan}>
                                 {this.renderTextFlicker()}
                             </span>
                         </p>
@@ -73,7 +77,7 @@ export default class Main extends Component {
     }
 }
 
-function TextFlicker({ list, element, unscrambleDelay = 50, scrambleDelay = 50, interludeDelay = 1000 }) {
+function TextFlicker({ list, unicode, unscrambleDelay = 50, scrambleDelay = 50, interludeDelay = 1000 }) {
     const [listItem, setListItem] = useState({
         current: list[0],
         prev: null,
@@ -85,7 +89,6 @@ function TextFlicker({ list, element, unscrambleDelay = 50, scrambleDelay = 50, 
         mainBank: [],
         helperBank: [],
     })
-    const unicode = "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわゐゑをんゔ";
 
     let timeoutId, intervalId;
 
@@ -136,6 +139,7 @@ function TextFlicker({ list, element, unscrambleDelay = 50, scrambleDelay = 50, 
                 setGlitchedText(glitchedText => replaceAt(glitchedText, randomCharacter(), charIndex));
             }
         }
+
         if (banks.helperBank[banks.helperBank.length - 1] == 0) {
             if (prevArray.length > targetArray.length) {
                 let slice = prevArray.slice(0, prevArray.length - 1)
@@ -157,8 +161,8 @@ function TextFlicker({ list, element, unscrambleDelay = 50, scrambleDelay = 50, 
 
     useEffect(() => {
         if (banks.mainBank.length == 0) {
-            let mainBank = fillBank(listItem.current, 5, 15);
-            let helperBank = fillBank(listItem.prev, 1, 10);
+            let mainBank = fillBank(listItem.current, 5, 10);
+            let helperBank = fillBank(listItem.prev, 5, 10);
             setBanks({ mainBank: mainBank, helperBank: helperBank });
 
             return
@@ -172,6 +176,9 @@ function TextFlicker({ list, element, unscrambleDelay = 50, scrambleDelay = 50, 
                     setIsUnscrambling(unscramble())
                 } else {
                     let nextItemIndex = list.indexOf(listItem.current) + 1;
+                    if (nextItemIndex == list.length)
+                        nextItemIndex = 0
+
                     setListItem(obj => ({
                         current: list[nextItemIndex],
                         prev: obj.current
@@ -199,7 +206,6 @@ function TextFlicker({ list, element, unscrambleDelay = 50, scrambleDelay = 50, 
                         setIsUnscrambling(true);
                     }
                 }, scrambleDelay)
-
 
             }
 
