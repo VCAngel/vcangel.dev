@@ -71,11 +71,13 @@ br {
 a {
     text-decoration: none;
     font-weight: $regular;
-    color: #666;
-    @include transition(color, 0.2s, ease-in);
+    color: #888;
+    text-shadow: 0px 0px 1px rgba(128, 128, 128, 0.5);
+    transition: color 0.2s ease-in, text-shadow 0.2s ease-in;
 
     &:hover {
         color: $primaryLight;
+        text-shadow: 3px 3px 1px rgba(128, 128, 128,0.5);
     }
 }
 
