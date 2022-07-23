@@ -67,6 +67,7 @@ export default class Main extends Component {
                         </p>
                     </section>
 
+                    {/* Todo change setion to add contact info */}
                     <h4 className='landing__resume'>Check out my
                         <a className="landing__resume--button" href="#">resume</a>
                     </h4>

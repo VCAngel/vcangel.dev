@@ -24,9 +24,12 @@ export default function About() {
             <div className="about">
                 <h2 className="about--title">A little <span>about me!</span></h2>
                 <p className="about--text">
-                    I'm a {getAge()} year old passionate <i>Computer Systems Engineer</i> based in Chihuahua, Mexico.
-                    I've been learning and developing code for the last <TimeCounter type="seconds" />!... or about <TimeCounter type="years" />. <br />
-                    Building all kinds of <span>high quality applications is what I do</span> and I'm always up for a challenge!
+                    Hello! My name is <span>Ángel Vargas Casavantes</span>.
+                    <br />
+                    I'm a <span>{getAge()}-year-old</span> passionate <span>Computer Systems Engineer</span> based in Chihuahua.
+                    I'm currently building an application for solving heat equations using the finite element method. <br />
+                    For the last <TimeCounter type="years" />, I've been in love with <span>turning my ideas into user-friendly applications.</span> <br />
+                    Nothing's better than a cup of coffee, some tunes, and getting lost in the code.
                 </p>
             </div>
             <div className="info">
@@ -97,13 +100,16 @@ function TimeCounter({ type }) {
             }
 
             intervalId = setInterval(() => {
-                let newCount = getTimeDiff(startDate, currentDate, currentTime) / timeFormat;
+                let timeDiff = getTimeDiff(startDate, currentDate, currentTime) / timeFormat;
+                let newCount;
                 switch (type) {
                     case "seconds":
+                        newCount = timeDiff.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                         setCounter(newCount)
                         break;
                     default:
-                        setCounter(newCount.toFixed(2))
+                        newCount = timeDiff.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                        setCounter(newCount)
                 }
             }, 1000);
 

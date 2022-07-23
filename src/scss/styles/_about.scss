@@ -15,7 +15,7 @@ section.container {
 
         &--text {
             span {
-                @include textBackground(linear-gradient(to right, $reactBlue, #61c2fb));
+                @include textBackground(linear-gradient(to right, #AAFFA9, #11FFBD));
             }
         }
 
