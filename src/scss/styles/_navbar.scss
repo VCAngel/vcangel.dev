@@ -25,5 +25,9 @@
         font-family: $primaryFont;
         list-style-type: none;
         // todo breakpoint structures
+
+        span::after {
+            content: "׀"
+        }
     }
 }   
