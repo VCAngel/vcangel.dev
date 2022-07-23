@@ -8,62 +8,48 @@ main.container {
         gap: 3rem;
         margin: auto 0;
 
-        
+
         &--name {
             text-shadow: 3px 3px 1px rgba(128, 128, 128, 0.5);
             font-family: $coolFont;
-            
-            span{
+
+            span {
                 text-shadow: none;
                 @include textShadow();
                 font-size: $h4;
-                
-                &.color{
-                    @include textBackground(linear-gradient(to right, $jsYellow, $svelteOrange));
+
+                &.color {
+                    @include textBackground(linear-gradient(to right, $jsYellow, $sassPink));
                 }
             }
+            
         }
 
         &--staticTitle {
             float: left;
             font-size: $h6;
-            color: lightgrey;
+            color: $primaryLight;
+            overflow: hidden;
+            font-weight: $regular;
         }
 
-        &__rotatingTitle {
-            font-size: $h6;
-            font-family: $secondaryFont;
-            float: left;
-            overflow: hidden;
+        &--text {
             position: relative;
-            height: 1.6em;
+            display: inline-block;
 
-            &--content {
-                font-weight: $bold;
-                background: linear-gradient(to right, #9900F0, #CD113B, #FF7600, #FFA900);
-                // background: linear-gradient(to right, $csPurple, #CD113B, #FF7600, $jsYellow);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+            @include textBackground(linear-gradient(to right, #AAFFA9, #11FFBD));
+        }
 
-                //TODO change padding values on resize
-                line-height: $lineHeight;
-                margin-left: 0.8rem;
-                display: inline-block;
-                color: $primaryLight;
-                position: relative;
-                white-space: nowrap;
-                top: 0;
-                left: 0;
-                animation: move 8s cubic-bezier(.38, 0.8, .19, 1);
-                animation-iteration-count: infinite;
-                animation-delay: 1s;
+        &--cursor {
+            display: inline-block;
+            background-color: $primaryLight;
+            margin-left: 1rem;
+            width: 0.3rem;
+            animation: blink 1s infinite;
 
-                br{
-                    margin: 0;
-                }
+            &.--typing {
+                animation: none;
             }
-
         }
 
         &__resume {
@@ -105,7 +91,7 @@ main.container {
                     -webkit-text-fill-color: transparent;
                 }
 
-                &::before{
+                &::before {
                     content: '';
                     position: absolute;
                     width: 100%;
@@ -120,27 +106,6 @@ main.container {
 
 
 //-> Animations
-@keyframes move {
-    0% {
-        top: 0px;
-    }
-
-    20% {
-        top: -1.6em;
-    }
-
-    40% {
-        top: -1.6em*2;
-    }
-
-    60% {
-        top: -1.6em*3;
-    }
-
-    80% {
-        top: -1.6em*4;
-    }
-}
 
 @keyframes shine {
     from {

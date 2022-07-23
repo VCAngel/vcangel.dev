@@ -1,6 +1,7 @@
 import React, { Component, Suspense, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Stars } from '@react-three/drei';
+import { OrbitControls, PresentationControls, Stars } from '@react-three/drei';
+import TextFlicker from '../TextFlicker';
 import Frog from './bodies/Frog';
 import Blackhole from './bodies/Blackhole';
 import About from './bodies/About';
@@ -11,13 +12,18 @@ import ProjectList from './bodies/ProjectList';
 export default class Main extends Component {
     constructor(props) {
         super(props);
-        this.rotatingTitles = [
-            ' a Software Developer 💻',
-            ' a UI/UX Designer 🖌',
-            ' an Open Source Enjoyer 🐧',
-            ' a Coffee Junkie ☕',
-            ' becoming my best self 🤘',
+        this.state = {
+            isLoading: true
+        }
+        this.texts = [
+            'a Software Developer 💻',
+            'a UI/UX Designer 🖌',
+            'an Open Source Enthusiast 🐧',
+            'a Coffee Enjoyer ☕',
+            'becoming my best self 🙇',
+            'a 3D model?... Woah! 👌',
         ]
+        this.textSpan = React.createRef();
         this.controls = React.createRef();
         this.system = {
             group: React.createRef(),
@@ -27,47 +33,48 @@ export default class Main extends Component {
         }
     }
 
-    render() {
+    componentDidMount() {
+        this.setState({ isLoading: false });
+    }
 
+    renderTextFlicker() {
+        if (this.state.isLoading) {
+            return "nothing yet :c";
+        }
+
+        return <TextFlicker list={this.texts}
+            unicode={"⠁⠃⠉⠙⠑⠋⠛⠓⠊⠚⠅⠇⠍⠝⠻⠕⠏⠟⠗⠎⠞⠥⠧⠺⠭⠽⠵⠸⠷⠾⠿"}
+            unscrambleDelay={50}
+            scrambleDelay={50}
+            interludeDelay={3000} />
+    }
+
+    render() {
         return (
             <main className="container" id="home" ref={this?.threeContainer}>
                 {/* TODO Rotating titles */}
                 <div className='landing'>
                     <h1 className='landing--name'>
-                        <span className="color">Hey there.</span><span> i'm</span><br/>
+                        <span className="color">Hey there!</span><span> i'm</span><br />
                         Angel Vargas
                     </h1>
-                    <RotatingTitles list={this.rotatingTitles} />
-                    <h4 className='landing__resume'>Check out my
-                        <a className="landing__resume--button" href="#">resume</a>
-                    </h4>
+
+                    <section>
+
+                        <p className='landing--staticTitle'>I'm&nbsp;
+                            <span className='landing--text' ref={this.textSpan}>
+                                {this.renderTextFlicker()}
+                            </span>
+                        </p>
+                    </section>
+
                 </div>
+                {/* Todo threejs stuff */}
                 <span>THREEJS</span>
             </main>
         )
+
     }
-}
-
-function RotatingTitles({ list }) {
-    let listItems = list.map((item, index) => {
-        return (
-            <React.Fragment key={index}>
-                {item} < br />
-            </React.Fragment >
-        )
-    });
-
-    return (
-        <section>
-            <p className='landing--staticTitle'>I'm </p>
-            <div className="landing__rotatingTitle">
-                <span className="landing__rotatingTitle--content">
-                    {listItems}
-                </span>
-            </div>
-        </section>
-    );
-
 }
 
 const System = (props) => {

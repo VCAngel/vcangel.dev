@@ -2,7 +2,7 @@ import React from 'react';
 import jump from 'jump.js';
 
 const Navbar = () => {
-    const links = ['Home', 'About', 'Projects', 'Contact']
+    const links = [ 'About', 'Projects', 'Contact']
 
     return (
         <header className="navbar">
@@ -10,6 +10,12 @@ const Navbar = () => {
                 <a href='#' onClick={() => jumpTo('#home')}>VA</a>
             </div>
             <ul className="navbar__links">
+                <li className="navbar__links--item">
+                    <a href="#">Resume</a>
+                </li>
+
+                <span></span>
+
                 {links.map((link, index) => <Navlink text={link} key={index} />)}
             </ul>
         </header>
