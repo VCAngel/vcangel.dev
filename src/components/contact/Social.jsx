@@ -1,8 +1,8 @@
 import React from 'react';
 import { ReactComponent as LinkedIn } from '../../svg/linkedIn.svg';
-import {ReactComponent as Github} from '../../svg/github.svg';
-import {ReactComponent as Platzi} from '../../svg/platzi.svg';
-import {ReactComponent as Twitter} from '../../svg/twitter.svg';
+import { ReactComponent as Github } from '../../svg/github.svg';
+import { ReactComponent as Platzi } from '../../svg/platzi.svg';
+import { ReactComponent as Twitter } from '../../svg/twitter.svg';
 
 const Social = ({ social }) => {
 
