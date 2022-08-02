@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TextFlicker from './TextFlicker';
+import {ReactComponent as ClipPath} from '../svg/va.svg'; 
+import me from "../img/me_woah.jpg";
 import { Canvas } from '@react-three/fiber';
 import { ConvexPolyhedronArgs } from '@react-three/cannon';
 
@@ -25,8 +27,9 @@ export default function About() {
     return (
         <section className="container" id="about">
             {/* TODO add selfie or something */}
-            <div>
-                photo!
+            <div className="pfp">
+                <ClipPath/>
+                <img src={me} alt="me!" />
             </div>
             <div className="about">
                 <h2 className="about--title">A little <span>about me!</span></h2>
