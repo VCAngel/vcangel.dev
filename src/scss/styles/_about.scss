@@ -2,21 +2,34 @@ section.container {
     height: 100vh;
     @include gridDisplay(2, 1rem);
 
+    .pfp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            clip-path: url(#va_svg__clip);
+            width: 80%;
+        }
+    }
+
     .about {
         grid-column: 2/3;
         margin: auto 0;
 
         &--title {
             @include textShadow();
-            span{
+
+            span {
                 @include textBackground(linear-gradient(to right, $jsYellow, $sassPink));
             }
         }
 
         &--text {
-            a{
+            a {
                 font-weight: $thin;
             }
+
             span {
                 @include textBackground(linear-gradient(to right, #AAFFA9, #11FFBD));
             }
