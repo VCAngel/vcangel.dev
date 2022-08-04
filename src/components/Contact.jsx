@@ -1,14 +1,13 @@
 import React from "react";
-import Social from './Social';
 
 const Contact = () => {
     return (
-        <footer className="container" id="contact">
-            <section className="contact">
+        <>
+            <section className="container" id="contact">
                 <div className="contact__title">
                     <h2 className="contact__title--title">Let's <span>work together!</span></h2>
                     <p className="contact__title--text">
-                        Got a project, inquiry or just want to say hi? Feel free to contact me! <br/>
+                        Got a project, inquiry or just want to say hi? Feel free to contact me! <br />
                         I'll be sure to reply ASAP.
                     </p>
                 </div>
@@ -21,18 +20,7 @@ const Contact = () => {
                 </div>
 
             </section>
-
-            <section className="end">
-                <ul className="end__socials">
-                    <Social social='linkedIn' />
-                    <Social social='github' />
-                    <Social social='platzi' />
-                    <Social social='twitter' />
-                </ul>
-                <p className="end__cr">©2022 Ángel Vargas</p>
-                <p className="end__msg">the only limit is your imagination</p>
-            </section>
-        </footer>
+        </>
     )
 }
 

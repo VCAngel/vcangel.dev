@@ -7,7 +7,8 @@ import Navbar from './components/Navbar';
 import Main from './components/main/Main';
 import About from './components/About';
 import Projects from './components/Projects';
-import Contact from './components/contact/Contact';
+import Contact from './components/Contact';
+import Footer from "./components/Footer";
 import './scss/app.scss';
 
 ReactDOM.render(
@@ -15,11 +16,12 @@ ReactDOM.render(
         <Canvas id="spaceBg" style={{position: "absolute", zIndex: -11}}>
             {/* <RotatingStars/> */}
         </Canvas>
-        <Navbar></Navbar>
-        <Main></Main>
+        <Navbar/>
+        <Main/>
         <About />
         <Projects />
-        <Contact></Contact>
+        <Contact/>
+        <Footer/>
     </React.StrictMode>,
     document.getElementById('root')
 );
