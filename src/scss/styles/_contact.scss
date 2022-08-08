@@ -1,9 +1,7 @@
-section.container {
+.container {
     min-height: 100vh;
-    @include gridDisplay(2, 1rem);
 
     .contact {
-        @include gridDisplay(2, 3rem);
         margin: auto 0;
 
         &__title {
@@ -33,6 +31,20 @@ section.container {
             &:hover {
                 filter: brightness(1.2);
             }
+        }
+
+    }
+    .form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        label{
+            margin: 1rem 0;
+        }
+
+        #message{
+            resize: none;
         }
     }
 }

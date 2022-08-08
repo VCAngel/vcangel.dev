@@ -7,14 +7,14 @@ import { ReactComponent as Twitter } from '../svg/twitter.svg';
 export default function Footer() {
     return (
         <footer className="end">
+            <p className="end__cr">©2022 Ángel Vargas</p>
+            <p className="end__msg">the only limit is your imagination</p>
             <ul className="end__socials">
                 <Social social='linkedIn' />
                 <Social social='github' />
                 <Social social='platzi' />
                 <Social social='twitter' />
             </ul>
-            <p className="end__cr">©2022 Ángel Vargas</p>
-            <p className="end__msg">the only limit is your imagination</p>
         </footer>
     )
 }
