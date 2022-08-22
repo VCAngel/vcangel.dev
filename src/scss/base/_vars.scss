@@ -18,11 +18,12 @@ $csPurple: #9b4993;
 $sassPink: #db36a4;
 
 //* Breakpoints
-$sm-mobile: 480px;
-$mobile: 576px;
+$sm-mobile: 320px;
+$mobile: 480px;
 $tablet: 768px;
-$desktop: 1200px;
-$lg-desktop: 1720px;
+$desktop: 1280px;
+$lg-desktop: 1440px;
+$widescreen: 2560px;
 
 //* Fonts
 $primaryFont: 'Source Code Pro', monospace;
