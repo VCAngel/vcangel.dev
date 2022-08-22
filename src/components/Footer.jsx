@@ -1,8 +1,23 @@
 import React from 'react';
-import { ReactComponent as LinkedIn } from '../../svg/linkedIn.svg';
-import { ReactComponent as Github } from '../../svg/github.svg';
-import { ReactComponent as Platzi } from '../../svg/platzi.svg';
-import { ReactComponent as Twitter } from '../../svg/twitter.svg';
+import { ReactComponent as LinkedIn } from '../svg/linkedIn.svg';
+import { ReactComponent as Github } from '../svg/github.svg';
+import { ReactComponent as Platzi } from '../svg/platzi.svg';
+import { ReactComponent as Twitter } from '../svg/twitter.svg';
+
+export default function Footer() {
+    return (
+        <footer className="end">
+            <p className="end__cr">©2022 Ángel Vargas</p>
+            <p className="end__msg">the only limit is your imagination</p>
+            <ul className="end__socials">
+                <Social social='linkedIn' />
+                <Social social='github' />
+                <Social social='platzi' />
+                <Social social='twitter' />
+            </ul>
+        </footer>
+    )
+}
 
 const Social = ({ social }) => {
 
@@ -30,7 +45,7 @@ const Social = ({ social }) => {
                 break;
             case 'twitter': return <Twitter />
                 break;
-            default: return <span>No social network</span>
+            default: return <span>Not a social network</span>
         }
     }
 
@@ -44,5 +59,3 @@ const Social = ({ social }) => {
         </li>
     )
 }
-
-export default Social;
