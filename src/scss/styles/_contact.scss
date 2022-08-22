@@ -1,5 +1,8 @@
 .container {
     min-height: 100vh;
+    // todo create global container class
+    content-visibility: auto;
+    contain-intrinsic-size: 0px 500px;
 
     .contact {
         margin: auto 0;
@@ -34,17 +37,55 @@
         }
 
     }
-    .form{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
 
-        label{
-            margin: 1rem 0;
-        }
+    .form {
+        margin: auto 0;
+        padding: 2.6rem;
+        background-color: $backgroundDark;
 
-        #message{
-            resize: none;
+        &__group {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            label {
+                margin-bottom: 1rem;
+                font-weight: $regular;
+            }
+
+            input,
+            textarea {
+                margin-bottom: 1rem;
+                color: $secondaryLight;
+                font-family: $secondaryFont;
+                background-color: #191b19;
+                background-image: linear-gradient(#191b19, #191b19), linear-gradient(to right, #FDC830, #F37335);
+                border: none;
+                border: 1px solid $backgroundDark;
+                padding: 0.6rem 1rem;
+                transition: border 0.2s ease-in;
+
+                &:focus {
+                    outline: none;
+                    border-bottom: 1px ridge transparent;
+                    background-origin: border-box;
+                    background-clip: padding-box, border-box;
+                }
+
+                &.button {
+                    padding: 1.2rem;
+
+                    &:hover {
+                        border: 1px ridge transparent;
+                        background-origin: border-box;
+                        background-clip: padding-box, border-box;
+                    }
+                }
+            }
+
+            #message {
+                resize: none;
+            }
         }
     }
 }

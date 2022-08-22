@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import emailjs from "@emailjs/browser";
 
 const Contact = () => {
-
     return (
         <section className="container" id="contact">
             <div className="contact">
@@ -27,14 +26,13 @@ const Contact = () => {
 
 function Form() {
     const form = useRef();
-    console.log(form.current );
     const sendEmail = (evt) => {
         emailjs.sendForm('service_2czw83q', 'template_eh9d3ka', form.current, 'vzqY23Ajs9q6rGrTi')
-        .then(res => {
-            console.log("Message sent! :] Status:", res.status);
-        }, err => {
-            console.error("Message could not be sent :[" ,err);
-        })
+            .then(res => {
+                console.log("Message sent! :] Status:", res.status);
+            }, err => {
+                console.error("Message could not be sent :[...", err);
+            })
     }
 
     const {
@@ -47,22 +45,23 @@ function Form() {
     // todo display failed/sent message card
 
     return (
-        <form className="form" onSubmit={handleSubmit(sendEmail)} ref={form}>
-            <label htmlFor="name">Name</label>
-            <input type="text" id="name" {...register("name", { required: "What's your name?" })} placeholder={errors.name?.message} />
+        <div className="form">
+            <form className="form__group" onSubmit={handleSubmit(sendEmail)} ref={form}>
+                <label htmlFor="name">Name</label>
+                <input type="text" id="name" {...register("name", { required: "What's your name?" })} placeholder={errors.name?.message} />
 
-            <label htmlFor="email">Email address</label>
-            <input type="email" id="email" {...register("email", { required: "What's your email?" })} placeholder={errors.email?.message} />
+                <label htmlFor="email">Email address</label>
+                <input type="email" id="email" {...register("email", { required: "What's your email?" })} placeholder={errors.email?.message} />
 
-            <label htmlFor="subject">Subject</label>
-            <input type="text" id="subject" {...register("subject", { required: "How may I help you? :]" })} placeholder={errors.subject?.message} />
+                <label htmlFor="subject">Subject</label>
+                <input type="text" id="subject" {...register("subject", { required: "How may I help you? :]" })} placeholder={errors.subject?.message} />
 
-            <label htmlFor="message">Message</label>
-            <textarea id="message" {...register("message", { required: 'Just say hi!' })} placeholder={errors.message?.message} cols="30" rows="10"></textarea>
+                <label htmlFor="message">Message</label>
+                <textarea id="message" {...register("message", { required: 'Just say hi!' })} placeholder={errors.message?.message} cols="30" rows="8"></textarea>
 
-            <input type="submit" value="Send message 🚀"/>
-            
-        </form>
+                <input className="button" type="submit" value="Send message 🚀" />
+            </form>
+        </div>
     )
 }
 
