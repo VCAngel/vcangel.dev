@@ -14,8 +14,6 @@ const Contact = () => {
                         I'll be sure to reply ASAP.
                     </p>
                 </div>
-
-                <a className="btn btn-glow contact__button" href="mailto:vcangel00@gmail.com" target="_blank">Get in touch</a>
             </div>
 
             <Form />
@@ -64,7 +62,7 @@ function Form() {
                 <textarea id="message" {...register("message", { required: 'Just say hi!' })} placeholder={errors.message?.message} cols="30" rows="8"></textarea>
 
                 <div className="g-recaptcha" data-sitekey="6LfZQZwhAAAAAP2TRBL4OThYgIPSeMllM2sOXI67"></div>
-                <input className="button" type="submit" value="Send message 🚀" />
+                <input className="button" type="submit" value="Get in touch 🚀" />
             </form>
 
             {sent ? <p>Message sent!</p> : null}

@@ -5,7 +5,7 @@
     contain-intrinsic-size: 0px 500px;
 
     .contact {
-        margin: auto 0;
+        margin: auto;
 
         &__title {
             grid-column: 1/2;
@@ -39,7 +39,8 @@
     }
 
     .form {
-        margin: auto 0;
+        width: 80%;
+        margin: auto;
         padding: 2.6rem;
         background-color: $backgroundDark;
 
@@ -70,6 +71,11 @@
                     border-bottom: 1px ridge transparent;
                     background-origin: border-box;
                     background-clip: padding-box, border-box;
+                }
+
+                &.g-recaptcha {
+                    width: 100%;
+                    margin: 1rem 0;
                 }
 
                 &.button {
