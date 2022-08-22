@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useForm } from 'react-hook-form';
 import emailjs from "@emailjs/browser";
 
@@ -25,13 +25,18 @@ const Contact = () => {
 }
 
 function Form() {
+    const [sent, isSending] = useState(false);
+    const [failed, hasFailed] = useState(false);
     const form = useRef();
-    const sendEmail = (evt) => {
-        emailjs.sendForm('service_2czw83q', 'template_eh9d3ka', form.current, 'vzqY23Ajs9q6rGrTi')
+    const sendEmail = async (evt) => {
+        isSending(true);
+
+        await emailjs.sendForm('service_2czw83q', 'template_eh9d3ka', form.current, 'vzqY23Ajs9q6rGrTi')
             .then(res => {
                 console.log("Message sent! :] Status:", res.status);
             }, err => {
                 console.error("Message could not be sent :[...", err);
+                useState(true);
             })
     }
 
@@ -42,7 +47,6 @@ function Form() {
     } = useForm();
 
     // todo reCAPTCHA
-    // todo display failed/sent message card
 
     return (
         <div className="form">
@@ -59,8 +63,15 @@ function Form() {
                 <label htmlFor="message">Message</label>
                 <textarea id="message" {...register("message", { required: 'Just say hi!' })} placeholder={errors.message?.message} cols="30" rows="8"></textarea>
 
+                <div className="g-recaptcha" data-sitekey="6LfZQZwhAAAAAP2TRBL4OThYgIPSeMllM2sOXI67"></div>
                 <input className="button" type="submit" value="Send message 🚀" />
             </form>
+
+            {sent ? <p>Message sent!</p> : null}
+            {failed ? <div>
+                <p>Could not send message</p>
+                <p>Try again later</p>
+            </div> : null}
         </div>
     )
 }
