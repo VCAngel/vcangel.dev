@@ -62,38 +62,32 @@ export default function TextFlickerComponent(props: { data: TextFlickerProps }) 
 	}
 
 	function scramble(prevArray, targetArray) {
-		const isNotZero = (val:number) => val != 0;
-		if(banks.helperBank.every(isNotZero)){
-			// Reduce all values in helperBank recursively until one is 0
-			for(const charIndex in banks.helperBank){
+		const isNotZero = (val: number) => val != 0;
+		if (banks.helperBank.every(isNotZero)) {
+			// Reduce all values in helperBank recursively until at least one is 0
+			for (const charIndex in banks.helperBank) {
 				banks.helperBank[charIndex]--;
 			}
-			scramble(listItem.prev, listItem.current)
+			scramble(prevArray, targetArray)
 			return
 		}
 
-		for(const charIndex in banks.helperBank){
-			if(isNotZero(banks.helperBank[charIndex])){
+		for (const charIndex in banks.helperBank) {
+			if (isNotZero(banks.helperBank[charIndex])) {
+                setGlitchedText(glitchedText => replaceAt(glitchedText, prevArray[charIndex], charIndex));
+
 				banks.helperBank[charIndex]--;
-			}else{
+			} else {
 				setGlitchedText(glitchedText => replaceAt(glitchedText, randomCharacter(), charIndex));
 			}
 		}
 
-		// for (let charIndex in banks.helperBank) {
-		// 	if (banks.helperBank[charIndex] > 0) {
-
-		// 		banks.helperBank[charIndex]--;
-		// 	} else {
-		// 		setGlitchedText(glitchedText => replaceAt(glitchedText, randomCharacter(), charIndex));
-		// 	}
-		// }
-
 		if (banks.helperBank[banks.helperBank.length - 1] == 0) {
-			
+
 			if (prevArray.length > targetArray.length) {
 				let slice = prevArray.slice(0, prevArray.length - 1)
 				let helper = banks.helperBank;
+
 				helper.pop()
 				setListItem({ current: targetArray, prev: slice })
 				setBanks(obj => ({ mainBank: obj.mainBank, helperBank: helper }))
@@ -118,10 +112,7 @@ export default function TextFlickerComponent(props: { data: TextFlickerProps }) 
 			return
 		}
 
-		console.log("Inter", isInterlude)
-
 		if (isUnscrambling) {
-			// console.log("unscrambleBank",bank);
 
 			timeoutId = setTimeout(() => {
 				if (glitchedText != listItem.current) {
@@ -145,9 +136,7 @@ export default function TextFlickerComponent(props: { data: TextFlickerProps }) 
 			return () => clearTimeout(timeoutId);
 
 		} else {
-			console.log(glitchedText);
 
-			// console.log("scrambleBank:",bank);
 			if (isInterlude) {
 				setTimeout(() => {
 					setIsInterlude(false);
@@ -157,14 +146,14 @@ export default function TextFlickerComponent(props: { data: TextFlickerProps }) 
 				timeoutId = setTimeout(() => {
 					scramble(listItem.prev, listItem.current)
 
-					
+
 					if ((listItem.prev.length == listItem.current.length) && banks.helperBank.every(val => val == 0)) {
 
 						setBanks({ mainBank: [], helperBank: [] });
 						setIsUnscrambling(true);
 					}
 				}, scrambleDelay)
-				
+
 				return () => clearTimeout(timeoutId);
 			}
 

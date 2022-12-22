@@ -23,8 +23,8 @@ export default class Home extends Component {
         "a 3D model?... Woah! 👌",
       ],
       unicode: "⠁⠃⠉⠙⠑⠋⠛⠓⠊⠚⠅⠇⠍⠝⠻⠕⠏⠟⠗⠎⠞⠥⠧⠺⠭⠽⠵⠸⠷⠾⠿",
-      unscrambleDelay: 100,
-      scrambleDelay: 100,
+      unscrambleDelay: 80,
+      scrambleDelay: 80,
       interludeDelay: 3000
     }
     this.textSpan = createRef();
