@@ -1,0 +1,14 @@
+
+@import "./base/vars";
+@import './base/normalize';
+@import "./base/mixins";
+@import "./base/init";
+@import "./base/utils";
+
+//! import app styles in here
+@import "./styles/navbar";
+@import "./styles/main";
+@import "./styles/about";
+@import "./styles/projects";
+@import "./styles/contact";
+@import "./styles/footer";

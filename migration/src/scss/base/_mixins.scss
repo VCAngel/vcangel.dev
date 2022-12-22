@@ -1,0 +1,50 @@
+@mixin sm-mobile {
+    @media (min-width: $sm-mobile) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (min-width: $mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: $tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}
+
+@mixin lg-desktop {
+    @media (min-width: $lg-desktop) {
+        @content;
+    }
+}
+
+@mixin gridDisplay($columns, $gap) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+}
+
+@mixin transition($prop, $time, $bezier) {
+    transition: $prop $time $bezier;
+}
+
+@mixin textBackground($rule) {
+    background: $rule;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@mixin textShadow {
+    text-shadow: 0px 0 8rem rgba(242, 242, 242, 55), 0 0 3.2rem rgba(46, 2, 77, 25);
+}
