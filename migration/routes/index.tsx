@@ -1,30 +1,68 @@
-import { Head } from "$fresh/runtime.ts";
-import Counter from "../islands/Counter.tsx";
+import { PageProps } from "$fresh/server.ts";
+import { Component, createRef } from "preact";
 
-export default function Home() {
-  return (
-    <>
-      <Head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        <link rel="stylesheet" href="./css/app.min.css" />
-        <title>Hey there! | Ángel Vargas</title>
-      </Head>
-      <div>
-        <img
-          src="/logo.svg"
-          width="128"
-          height="128"
-          alt="the fresh logo: a sliced lemon dripping with juice"
-        />
-        <p>
-          Welcome to `fresh`. Try updating this message in the ./routes/index.tsx
-          file, and refresh.
-        </p>
-        <Counter start={3} />
-      </div>
-    </>
-  );
+//: Islands
+import TextFlicker from "../islands/TextFlicker.tsx";
+
+//: Components
+import { CustomHead } from "../components/CustomHead.tsx";
+
+export default class Home extends Component {
+  constructor(props: PageProps) {
+    super(props);
+    this.state = {
+      isLoading: true,
+    };
+    this.flickerProps = {
+      list: [
+        "a Software Developer 💻",
+        "a UI/UX Designer 🖌",
+        "an Open Source Enthusiast 🐧",
+        "a Coffee Enjoyer ☕",
+        "becoming my best self 🙇",
+        "a 3D model?... Woah! 👌",
+      ],
+      unicode: "⠁⠃⠉⠙⠑⠋⠛⠓⠊⠚⠅⠇⠍⠝⠻⠕⠏⠟⠗⠎⠞⠥⠧⠺⠭⠽⠵⠸⠷⠾⠿",
+      unscrambleDelay: 100,
+      scrambleDelay: 100,
+      interludeDelay: 3000
+    }
+    this.textSpan = createRef();
+    this.controls = createRef();
+    this.system = {
+      group: createRef(),
+      earth: createRef(),
+      moon: createRef(),
+      ship: createRef(),
+    };
+  }
+
+  render() {
+    return (
+      <>
+        <CustomHead />
+        <main className="container" id="home" ref={this?.threeContainer}>
+          <div className="landing">
+            <h1 className="landing--name">
+              <span className="color">Hey there!</span>
+              <span>i'm</span>
+              <br />
+              Angel Vargas
+            </h1>
+
+            <section>
+              <p className="landing--staticTitle">
+                I'm&nbsp;
+                <span className="landing--text" ref={this?.textSpan}>
+                  <TextFlicker data={this.flickerProps} />
+                </span>
+              </p>
+            </section>
+          </div>
+          {/* Todo threejs stuff */}
+          <span>THREEJS</span>
+        </main>
+      </>
+    );
+  }
 }
