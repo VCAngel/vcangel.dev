@@ -3,13 +3,18 @@ import { Component } from "preact";
 
 import TextFlickerComponent from "../components/TextFlickerComponent.tsx";
 
-export default class TextFlicker extends Component {
+interface TextFlickerProps {
+    flickerProps: PageProps
+}
+
+export default class TextFlicker extends Component implements TextFlickerProps {
+    flickerProps
     constructor(props: { data: PageProps }) {
         super(props);
         this.state = {
             isLoading: true,
-            flickerProps: props.data
         };
+        this.flickerProps = props.data;
     }
 
     componentDidMount(): void {
@@ -19,6 +24,6 @@ export default class TextFlicker extends Component {
     }
 
     render() {
-        return <TextFlickerComponent data={this.state.flickerProps} />
+        return <TextFlickerComponent data={this.flickerProps} />
     }
 }

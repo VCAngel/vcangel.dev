@@ -9,7 +9,7 @@ import { CustomHead } from "../components/CustomHead.tsx";
 import Navbar from "../components/Navbar.tsx";
 
 export default class Home extends Component {
-  constructor(props: { data: PageProps }) {
+  constructor(props: PageProps) {
     super(props);
     this.state = {
       isLoading: true,
@@ -33,7 +33,7 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <CustomHead />
+        <CustomHead title="Hey there!"/>
         <Navbar/>
         <main className="container" id="home">
           <div className="landing">
