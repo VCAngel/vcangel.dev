@@ -6,9 +6,10 @@ import TextFlicker from "../islands/TextFlicker.tsx";
 
 //: Components
 import { CustomHead } from "../components/CustomHead.tsx";
+import Navbar from "../components/Navbar.tsx";
 
 export default class Home extends Component {
-  constructor(props: PageProps) {
+  constructor(props: { data: PageProps }) {
     super(props);
     this.state = {
       isLoading: true,
@@ -27,24 +28,17 @@ export default class Home extends Component {
       scrambleDelay: 80,
       interludeDelay: 3000
     }
-    this.textSpan = createRef();
-    this.controls = createRef();
-    this.system = {
-      group: createRef(),
-      earth: createRef(),
-      moon: createRef(),
-      ship: createRef(),
-    };
   }
 
   render() {
     return (
       <>
         <CustomHead />
-        <main className="container" id="home" ref={this?.threeContainer}>
+        <Navbar/>
+        <main className="container" id="home">
           <div className="landing">
             <h1 className="landing--name">
-              <span className="color">Hey there!</span>
+              <span className="color">Hey there! </span>
               <span>i'm</span>
               <br />
               Angel Vargas
@@ -53,14 +47,17 @@ export default class Home extends Component {
             <section>
               <p className="landing--staticTitle">
                 I'm&nbsp;
-                <span className="landing--text" ref={this?.textSpan}>
+                <span className="landing--text">
                   <TextFlicker data={this.flickerProps} />
                 </span>
               </p>
             </section>
+
+            <section>
+              {/*todo social links*/}
+            </section>
           </div>
-          {/* Todo threejs stuff */}
-          <span>THREEJS</span>
+          <span>{/*todo threejs avatar*/}</span>
         </main>
       </>
     );
