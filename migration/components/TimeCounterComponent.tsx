@@ -1,10 +1,12 @@
-import { ITimeCounterComponent } from "./interfaces.ts";
-import { PageProps } from "$fresh/server.ts";
+import { ITimeCounter } from "./interfaces.ts";
 import { useState, useEffect } from "preact/hooks";
 
-export default function TimerCounterComponent(props: ITimeCounterComponent) {
-	const { startDate, currentTime, currentDate } = props.data;
+export default function TimerCounterComponent(props: ITimeCounter) {
+	const startDate = new Date().setFullYear(2018, 7, 20);
+	const currentDate = new Date();
+	const currentTime = (currentDate.getHours() * 60 * 60 * 1000) + (currentDate.getMinutes() * 60 * 1000) + (currentDate.getSeconds() * 1000); // Current day time in seconds
 	const type = props.type;
+
 	const [counter, setCounter] = useState("Infinity");
 	const [timeFormat, setTimeFormat] = useState(0);
 	const [isFormatted, setIsFormatted] = useState(false);
@@ -44,13 +46,15 @@ export default function TimerCounterComponent(props: ITimeCounterComponent) {
 
 		intervalId = setInterval(() => {
 			const timeDiff = getTimeDiff(startDate, currentDate, currentTime) / timeFormat;
-			console.log(timeDiff)
+
 			let newCount;
 			switch (type) {
-				case "seconds":
-					newCount = timeDiff.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+				case "seconds": {
+					const secs = Math.floor(timeDiff);
+					newCount = secs.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 					setCounter(newCount)
 					break;
+				}
 				default:
 					newCount = timeDiff.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 					setCounter(newCount)
@@ -59,7 +63,7 @@ export default function TimerCounterComponent(props: ITimeCounterComponent) {
 
 		return () => clearInterval(intervalId);
 
-	}, [counter])
+	}, [counter, timeFormat])
 
 	return <>
 		<span>{counter} {type}</span>

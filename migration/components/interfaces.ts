@@ -10,14 +10,6 @@ export interface ITimeCounter {
 	type: string;
 }
 
-export interface ITimeCounterComponent extends ITimeCounter{
-	data: {
-		startDate: number;
-		currentDate: Date;
-		currentTime: number;
-	}
-}
-
 export interface ITextFlicker {
 	flickerProps: PageProps
 }
