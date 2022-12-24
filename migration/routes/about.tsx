@@ -13,11 +13,17 @@ export default function About() {
 	const technologies = ["HTML 5", "CSS 3", "JavaScript", "React", "Vue", "Node.js", "Python", "Java", "C#", "SQL", "Git"];
 	const interests = ["GNU/Linux 🐧", "Rock/Metal 🤘", "Gaming 🎮", "Space 🌌", "Frogs 🐸"];
 
-	const texts = [
-		"developing compelling, user-friendly applications",
-		"programming and everything tech",
-		"turning my ideas into something helpful"
-	];
+	const flickerProps = {
+		list: [
+			"developing compelling, user-friendly applications",
+			"programming and everything tech",
+			"turning my ideas into something helpful"
+		],
+		unicode: "⠁⠃⠉⠙⠑⠋⠛⠓⠊⠚⠅⠇⠍⠝⠻⠕⠏⠟⠗⠎⠞⠥⠧⠺⠭⠽⠵⠸⠷⠾⠿",
+		unscrambleDelay: 80,
+		scrambleDelay: 80,
+		interludeDelay: 7000
+	}
 
 	function getAge() {
 		const bday = new Date();
@@ -35,6 +41,7 @@ export default function About() {
 			<section className="container" id="about">
 				{/* TODO add selfie or something */}
 				<div className="pfp">
+					{/*TODO svg clip-path */}
 					<object data="./svg/va.svg" type="image/svg+xml"></object>
 					<img src="./img/me_woah.jpg" alt="That's me!" />
 				</div>
@@ -45,7 +52,7 @@ export default function About() {
 						<br />
 						I'm a <span>{getAge()}-year-old</span> passionate <span>Computer Systems Engineer</span> based in <a href="https://www.google.com.mx/maps/place/Chihuahua,+Chih./@28.6708592,-106.2047053,11z/data=!3m1!4b1!4m5!3m4!1s0x86ea449d5d484033:0xb7f1a7a706dd1d7b!8m2!3d28.6329957!4d-106.0691004" target="_blank">Chihuahua, Mexico</a>.
 						I'm currently building an application for solving heat equations using the finite element method. <br />
-						For the last <TimeCounter data="years" />, I've been in love with . <br />
+						For the last <TimeCounter data="years" />, I've been in love with <TextFlicker data={flickerProps}/>. <br />
 						Nothing's better than a cup of coffee, some tunes, and getting lost in the code.
 					</p>
 				</div>
