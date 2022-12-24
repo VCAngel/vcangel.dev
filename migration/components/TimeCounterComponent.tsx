@@ -1,14 +1,6 @@
+import { ITimeCounterComponent } from "./interfaces.ts";
 import { PageProps } from "$fresh/server.ts";
 import { useState, useEffect } from "preact/hooks";
-
-interface ITimeCounterComponent {
-	data: {
-		startDate: number;
-		currentDate: Date;
-		currentTime: number;
-	}
-	type: string;
-}
 
 export default function TimerCounterComponent(props: ITimeCounterComponent) {
 	const { startDate, currentTime, currentDate } = props.data;
@@ -51,7 +43,7 @@ export default function TimerCounterComponent(props: ITimeCounterComponent) {
 		}
 
 		intervalId = setInterval(() => {
-			let timeDiff = getTimeDiff(startDate, currentDate, currentTime) / timeFormat;
+			const timeDiff = getTimeDiff(startDate, currentDate, currentTime) / timeFormat;
 			console.log(timeDiff)
 			let newCount;
 			switch (type) {

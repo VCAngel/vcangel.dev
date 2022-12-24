@@ -1,11 +1,10 @@
+import { ITextFlicker } from "../components/interfaces.ts";
 import { PageProps } from "$fresh/server.ts";
 import { Component } from "preact";
 
 import TextFlickerComponent from "../components/TextFlickerComponent.tsx";
 
-interface ITextFlicker {
-    flickerProps: PageProps
-}
+
 
 export default class TextFlicker extends Component implements ITextFlicker {
     flickerProps

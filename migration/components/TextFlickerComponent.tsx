@@ -1,12 +1,7 @@
+import { ITextFlickerComponent } from './interfaces.ts';
 import { useState, useEffect } from 'preact/hooks';
 
-interface ITextFlickerComponent {
-	list: [string];
-	unicode: string;
-	unscrambleDelay: number;
-	scrambleDelay: number;
-	interludeDelay: number;
-}
+
 
 export default function TextFlickerComponent(props: { data: ITextFlickerComponent }) {
 	const { list, unicode, unscrambleDelay = 50, scrambleDelay = 50, interludeDelay = 1000 } = props.data;

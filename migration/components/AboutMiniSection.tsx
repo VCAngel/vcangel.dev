@@ -1,8 +1,4 @@
-interface IAboutMiniSection {
-	title: string;
-    list: string[];
-	className: string;
-}
+import { IAboutMiniSection } from "./interfaces.ts";
 
 export default function AboutMiniSection({title, list, className}: IAboutMiniSection) {
 	const items = list.map((item, index) => <li key={index}>{item}</li>)
