@@ -45,7 +45,7 @@ export default function About() {
 						<br />
 						I'm a <span>{getAge()}-year-old</span> passionate <span>Computer Systems Engineer</span> based in <a href="https://www.google.com.mx/maps/place/Chihuahua,+Chih./@28.6708592,-106.2047053,11z/data=!3m1!4b1!4m5!3m4!1s0x86ea449d5d484033:0xb7f1a7a706dd1d7b!8m2!3d28.6329957!4d-106.0691004" target="_blank">Chihuahua, Mexico</a>.
 						I'm currently building an application for solving heat equations using the finite element method. <br />
-						{/* For the last <TimeCounter type="years" />, I've been in love with <span><TextFlicker list={texts} unicode={"⠁⠃⠉⠙⠑⠋⠛⠓⠊⠚⠅⠇⠍⠝⠻⠕⠏⠟⠗⠎⠞⠥⠧⠺⠭⠽⠵⠸⠷⠾⠿"} interludeDelay={7000} /></span>. <br /> */}
+						For the last <TimeCounter type="years" />, I've been in love with . <br />
 						Nothing's better than a cup of coffee, some tunes, and getting lost in the code.
 					</p>
 				</div>

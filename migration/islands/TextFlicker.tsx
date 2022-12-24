@@ -3,11 +3,11 @@ import { Component } from "preact";
 
 import TextFlickerComponent from "../components/TextFlickerComponent.tsx";
 
-interface TextFlickerProps {
+interface ITextFlicker {
     flickerProps: PageProps
 }
 
-export default class TextFlicker extends Component implements TextFlickerProps {
+export default class TextFlicker extends Component implements ITextFlicker {
     flickerProps
     constructor(props: { data: PageProps }) {
         super(props);
