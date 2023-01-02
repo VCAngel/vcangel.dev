@@ -4,8 +4,6 @@ import { Component } from "preact";
 
 import TextFlickerComponent from "../components/TextFlickerComponent.tsx";
 
-
-
 export default class TextFlicker extends Component implements ITextFlicker {
     flickerProps
     constructor(props: { data: PageProps }) {

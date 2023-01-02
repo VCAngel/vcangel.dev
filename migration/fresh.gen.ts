@@ -4,24 +4,28 @@
 
 import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/about.tsx";
-import * as $1 from "./routes/index.tsx";
-import * as $2 from "./routes/projects.tsx";
-import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/TextFlicker.tsx";
-import * as $$2 from "./islands/ThreeCanvas.jsx";
-import * as $$3 from "./islands/TimeCounter.tsx";
+import * as $1 from "./routes/contact.tsx";
+import * as $2 from "./routes/index.tsx";
+import * as $3 from "./routes/projects.tsx";
+import * as $$0 from "./islands/ContactForm.tsx";
+import * as $$1 from "./islands/Counter.tsx";
+import * as $$2 from "./islands/TextFlicker.tsx";
+import * as $$3 from "./islands/ThreeCanvas.jsx";
+import * as $$4 from "./islands/TimeCounter.tsx";
 
 const manifest = {
   routes: {
     "./routes/about.tsx": $0,
-    "./routes/index.tsx": $1,
-    "./routes/projects.tsx": $2,
+    "./routes/contact.tsx": $1,
+    "./routes/index.tsx": $2,
+    "./routes/projects.tsx": $3,
   },
   islands: {
-    "./islands/Counter.tsx": $$0,
-    "./islands/TextFlicker.tsx": $$1,
-    "./islands/ThreeCanvas.jsx": $$2,
-    "./islands/TimeCounter.tsx": $$3,
+    "./islands/ContactForm.tsx": $$0,
+    "./islands/Counter.tsx": $$1,
+    "./islands/TextFlicker.tsx": $$2,
+    "./islands/ThreeCanvas.jsx": $$3,
+    "./islands/TimeCounter.tsx": $$4,
   },
   baseUrl: import.meta.url,
   config,

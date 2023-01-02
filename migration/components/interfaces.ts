@@ -1,4 +1,6 @@
 import { PageProps } from "$fresh/server.ts";
+import { StateUpdater, MutableRef } from "preact/hooks";
+import { UseFormReturn } from "react-hook-form";
 
 export interface IAboutMiniSection {
 	title: string;
@@ -26,4 +28,14 @@ export interface IProjectCard {
 	title: string;
 	text: string;
 	href: string;
+}
+
+export interface IContactFormComponent {
+	states: {
+		sent: boolean, 
+		failed: boolean
+	}
+	formRef: MutableRef<undefined>,
+	sendMethod: () => Promise<void>,
+	methods: UseFormReturn
 }
