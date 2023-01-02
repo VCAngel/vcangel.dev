@@ -21,3 +21,9 @@ export interface ITextFlickerComponent {
 	scrambleDelay: number;
 	interludeDelay: number;
 }
+
+export interface IProjectCard {
+	title: string;
+	text: string;
+	href: string;
+}
