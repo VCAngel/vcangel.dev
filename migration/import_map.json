@@ -7,7 +7,8 @@
     "@preact/signals": "https://esm.sh/*@preact/signals@1.0.3",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.0.1",
     "@emailjs/browser": "https://esm.sh/emailjs@4.0.1",
-    "@react-three/fiber": "https://esm.sh/react-three-fiber@6.0.13",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@7.0.26?alias=react:preact/compat&deps=preact@10.11.0",
+    "@juggle/resize-observer": "https://esm.sh/@juggle/resize-observer@3.4.0",
     "sass":"https://deno.land/x/denosass/mod.ts",
     "std/path": "https://deno.land/std@0.121.0/path/mod.ts"
   }

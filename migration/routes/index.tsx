@@ -1,16 +1,32 @@
-import { PageProps } from "$fresh/server.ts";
+import { HandlerContext, Handlers, PageProps } from "$fresh/server.ts";
 import { Component, createRef } from "preact";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { ResizeObserver as PolyFill } from "@juggle/resize-observer";
 
 //: Islands
 import TextFlicker from "../islands/TextFlicker.tsx";
+// import Box from "../islands/ThreeCanvas.jsx";
 
 //: Components
 import { CustomHead } from "../components/CustomHead.tsx";
 import Navbar from "../components/Navbar.tsx";
 
+export const handler: Handlers = {
+  GET(_: Request, ctx: HandlerContext) {
+    const comp = (
+      // <Canvas id="spaceBg" resize={{ polyfill: window.ResizeObserver || PolyFill }} style={{ position: "absolute", zIndex: -11 }} >
+      //   <Box position={[1.2, 0, 0]} />
+      // </Canvas>
+      <div></div>
+    )
+    return ctx.render(comp)
+  }
+}
+
 export default class Home extends Component {
   constructor(props: PageProps) {
     super(props);
+    this.canvas = props.data
     this.state = {
       isLoading: true,
     };
@@ -33,8 +49,9 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <CustomHead title="Hey there!"/>
-        <Navbar/>
+        <CustomHead title="Hey there!" />
+        <Navbar />
+        {this.canvas}
         <main className="container" id="home">
           <div className="landing">
             <h1 className="landing--name">

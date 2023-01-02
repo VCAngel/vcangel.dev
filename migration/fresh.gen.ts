@@ -7,7 +7,8 @@ import * as $0 from "./routes/about.tsx";
 import * as $1 from "./routes/index.tsx";
 import * as $$0 from "./islands/Counter.tsx";
 import * as $$1 from "./islands/TextFlicker.tsx";
-import * as $$2 from "./islands/TimeCounter.tsx";
+import * as $$2 from "./islands/ThreeCanvas.jsx";
+import * as $$3 from "./islands/TimeCounter.tsx";
 
 const manifest = {
   routes: {
@@ -17,7 +18,8 @@ const manifest = {
   islands: {
     "./islands/Counter.tsx": $$0,
     "./islands/TextFlicker.tsx": $$1,
-    "./islands/TimeCounter.tsx": $$2,
+    "./islands/ThreeCanvas.jsx": $$2,
+    "./islands/TimeCounter.tsx": $$3,
   },
   baseUrl: import.meta.url,
   config,
