@@ -3,12 +3,13 @@ import { IProjectCard } from "./interfaces.ts"
 // todo new card style and presentation
 export default function ProjectCard({ title, text, href }: IProjectCard) {
     return (
-        <div className="projects__showcase--card">
-            <div className="content">
-                <h3 className="title">{title}</h3>
-                <p className="text">{text}</p>
-                <a className="btn btn-glow" href={href} target="_blank">Source Code</a>
+        <div className="card-bg card" >
+            <img src="" alt={title} className="card__img" />
+            <div className="card__content">
+                <h4>{title}</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto hic sequi rerum quaerat? Quidem consequatur neque, veritatis modi repellendus facilis eligendi ducimus. Ipsa, beatae accusantium? Mollitia placeat voluptatum consequatur aspernatur!</p>
             </div>
+            <div className="body"></div>
         </div>
     )
 }

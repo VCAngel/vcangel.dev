@@ -869,6 +869,8 @@
     "https://esm.sh/v102/scheduler@0.21.0/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0CmQvcHJlYWN0QDEwLjExLjA/deno/scheduler.js": "05d09e9afbb0cb708e94e6ea3ec6798c6d8dece4b9a386815e4cfabc462782a2",
     "https://esm.sh/v102/suspend-react@0.0.8/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0CmQvcHJlYWN0QDEwLjExLjA/deno/suspend-react.js": "db798b1402e831de988b609cd36c7d3c11316d250368a62e3cd7fbf9f9d818e3",
     "https://esm.sh/v102/three@0.148.0/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0CmQvcHJlYWN0QDEwLjExLjA/deno/three.js": "2a113a6e6cdcce114c7d3dac2b9ee299bd1619a9b61e1668f95c4dff195fc33e",
+    "https://esm.sh/v102/vanilla-tilt@1.8.0/deno/vanilla-tilt.js": "99c65f37d469fe7fcf534341f33005c41054f6f470c32ed4c6ace43ef8f8454f",
+    "https://esm.sh/v102/vanilla-tilt@1.8.0/vanilla-tilt.d.ts": "1c972131647f65b2dac5c22a9b0b1cfb44909e85df72d0b7bcd5500d8cf3925a",
     "https://esm.sh/v102/zustand@3.7.2/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0CmQvcHJlYWN0QDEwLjExLjA/deno/zustand.js": "b17c68fcbf34a208d0c6e36ae56ae9d75d423a3daa11f6431e560a4150503124",
     "https://esm.sh/v102/zustand@3.7.2/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0CmQvcHJlYWN0QDEwLjExLjA/index.d.ts": "5be0ce8d61cf8ef4ebe1ab81f8861fefb9f4b62cc41bf48c679b0a7d56aad94a",
     "https://esm.sh/v102/zustand@3.7.2/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0CmQvcHJlYWN0QDEwLjExLjA/react.d.ts": "daed329bae80b4ab56a7ce593c25b847218e3e3f7c4e5ea651f95783b07a91c8",
@@ -1457,6 +1459,7 @@
     "https://esm.sh/v99/zustand@3.7.2/index.d.ts": "5be0ce8d61cf8ef4ebe1ab81f8861fefb9f4b62cc41bf48c679b0a7d56aad94a",
     "https://esm.sh/v99/zustand@3.7.2/react.d.ts": "daed329bae80b4ab56a7ce593c25b847218e3e3f7c4e5ea651f95783b07a91c8",
     "https://esm.sh/v99/zustand@3.7.2/vanilla.d.ts": "903345b5fc1e6010f8c03e36619e33f9e0d3a6787779aeb7687454d2a6c3ef6d",
+    "https://esm.sh/vanilla-tilt@1.8.0": "b2917c0c87bd4cce98adfb7fd8046f1a98672db6fb77da269611d4aea1e28c29",
     "https://unpkg.com/@react-three/drei@8.20.2/index.cjs.js": "63d581d756f466dda5d624b8ee91a23535989e8d34bd58c0c9ff9d0adaff28a3",
     "https://unpkg.com/@react-three/drei@9.48.1/index.cjs.js": "693628c3f7a3b6715e52ff1a936eb86efc68d2556996e620f922a70a8610f438"
   }
