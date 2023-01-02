@@ -33,6 +33,7 @@ export default function Projects(props: PageProps) {
 					</div>
 				</div>
 			</section>
+			<script type="text/javascript" src="./js/vanilla-tilt.min.js" />
 		</>
 	)
 }

@@ -11,7 +11,7 @@
     "@react-three/fiber": "https://esm.sh/@react-three/fiber@7.0.26?alias=react:preact/compat&deps=preact@10.11.0",
     "@juggle/resize-observer": "https://esm.sh/@juggle/resize-observer@3.4.0",
     "sass":"https://deno.land/x/denosass/mod.ts",
-    "tiltjs": "https://esm.sh/vanilla-tilt@1.8.0",
+    "tilt-js": "https://esm.sh/vanilla-tilt@1.8.0",
     "std/path": "https://deno.land/std@0.121.0/path/mod.ts"
   }
 }
