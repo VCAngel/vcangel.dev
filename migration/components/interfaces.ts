@@ -27,6 +27,7 @@ export interface ITextFlickerComponent {
 export interface IProjectCard {
 	title: string;
 	text: string;
+	techs: string[]
 	href: string;
 }
 

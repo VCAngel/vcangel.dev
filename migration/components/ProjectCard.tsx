@@ -1,3 +1,4 @@
+import { Ref, useState, useEffect } from "preact/hooks";
 import { IProjectCard } from "./interfaces.ts"
 
 // todo new card style and presentation
@@ -10,11 +11,13 @@ export default function ProjectCard({ title, text, href }: IProjectCard) {
             data-tilt-max-glare="0.05"
             data-tilt-reverse="true">
             <img src="" alt={title} className="card__img" />
-            <div className="card__content" >
-                <h4>{title}</h4>
-                <p>{text}</p>
+            <div className="card__content">
+                <div>
+                    <h4 className="card__content--title">{title}</h4>
+                    <p className="card__content--desc">{text}</p>
+                    <a className="card__content--button" href={href} target="_blank">Source code</a>
+                </div>
             </div>
-            <div className="body"></div>
         </div>
     )
 }

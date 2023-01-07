@@ -19,7 +19,7 @@
 
     &__showcase {
         max-width: 100rem;
-        height: 36rem;
+        height: 44rem;
         margin: 2.4rem auto;
         @include gridDisplay(3, 1fr);
         gap: 1.6rem;
@@ -29,24 +29,61 @@
             width: 100%;
             height: 100%;
             padding: 1rem;
-            border: 3px ridge transparent;
-            background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(#FDC830, #F37335);
+            border: 0px ridge transparent;
+            border-radius: 0.5rem;
+            background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(to bottom right, #AF40FF, #5B42F3, #00DDEB);
             background-origin: border-box;
             background-clip: padding-box, border-box;
             position: relative;
             overflow: hidden;
-            box-shadow: 0px 0px 0px;
+            box-shadow: 0px 0px 0.8rem;
             @include transition(box-shadow, .2s, ease-in-out);
-            @include transition(border-width, .2s, ease-in-out);
+            @include transition(border, .2s, ease-in-out);
 
             .card__content {
-                text-align: justify;
+                display: flex;
+                align-items: center;
                 width: 100%;
+                height: 100%;
                 padding: 1rem;
                 margin: -1rem 0;
                 color: transparent;
                 text-align: center;
+                z-index: 1;
+                -webkit-filter: opacity(0);
+                filter: opacity(0);
                 @include transition(all, .4s, ease-in-out);
+                
+                div {
+                    height: 90%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                    
+                    .card__content--title {}
+
+                    .card__content--desc {
+                        max-height: 40%;
+                        overflow: scroll;
+                    }
+
+                    .card__content--button {
+                        padding: 1.2rem;
+                        border: none;
+                        border: 1px solid $backgroundDark;
+                        color: $secondaryLight;
+                        background-color: #191b19;
+                        background-image: linear-gradient(#191b19, #191b19), linear-gradient(to right, #FDC830, #F37335);
+                        @include transition(border, 0.2s, ease-in-out);
+
+                        &:hover {
+                            border: 1px ridge transparent;
+                            background-origin: border-box;
+                            background-clip: padding-box, border-box;
+                        }
+                    }
+                }
             }
 
             .card__img {
@@ -58,16 +95,20 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                z-index: 1;
+                z-index: 0;
                 @include transition(all, 0.3s, ease-in-out);
             }
 
             &:hover {
-                box-shadow: 0px 0px 1rem;
+                box-shadow: 0px 0px 2rem #5B42F3;
+                border-width: 4px;
+                border-radius: 2rem;
 
                 .card__content {
                     margin: 0;
                     color: inherit;
+                    -webkit-filter: opacity(1);
+                    filter: opacity(1);
                 }
 
                 .card__img {
