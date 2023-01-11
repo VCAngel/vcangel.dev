@@ -25,11 +25,11 @@ export function Platzi() {
 export function VA() {
 	return (
 		<svg
-			id="va_svg__sw-js-blob-svg"
+			id="va_svg"
 			width="0"
 			height="0"
 			xmlns="http://www.w3.org/2000/svg">
-			<defs id="va_svg__defs47" >
+			<defs id="va_svg__defs" >
 				<clipPath id="va_svg__clip" clipPathUnits="objectBoundingBox">
 					<path
 						style="display:inline;fill:#000000"
@@ -111,7 +111,8 @@ export function VA() {
 						id="va_svg__path1254"
 						d="m 1.1115922,-0.64009592 -0.3202489,-0.55468728 0.6404977,0 z"
 						transform="matrix(-0.08676616,-0.1502834,0.1502834,-0.08676616,1.0399149,0.4517694)" />
-				</clipPath>
+				</clipPath>	
+
 			</defs>
 		</svg>
 

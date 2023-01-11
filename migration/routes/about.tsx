@@ -8,7 +8,7 @@ import TextFlicker from "../islands/TextFlicker.tsx";
 import { CustomHead } from "../components/CustomHead.tsx";
 import Navbar from "../components/Navbar.tsx";
 import AboutMiniSection from "../components/AboutMiniSection.tsx";
-import {VA} from "../components/SVG.jsx";
+import { VA } from "../components/SVG.jsx";
 
 export default function About() {
 	const technologies = ["HTML 5", "CSS 3", "JavaScript", "React", "Vue", "Node.js", "Python", "Java", "C#", "SQL", "Git"];
@@ -42,8 +42,16 @@ export default function About() {
 			<section className="container" id="about">
 				{/* TODO add selfie or something */}
 				<div className="pfp">
-					<VA/>
-					<img src="./img/me_woah.jpg" alt="That's me!" />
+					<div className="pfp__clip"
+						data-tilt
+						data-tilt-max="7"
+						data-tilt-glare="true"
+						data-tilt-reverse="true"
+						data-tilt-max-glare="0.3"
+						data-tilt-full-page-listening>
+						<VA /> {/**Clip path */}
+						<img src="./img/me_woah.jpg" alt="That's me!" />
+					</div>
 				</div>
 				<div className="about">
 					<h2 className="about--title">A little <span>about me!</span></h2>
@@ -52,7 +60,7 @@ export default function About() {
 						<br />
 						I'm a <span>{getAge()}-year-old</span> passionate <span>Computer Systems Engineer</span> based in <a href="https://www.google.com.mx/maps/place/Chihuahua,+Chih./@28.6708592,-106.2047053,11z/data=!3m1!4b1!4m5!3m4!1s0x86ea449d5d484033:0xb7f1a7a706dd1d7b!8m2!3d28.6329957!4d-106.0691004" target="_blank">Chihuahua, Mexico</a>.
 						I'm currently building an application for solving heat equations using the finite element method. <br />
-						For the last <TimeCounter data="years" />, I've been in love with <TextFlicker data={flickerProps}/>. <br />
+						For the last <TimeCounter data="years" />, I've been in love with <TextFlicker data={flickerProps} />. <br />
 						Nothing's better than a cup of coffee, some tunes, and getting lost in the code.
 					</p>
 				</div>
@@ -61,6 +69,7 @@ export default function About() {
 					<AboutMiniSection title="Interests" className="info--interests" list={interests} />
 				</div>
 			</section>
+			<script src="./js/vanilla-tilt.min.js"></script>
 		</>
 	);
 }
