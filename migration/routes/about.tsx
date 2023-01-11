@@ -8,6 +8,7 @@ import TextFlicker from "../islands/TextFlicker.tsx";
 import { CustomHead } from "../components/CustomHead.tsx";
 import Navbar from "../components/Navbar.tsx";
 import AboutMiniSection from "../components/AboutMiniSection.tsx";
+import {VA} from "../components/SVG.jsx";
 
 export default function About() {
 	const technologies = ["HTML 5", "CSS 3", "JavaScript", "React", "Vue", "Node.js", "Python", "Java", "C#", "SQL", "Git"];
@@ -41,8 +42,7 @@ export default function About() {
 			<section className="container" id="about">
 				{/* TODO add selfie or something */}
 				<div className="pfp">
-					{/*TODO svg clip-path */}
-					<object data="./svg/va.svg" type="image/svg+xml"></object>
+					<VA/>
 					<img src="./img/me_woah.jpg" alt="That's me!" />
 				</div>
 				<div className="about">
