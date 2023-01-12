@@ -44,13 +44,20 @@ export default function About() {
 				<div className="pfp">
 					<div className="pfp__clip"
 						data-tilt
-						data-tilt-max="7"
+						data-tilt-max="10"
 						data-tilt-glare="true"
 						data-tilt-reverse="true"
 						data-tilt-max-glare="0.3"
 						data-tilt-full-page-listening>
 						<VA /> {/**Clip path */}
-						<img src="./img/me_woah.jpg" alt="That's me!" />
+						<div className="pfp__clip--img">
+							<span className="layer_1">&nbsp;</span>
+							<span className="layer_2">&nbsp;</span>
+							<span className="layer_3">&nbsp;</span>
+							<span className="layer_4">&nbsp;</span>
+							<span className="layer_5">&nbsp;</span>
+							<img src="./img/me_woah.jpg" alt="VCAngel!" />
+						</div>
 					</div>
 				</div>
 				<div className="about">
