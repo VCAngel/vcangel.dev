@@ -1,8 +1,9 @@
-.container {
+section.container#contact {
     min-height: 100vh;
     // todo create global container class
     content-visibility: auto;
     contain-intrinsic-size: 0px 500px;
+    @include gridDisplay(2, 1fr);
 
     .contact {
         margin: auto;

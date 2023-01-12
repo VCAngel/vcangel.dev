@@ -26,7 +26,7 @@ export default function Projects(props: PageProps) {
 		{
 			title: "Github User Search",
 			text: "Web application for searching Github users and displaying general information about them. Made with the consumption of Github's public API.",
-			techs: ["HTML","SCSS", "JavaScript"],
+			techs: ["HTML", "SCSS", "JavaScript"],
 			href: "https://github.com/VCAngel/GH_User_Search"
 		}
 	]
@@ -35,20 +35,22 @@ export default function Projects(props: PageProps) {
 		<>
 			<CustomHead title="My projects!" />
 			<Navbar />
-			<section className="container" id="projects">
-				<div className="projects">
-					<h2 className="projects--title">Here's some <span>stuff I made.</span></h2>
-					<p className="projects--mini">Made with love 🤍</p>
-					<section className="projects__showcase">
-						{cards.map((item, index) => <ProjectCard
-							title={item.title}
-							text={item.text}
-							href={item.href}
-							key={index} />)}
-					</section>
-				</div>
+			<div className="v-center">
+				<section className="container" id="projects">
+					<div className="projects">
+						<h2 className="projects--title">Here's some <span>stuff I made.</span></h2>
+						<p className="projects--mini">Made with love 🤍</p>
+						<section className="projects__showcase">
+							{cards.map((item, index) => <ProjectCard
+								title={item.title}
+								text={item.text}
+								href={item.href}
+								key={index} />)}
+						</section>
+					</div>
 
-			</section>
+				</section>
+			</div>
 			<script type="text/javascript" src="./js/vanilla-tilt.min.js" />
 		</>
 	)

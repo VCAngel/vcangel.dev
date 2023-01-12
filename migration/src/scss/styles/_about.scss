@@ -1,21 +1,22 @@
-section.container {
-    height: 100vh;
+section.container#about{
+    height: fit-content;
     @include gridDisplay(2, 1rem);
-
-    .pfp {
+    
+        .pfp {
         display: flex;
         align-items: center;
         justify-content: center;
-
+        
         &__clip {
             display: flex;
+            position: relative;
             align-items: center;
             justify-content: center;
-            position: relative;
             box-sizing: border-box;
+            margin: 8rem 0;
             min-width: 30%;
             max-width: 60%;
-            min-height: 70%;
+            min-height: 80%;
             border: 4px ridge transparent;
             border-radius: 2rem;
             background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(to bottom right, #AF40FF, #5B42F3, #00DDEB);
@@ -25,11 +26,11 @@ section.container {
             perspective: 20rem;
             object-fit: cover;
             transform-style: preserve-3d;
-
+            
             &--img {
                 position: relative;
                 transform-style: preserve-3d;
-
+                
                 span {
                     position: absolute;
                     top: 0;
@@ -42,7 +43,7 @@ section.container {
                         transform: translateZ(0.2rem);
                         background-image: linear-gradient(to bottom right, #af40ff22, #5B42F322, #00DDEB22);
                     }
-
+                    
                     &.layer_2 {
                         transform: translateZ(0.4rem);
                         background-image: linear-gradient(to bottom right, #AF40FF44, #5B42F344, #00DDEB44);
@@ -52,23 +53,24 @@ section.container {
                         transform: translateZ(0.8rem);
                         background-image: linear-gradient(to bottom right, #AF40FF88, #5B42F388, #00DDEB88);
                     }
-
+                    
                     &.layer_4 {
                         transform: translateZ(1.6rem);
                         background-image: linear-gradient(to bottom right, #AF40FFcc, #5B42F3cc, #00DDEBcc);
                     }
                 }
             }
-
+            
             img {
                 transform: translateZ(2.4rem);
                 object-fit: cover;
                 clip-path: url(#va_svg__clip);
             }
-
+            
         }
-
-
+        
+        
+    
     }
 }
 
@@ -122,6 +124,4 @@ section.container {
     &--interests {
         grid-template-rows: repeat(2, 1fr);
     }
-}
-
 }
