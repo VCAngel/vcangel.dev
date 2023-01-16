@@ -42,3 +42,8 @@ export interface IContactFormComponent {
 	sendMethod: () => Promise<void>,
 	methods: UseFormReturn
 }
+
+export interface ISocial {
+	social: string;
+	link: string;
+}

@@ -5,6 +5,7 @@ import { IProjectCard } from "../components/interfaces.ts";
 import { CustomHead } from "../components/CustomHead.tsx";
 import Navbar from "../components/Navbar.tsx";
 import ProjectCard from "../components/ProjectCard.tsx";
+import Footer from "../components/Footer.tsx";
 
 //todo apply handler for project fetching
 //? create api route
@@ -55,6 +56,7 @@ export default function Projects(props: PageProps) {
 
 				</section>
 			</div>
+			<Footer />
 			<script type="text/javascript" src="./js/vanilla-tilt.min.js" />
 		</>
 	)

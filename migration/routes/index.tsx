@@ -10,6 +10,7 @@ import TextFlicker from "../islands/TextFlicker.tsx";
 //: Components
 import { CustomHead } from "../components/CustomHead.tsx";
 import Navbar from "../components/Navbar.tsx";
+import Footer from "../components/Footer.tsx";
 
 export const handler: Handlers = {
   GET(_: Request, ctx: HandlerContext) {
@@ -76,6 +77,7 @@ export default class Home extends Component {
           </div>
           <span>{/*todo threejs avatar*/}</span>
         </main>
+        <Footer />
       </>
     );
   }

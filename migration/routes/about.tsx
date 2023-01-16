@@ -6,9 +6,10 @@ import TextFlicker from "../islands/TextFlicker.tsx";
 
 //: Components
 import { CustomHead } from "../components/CustomHead.tsx";
+import { VA } from "../components/SVG.jsx";
 import Navbar from "../components/Navbar.tsx";
 import AboutMiniSection from "../components/AboutMiniSection.tsx";
-import { VA } from "../components/SVG.jsx";
+import Footer from "../components/Footer.tsx";
 
 export default function About() {
 	const technologies = ["HTML 5", "CSS 3", "JavaScript", "React", "Vue", "Node.js", "Python", "Java", "C#", "SQL", "Git"];
@@ -71,7 +72,7 @@ export default function About() {
 							I'm currently building an application for solving heat equations using the finite element method.<br />
 						</p>
 						<p className="about--text text-indent">
-							For the last <TimeCounter data="years" />, I've been in love with <TextFlicker data={flickerProps} />. <br/>
+							For the last <TimeCounter data="years" />, I've been in love with <TextFlicker data={flickerProps} />. <br />
 						</p>
 						<p className="about--text text-indent">
 							Nothing's better than a cup of coffee, some tunes, and getting lost in the code.
@@ -83,6 +84,7 @@ export default function About() {
 					</div>
 				</section>
 			</div>
+			<Footer />
 			<script src="./js/vanilla-tilt.min.js"></script>
 		</>
 	);

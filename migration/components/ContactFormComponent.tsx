@@ -1,8 +1,6 @@
 import { IContactFormComponent } from "./interfaces.ts";
 
 export default function ContactFormComponent({ states, formRef, sendMethod, methods }: IContactFormComponent) {
-	console.log(states);
-
 	const {
 		handleSubmit,
 		register,
