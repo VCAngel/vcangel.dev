@@ -10,7 +10,10 @@ const Navbar = () => {
 			</div>
 			<ul className="navbar__links">
 				<li className="navbar__links--item">
-					<a href="#">Resume</a>
+					<a
+						target="_blank"
+						href="https://drive.google.com/file/d/1Vi25kKB6tjF77eY-m9L12IVCSseEafjH/view?usp=sharing">
+						Resume</a>
 				</li>
 
 				<span></span>
