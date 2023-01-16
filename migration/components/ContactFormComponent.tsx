@@ -12,7 +12,7 @@ export default function ContactFormComponent({ states, formRef, sendMethod, meth
 	// todo Modify form styles
 
 	return (
-		<div className="form">
+		<div className="form card-bg">
 			<form className="form__group" onSubmit={handleSubmit(sendMethod)} ref={formRef}>
 				<label htmlFor="name">Name</label>
 				<input type="text" id="name" {...register("name", { required: "What's your name?" })} placeholder={errors.name?.message} />
@@ -26,7 +26,6 @@ export default function ContactFormComponent({ states, formRef, sendMethod, meth
 				<label htmlFor="message">Message</label>
 				<textarea id="message" {...register("message", { required: 'Just say hi!' })} placeholder={errors.message?.message} cols={30} rows={8}></textarea>
 
-				{/* <div className="g-recaptcha" data-sitekey="6LfZQZwhAAAAAP2TRBL4OThYgIPSeMllM2sOXI67"></div> */}
 				<input className="button" type="submit" value="Get in touch 🚀" />
 			</form>
 

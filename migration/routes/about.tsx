@@ -64,11 +64,16 @@ export default function About() {
 					<div className="about">
 						<h2 className="about--title">A little <span>about me!</span></h2>
 						<p className="about--text">
-							Hello! My name is <span>Ángel Vargas Casavantes</span>.
-							<br />
+							Hello! My name is <span>Ángel Vargas Casavantes</span>. <br />
+						</p>
+						<p className="about--text text-indent">
 							I'm a <span>{getAge()}-year-old</span> passionate <span>Computer Systems Engineer</span> based in <a href="https://www.google.com.mx/maps/place/Chihuahua,+Chih./@28.6708592,-106.2047053,11z/data=!3m1!4b1!4m5!3m4!1s0x86ea449d5d484033:0xb7f1a7a706dd1d7b!8m2!3d28.6329957!4d-106.0691004" target="_blank">Chihuahua, Mexico</a>.
-							I'm currently building an application for solving heat equations using the finite element method. <br />
-							For the last <TimeCounter data="years" />, I've been in love with <TextFlicker data={flickerProps} />. <br />
+							I'm currently building an application for solving heat equations using the finite element method.<br />
+						</p>
+						<p className="about--text text-indent">
+							For the last <TimeCounter data="years" />, I've been in love with <TextFlicker data={flickerProps} />. <br/>
+						</p>
+						<p className="about--text text-indent">
 							Nothing's better than a cup of coffee, some tunes, and getting lost in the code.
 						</p>
 					</div>

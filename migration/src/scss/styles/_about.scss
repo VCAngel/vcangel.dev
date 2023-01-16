@@ -87,6 +87,8 @@ section.container#about{
     }
 
     &--text {
+        text-align: justify;
+
         a {
             font-weight: $thin;
         }

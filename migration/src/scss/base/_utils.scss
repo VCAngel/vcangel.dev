@@ -27,3 +27,13 @@
     align-items: center;
     height: 100vh;
 }
+
+.text-indent{
+    padding-left: 0;
+    text-indent: 0;
+    
+    @include desktop{
+        padding-left: 3ch;
+        text-indent: -3ch;
+    }
+}

@@ -15,18 +15,21 @@ export default function Projects(props: PageProps) {
 			title: `ClimaTS`,
 			text: "Web Application that let's you find out what the weather is around the world!",
 			techs: ["TypeScript", "SCSS"],
+			imgSrc: "",
 			href: "https://github.com/VCAngel/Weather_App"
 		},
 		{
 			title: "FEMDesk",
 			text: "Modular physical phenomena simulator. Utilizing the Finite Elements Method, resolves and displays physical and mathematical simulations.",
 			techs: ["Python"],
+			imgSrc: "",
 			href: "https://github.com/montesp/FEMDesk"
 		},
 		{
 			title: "Github User Search",
 			text: "Web application for searching Github users and displaying general information about them. Made with the consumption of Github's public API.",
 			techs: ["HTML", "SCSS", "JavaScript"],
+			imgSrc: "./img/ghus",
 			href: "https://github.com/VCAngel/GH_User_Search"
 		}
 	]
@@ -45,6 +48,7 @@ export default function Projects(props: PageProps) {
 								title={item.title}
 								text={item.text}
 								href={item.href}
+								imgSrc={item.imgSrc}
 								key={index} />)}
 						</section>
 					</div>

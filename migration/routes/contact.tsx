@@ -21,7 +21,7 @@ export default function Contact(props: PageProps) {
 						<div className="contact__title">
 							<h2 className="contact__title--title">Let's <span>work together!</span></h2>
 							<p className="contact__title--text">
-								Got a project, inquiry or just want to say hi? Feel free to contact me! <br />
+								Got a project, inquiry or just want to say hi? Feel free to contact me! <br/>
 								I'll be sure to reply ASAP.
 							</p>
 						</div>
