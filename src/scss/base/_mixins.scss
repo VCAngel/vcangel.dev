@@ -28,23 +28,29 @@
     }
 }
 
+@mixin widescreen{
+    @media (min-width: $widescreen) {
+        @content;
+    }
+}
+
 @mixin gridDisplay($columns, $gap) {
     display: grid;
     grid-template-columns: repeat($columns, 1fr);
     gap: $gap;
 }
 
-@mixin transition($prop, $time, $bezier){
+@mixin transition($prop, $time, $bezier) {
     transition: $prop $time $bezier;
 }
 
-@mixin textBackground($rule){
+@mixin textBackground($rule) {
     background: $rule;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-@mixin textShadow{
-    text-shadow: 0px 0 8rem rgb(242 242 242 / 55%), 0 0 3.2rem rgb(46 2 77 / 25%); 
+@mixin textShadow {
+    text-shadow: 0px 0 8rem rgba(242, 242, 242, 55), 0 0 3.2rem rgba(46, 2, 77, 25);
 }
