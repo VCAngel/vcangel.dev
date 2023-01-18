@@ -132,4 +132,8 @@ a {
     @include lg-desktop {
         max-width: 65%;
     }
+
+    @include widescreen {
+        max-width: 55%;
+    }
 }

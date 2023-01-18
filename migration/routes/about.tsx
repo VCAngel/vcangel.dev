@@ -40,6 +40,7 @@ export default function About() {
 		<>
 			<CustomHead title="About me!" />
 			<Navbar />
+			<div id="spaceBg" style={{position: "absolute", zIndex: -11}}/>
 			<div className="v-center">
 				<section className="container" id="about">
 					{/* TODO add selfie or something */}

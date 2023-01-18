@@ -39,6 +39,7 @@ export default function Projects(props: PageProps) {
 		<>
 			<CustomHead title="My projects!" />
 			<Navbar />
+			<div id="spaceBg" style={{position: "absolute", zIndex: -11}}/>
 			<div className="v-center">
 				<section className="container" id="projects">
 					<div className="projects">

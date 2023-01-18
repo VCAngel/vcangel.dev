@@ -15,6 +15,7 @@ export default function Contact(props: PageProps) {
 		<>
 			<CustomHead title="Get in touch!" />
 			<Navbar />
+			<div id="spaceBg" style={{position: "absolute", zIndex: -11}}/>
 			<div className="v-center">
 				<section className="container" id="contact">
 					<div className="contact">

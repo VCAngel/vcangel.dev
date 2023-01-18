@@ -12,22 +12,9 @@ import { CustomHead } from "../components/CustomHead.tsx";
 import Navbar from "../components/Navbar.tsx";
 import Footer from "../components/Footer.tsx";
 
-export const handler: Handlers = {
-  GET(_: Request, ctx: HandlerContext) {
-    const comp = (
-      // <Canvas id="spaceBg" resize={{ polyfill: window.ResizeObserver || PolyFill }} style={{ position: "absolute", zIndex: -11 }} >
-      //   <Box position={[1.2, 0, 0]} />
-      // </Canvas>
-      <div></div>
-    )
-    return ctx.render(comp)
-  }
-}
-
 export default class Home extends Component {
   constructor(props: PageProps) {
     super(props);
-    this.canvas = props.data
     this.state = {
       isLoading: true,
     };
@@ -52,7 +39,7 @@ export default class Home extends Component {
       <>
         <CustomHead title="Hey there!" />
         <Navbar />
-        {this.canvas}
+        <div id="spaceBg" style={{position: "absolute", zIndex: -11}}/>
         <main className="container" id="home">
           <div className="landing">
             <h1 className="landing--name">
@@ -70,12 +57,9 @@ export default class Home extends Component {
                 </span>
               </p>
             </section>
-
-            <section>
-              {/*todo social links*/}
-            </section>
           </div>
-          <span>{/*todo threejs avatar*/}</span>
+          {/* ?todo threejs avatar */}
+          
         </main>
         <Footer />
       </>
