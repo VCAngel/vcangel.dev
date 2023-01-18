@@ -6,7 +6,6 @@ footer {
     grid-column: 1/3;
     position: sticky;
     bottom: 0;
-    width: 100%;
     background-color: $backgroundDark;
 
     .end {
@@ -15,7 +14,7 @@ footer {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 0;
+        padding: 0.8rem 0;
 
         &__socials {
             display: block;
