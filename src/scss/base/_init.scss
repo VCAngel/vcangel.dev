@@ -68,13 +68,13 @@ br {
 a {
     text-decoration: none;
     font-weight: $regular;
-    color: #888;
-    text-shadow: 0px 0px 1px rgba(128, 128, 128, 0.5);
+    color: #a0a5a0;
+    text-shadow: 0px 0px 0px rgba(233, 241, 233,0.5);
     transition: color 0.2s ease-in, text-shadow 0.2s ease-in;
 
     &:hover {
         color: $primaryLight;
-        text-shadow: 3px 3px 1px rgba(128, 128, 128, 0.5);
+        text-shadow: 0px 0px 2rem #5B42F3;
     }
 }
 

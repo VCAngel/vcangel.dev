@@ -59,7 +59,7 @@ export default function About() {
 								<span className="layer_3">&nbsp;</span>
 								<span className="layer_4">&nbsp;</span>
 								<span className="layer_5">&nbsp;</span>
-								<img src="./img/me_woah.jpg" alt="VCAngel!" />
+								<img src="./img/me_woah.png" alt="VCAngel" />
 							</div>
 						</div>
 					</div>

@@ -1,11 +1,14 @@
-.navbar {
-    background: linear-gradient(to bottom, $backgroundDark 0%, rgba(17, 17, 17, 0.6) 33%, rgba(17, 17, 17, 0.3) 100%);
-    -webkit-backdrop-filter: blur(0.1rem);
-    backdrop-filter: blur(0.1rem);
+header{
     width: 100%;
     position: fixed; //* Set the navbar to fixed position
     top: 0; //* Position the navbar at the top of the page
-    padding: 1rem 5rem;
+    background: linear-gradient(to bottom, $backgroundDark 0%, rgba(17, 17, 17, 0.6) 33%, rgba(17, 17, 17, 0.3) 100%);
+    -webkit-backdrop-filter: blur(0.1rem);
+    backdrop-filter: blur(0.1rem);
+}
+
+.navbar {
+    padding: 0.8rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;

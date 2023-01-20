@@ -1,7 +1,7 @@
 main.container {
     height: 100vh;
     @include gridDisplay(2, 1rem);
-
+    
     .landing {
         display: flex;
         flex-direction: column;
