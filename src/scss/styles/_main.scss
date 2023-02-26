@@ -37,7 +37,7 @@ main.container {
             position: relative;
             display: inline-block;
 
-            @include textBackground(linear-gradient(to right, #AAFFA9, #11FFBD));
+            @include textBackground(linear-gradient(to bottom right, #42f3a9, #00ebeb));
         }
 
         &--cursor {
