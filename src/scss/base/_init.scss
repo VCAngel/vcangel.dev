@@ -22,6 +22,23 @@ body {
     scroll-behavior: smooth;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 0.4rem;    
+    height: 0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
 img {
     max-width: 100%;
 }
@@ -55,21 +72,18 @@ h4 {
 
 p {
     margin: 0;
+    margin-bottom: 1rem;
     line-height: $lineHeight;
     font-size: $p;
     font-family: $secondaryFont;
     font-weight: $light;
 }
 
-br {
-    margin-bottom: 1rem;
-}
-
 a {
     text-decoration: none;
     font-weight: $regular;
     color: #a0a5a0;
-    text-shadow: 0px 0px 0px rgba(233, 241, 233,0.5);
+    text-shadow: 0px 0px 0px rgba(233, 241, 233, 0.5);
     transition: color 0.2s ease-in, text-shadow 0.2s ease-in;
 
     &:hover {
@@ -118,7 +132,6 @@ a {
     max-width: 80%;
     width: 180rem;
     margin: 0 auto;
-    content-visibility: auto;
     @include transition(max-width, 1s, ease-out);
 
     @include tablet {

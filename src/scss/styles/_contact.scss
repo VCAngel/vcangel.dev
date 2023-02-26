@@ -1,8 +1,5 @@
 section.container#contact {
     min-height: 100vh;
-    // todo create global container class
-    content-visibility: auto;
-    contain-intrinsic-size: 0px 500px;
     @include gridDisplay(2, 1fr);
 
     .contact {
@@ -45,7 +42,7 @@ section.container#contact {
         padding: 2.6rem;
         border: 4px ridge transparent;
         border-radius: 2rem;
-        background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(to bottom right, #AF40FF, #5B42F3, #00DDEB);
+        background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(to bottom right, #AF40FF, #5B42F3, #00a1eb);
         background-origin: border-box;
         background-clip: padding-box, border-box;
         box-shadow: 0px 0px 2rem #5B42F3;
@@ -68,7 +65,7 @@ section.container#contact {
                 color: $secondaryLight;
                 font-family: $secondaryFont;
                 background-color: #191b19;
-                background-image: linear-gradient(rgb(32, 30, 35), rgb(32, 30, 35)), linear-gradient(to right, #FDC830, #F37335);
+                background-image: linear-gradient(rgb(32, 30, 35), rgb(32, 30, 35)), linear-gradient(to top left, #AF40FF, #5B42F3, #00a1eb);
                 border: none;
                 border: 1px ridge rgb(42, 41, 49);
                 transition: border 0.2s ease-in, box-shadow 0.2s ease-in;

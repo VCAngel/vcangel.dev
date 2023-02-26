@@ -19,7 +19,7 @@ section.container#about{
             min-height: 80%;
             border: 4px ridge transparent;
             border-radius: 2rem;
-            background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(to bottom right, #AF40FF, #5B42F3, #00DDEB);
+            background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(to bottom right, #AF40FF, #5B42F3, #00a1eb);
             background-origin: border-box;
             background-clip: padding-box, border-box;
             box-shadow: 0px 0px 2rem #5B42F3;
@@ -41,22 +41,22 @@ section.container#about{
 
                     &.layer_1 {
                         transform: translateZ(0.2rem);
-                        background-image: linear-gradient(to bottom right, #af40ff22, #5B42F322, #00DDEB22);
+                        background-image: linear-gradient(to bottom right, #AF40FF22, #5B42F322, #00a1eb22);
                     }
                     
                     &.layer_2 {
                         transform: translateZ(0.4rem);
-                        background-image: linear-gradient(to bottom right, #AF40FF44, #5B42F344, #00DDEB44);
+                        background-image: linear-gradient(to bottom right, #AF40FF44, #5B42F344, #00a1eb44);
                     }
 
                     &.layer_3 {
                         transform: translateZ(0.8rem);
-                        background-image: linear-gradient(to bottom right, #AF40FF88, #5B42F388, #00DDEB88);
+                        background-image: linear-gradient(to bottom right, #AF40FF88, #5B42F388, #00a1eb88);
                     }
                     
                     &.layer_4 {
                         transform: translateZ(1.6rem);
-                        background-image: linear-gradient(to bottom right, #AF40FFcc, #5B42F3cc, #00DDEBcc);
+                        background-image: linear-gradient(to bottom right, #AF40FFcc, #5B42F3cc, #00a1ebcc);
                     }
                 }
             }
@@ -94,7 +94,7 @@ section.container#about{
         }
 
         span {
-            @include textBackground(linear-gradient(to right, #AAFFA9, #11FFBD));
+            @include textBackground(linear-gradient(to bottom right, #42f3a9, #00ebeb));
         }
     }
 
