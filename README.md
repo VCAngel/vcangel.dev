@@ -1,7 +1,7 @@
 # Hey there!
 This is my web page! I still work on it from time to time, so there's stuff to be made.
 
-Check it out!: [vcangel.deno.dev](vcangel.dev)
+Check it out!: [vcangel.deno.dev](https://vcangel.deno.dev/)
 
 ### Disclaimer
 
