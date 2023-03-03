@@ -37,3 +37,7 @@
         text-indent: -3ch;
     }
 }
+
+.emphasize-text{
+    @include textBackground(linear-gradient(to bottom right, #00ebeb, #42f3a9));
+}

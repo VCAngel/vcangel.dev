@@ -19,7 +19,7 @@ section.container#about{
             min-height: 80%;
             border: 4px ridge transparent;
             border-radius: 2rem;
-            background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(to bottom right, #AF40FF, #5B42F3, #00a1eb);
+            background-image: linear-gradient(to top left, rgba(40, 40, 55), $backgroundDark), linear-gradient(to bottom right, #AF40FF, #5B42F3, #00ebeb);
             background-origin: border-box;
             background-clip: padding-box, border-box;
             box-shadow: 0px 0px 2rem #5B42F3;
@@ -91,10 +91,6 @@ section.container#about{
 
         a {
             font-weight: $thin;
-        }
-
-        span {
-            @include textBackground(linear-gradient(to bottom right, #42f3a9, #00ebeb));
         }
     }
 

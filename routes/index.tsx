@@ -55,7 +55,7 @@ export default class Home extends Component {
             <section>
               <p className="landing--staticTitle">
                 I'm&nbsp;
-                <span className="landing--text">
+                <span className="landing--text emphasize-text">
                   <TextFlicker data={this.flickerProps} />
                 </span>
               </p>
