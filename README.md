@@ -1,29 +1,14 @@
-# React-SASS-Boilerplate
-Boilerplate for react-sass aplications. No create-react-app needed.
+# Hey there!
+This is my web page! I still work on it from time to time, so there's stuff to be made.
 
-## Install
-### Using npx
-You can start working with this boilerplate with: `npx react-sass app-name`
+Check it out!: [vcangel.deno.dev](vcangel.dev)
 
-The app structure will be automatically generated, and you're ready to code!
+### Disclaimer
 
-### Using git
-You can use `git clone` aswell if you wish.
+*Do not enter on phone!*
 
-To use boilerplate via **git**, do the following:
-```
-git clone https://github.com/VCAngel/React-SASS-Boilerplate app-name
-cd app-name
-npm i -D
-```
+I'm dumb and I didn't use mobile first design, soooo :skull::skull::skull:
 
-## Run webpack live server
-To run the live server provided by webpack, do the following:
-`npm run start`, or just run `npm start`
-
-Your app will launch on development mode in your configured port.
-
-## Why?
-Idk, but we can skip general webpack configuration with this! 
-
-**Feel free to use it!**
+<a href="https://fresh.deno.dev">
+   <img width="197" height="37" src="https://fresh.deno.dev/fresh-badge.svg" alt="Made with Fresh" />
+</a>
