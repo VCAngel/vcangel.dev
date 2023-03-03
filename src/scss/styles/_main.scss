@@ -35,8 +35,6 @@ main.container {
 
         &--text {
             position: relative;
-
-            @include textBackground(linear-gradient(to bottom right, #42f3a9, #00ebeb));
         }
 
         &--cursor {

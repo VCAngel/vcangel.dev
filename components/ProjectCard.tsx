@@ -6,7 +6,7 @@ export default function ProjectCard({ title, text, imgSrc, href }: IProjectCard)
     return (
         <div className="card-bg card"
             data-tilt
-            data-tilt-max="7"
+            data-tilt-max="9"
             data-tilt-glare="true"
             data-tilt-max-glare="0.05"
             data-tilt-reverse="true">
