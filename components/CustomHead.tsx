@@ -10,7 +10,6 @@ export function CustomHead(props: JSX.HTMLAttributes<HTMLHeadElement>) {
       <link rel="icon" href="./favicon.ico" type="image/x-icon" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Ubuntu:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Source+Code+Pro:wght@300;400;500;700;900&display=swap" />
       <link rel="preload" as="style" href="./css/app.min.css" />
       <link rel="stylesheet" href="./css/app.min.css" />
       <title>{props.title} | Ángel Vargas</title>
