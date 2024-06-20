@@ -108,3 +108,5 @@ dist
 
 # npx cli
 .bin
+# Fresh build directory
+_fresh/
