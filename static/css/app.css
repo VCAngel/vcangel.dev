@@ -1,0 +1,60 @@
+html {
+    font-size: 62.5%;
+    /* Overrides REM sizing*/
+    /* ->16px * 62.5% = 10px */
+    box-sizing: border-box;
+    height: 100%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+	transition:
+    max-width 0.6s ease-in-out,
+    margin 0.2s ease-out,
+    padding 0.2s ease-out,
+    border 0.2s ease-out,
+    font-size 0.2s ease-out,
+    background-color 0.2s ease-out,
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'FiraCode', 'Noto Sans', 'sans-serif';
+}
+
+img {
+    max-width: 100%;
+}
+
+#spaceBg {
+    canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -10;
+    }
+
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        background: radial-gradient(ellipse at left, rgba(7, 34, 39, 0.3), transparent),
+            radial-gradient(ellipse at top, rgba(76, 0, 112, 0.05), transparent),
+            radial-gradient(ellipse at right, rgba(0, 145, 142, 0.15), transparent),
+            radial-gradient(ellipse at bottom, rgba(169, 16, 121, 0.1), transparent);
+        mask-image: linear-gradient(-65deg, rgba(0, 0, 0, 0) 20%, #000, rgba(0, 0, 0, 0) 80%);
+        mask-size: 200%;
+        -webkit-mask-image: linear-gradient(-65deg, rgba(0, 0, 0, 1) 20%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 80%);
+        -webkit-mask-size: 200%;
+        animation: shine 60s infinite linear;
+        z-index: -9;
+    }
+}

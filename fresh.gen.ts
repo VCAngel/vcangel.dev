@@ -3,33 +3,19 @@
 // This file is automatically updated during development when running `dev.ts`.
 
 import * as $_app from "./routes/_app.tsx";
-import * as $about from "./routes/about.tsx";
-import * as $contact from "./routes/contact.tsx";
 import * as $index from "./routes/index.tsx";
-import * as $projects from "./routes/projects.tsx";
-import * as $ContactForm from "./islands/ContactForm.tsx";
-import * as $Counter from "./islands/Counter.tsx";
-import * as $TextFlicker from "./islands/TextFlicker.tsx";
-import * as $ThreeCanvas from "./islands/ThreeCanvas.jsx";
-import * as $TimeCounter from "./islands/TimeCounter.tsx";
+import * as $TestIsland from "./islands/TestIsland.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
-  routes: {
-    "./routes/_app.tsx": $_app,
-    "./routes/about.tsx": $about,
-    "./routes/contact.tsx": $contact,
-    "./routes/index.tsx": $index,
-    "./routes/projects.tsx": $projects,
-  },
-  islands: {
-    "./islands/ContactForm.tsx": $ContactForm,
-    "./islands/Counter.tsx": $Counter,
-    "./islands/TextFlicker.tsx": $TextFlicker,
-    "./islands/ThreeCanvas.jsx": $ThreeCanvas,
-    "./islands/TimeCounter.tsx": $TimeCounter,
-  },
-  baseUrl: import.meta.url,
+    routes: {
+        "./routes/_app.tsx": $_app,
+        "./routes/index.tsx": $index,
+    },
+    islands: {
+        "./islands/TestIsland.tsx": $TestIsland,
+    },
+    baseUrl: import.meta.url,
 } satisfies Manifest;
 
 export default manifest;
