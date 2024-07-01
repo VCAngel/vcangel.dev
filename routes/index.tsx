@@ -1,17 +1,10 @@
-import { PageProps } from "$fresh/server.ts";
+import { Terminal } from "../islands/Terminal.tsx";
 
-//: Islands
-import MyIsland from "../islands/TestIsland.tsx";
-
-//: Components
-import MyComponent from "../components/Test.tsx";
-
-export default function Home(props: PageProps) {
+export default function Home() {
     return (
-        <>
-            <MyComponent />
-            <MyIsland />
-            <div>Loading '{props.url.href}'</div>
-        </>
+        <main className="border rounded-sm border-slate-300 flex-grow flex flex-col overflow-hidden max-h-full">
+            {/* TODO Add Spline space model or something :D */}
+            <Terminal />
+        </main>
     );
 }

@@ -1,7 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html {
-    font-size: 62.5%;
-    /* Overrides REM sizing*/
-    /* ->16px * 62.5% = 10px */
     box-sizing: border-box;
     height: 100%;
 }
@@ -10,13 +11,13 @@ html {
 *::before,
 *::after {
     box-sizing: inherit;
-	transition:
-    max-width 0.6s ease-in-out,
-    margin 0.2s ease-out,
-    padding 0.2s ease-out,
-    border 0.2s ease-out,
-    font-size 0.2s ease-out,
-    background-color 0.2s ease-out,
+    transition:
+        max-width 0.6s ease-in-out,
+        margin 0.2s ease-out,
+        padding 0.2s ease-out,
+        border 0.2s ease-out,
+        font-size 0.2s ease-out,
+        background-color 0.2s ease-out,
 }
 
 body {
@@ -57,4 +58,38 @@ img {
         animation: shine 60s infinite linear;
         z-index: -9;
     }
+}
+
+/* Custom CSS for rectangular caret effect */
+pre.block-caret>span {
+    background-color: hsla(1, 1%, 100%, 1);
+    color: #000;
+    animation: caret 1s ease-in-out infinite;
+}
+
+@keyframes caret {
+    0% {
+        background-color: hsla(1, 1%, 100%, 1);
+    }
+
+    50% {
+        background-color: hsla(1, 1%, 100%, 0);
+    }
+
+    100% {
+        background-color: hsla(1, 1%, 100%, 1);
+    }
+}
+
+/* Input Scrollbar css */
+/* In your global CSS or a CSS module */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    scrollbar-width: none;
+    /* For Firefox */
+    -ms-overflow-style: none;
+    /* For Internet Explorer and Edge */
 }

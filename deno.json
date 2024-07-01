@@ -44,6 +44,7 @@
             ]
         }
     },
+    "nodeModulesDir": true,
     "tasks": {
         "build": "deno run -A dev.ts build",
         "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
