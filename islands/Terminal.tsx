@@ -85,6 +85,7 @@ export function TerminalPrompt(
                 onChange={(e) => setInput(e.currentTarget.value)}
                 onKeyDown={(e) => handleOutput(e)}
                 className="absolute -top-[1000px] opacity-0"
+                id="terminalInput"
                 name="terminalInput"
             />
             <label
