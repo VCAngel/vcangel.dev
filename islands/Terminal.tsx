@@ -85,7 +85,13 @@ export function TerminalPrompt(
                 onChange={(e) => setInput(e.currentTarget.value)}
                 onKeyDown={(e) => handleOutput(e)}
                 className="absolute -top-[1000px] opacity-0"
+                name="terminalInput"
             />
+            <label
+                htmlFor="terminalInput"
+                className="absolute -top-[1000px] opacity-0"
+            >
+            </label>
             <div
                 className="flex-shrink-0 flex gap-2 items-center justify-start max-w-full overflow-hidden"
                 onClick={() => inputRef.current?.focus()}
