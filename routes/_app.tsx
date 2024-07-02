@@ -9,10 +9,10 @@ export default function App({ Component }: PageProps) {
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 />
-                <meta name="title" content="guest@vcangel" />
+                <meta name="title" content="guest@vcangel.dev" />
                 <meta
                     name="description"
-                    content="Welcome to my portfolio! Feel free to explore around :)"
+                    content="Welcome to vcangel.dev! Feel free to explore around 🦕"
                 />
                 <meta
                     name="keywords"
@@ -31,7 +31,7 @@ export default function App({ Component }: PageProps) {
                 <link rel="stylesheet" href="./css/normalize.css" />
                 <link rel="stylesheet" href="./css/font-faces.css" />
                 <link rel="stylesheet" href="./css/app.css" />
-                <title>guest@vcangel</title>
+                <title>guest@vcangel.dev</title>
             </head>
             <body className="text-sm text-gray-100 bg-zinc-900 min-h-screen p-3 flex flex-col max-h-full">
                 {/* TODO Render loading page onec all logic is done! */}

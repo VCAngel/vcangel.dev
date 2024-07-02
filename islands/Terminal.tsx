@@ -1,13 +1,20 @@
 import { createRef, TargetedEvent } from "preact/compat";
 import { Ref, StateUpdater, useEffect, useState } from "preact/hooks";
+import { Help } from "../src/components/Commands.tsx";
+import { ICommandResponse } from "../src/models/Command.ts";
 import History from "./History.tsx";
 
+interface ITerminalPrompt {
+    inputRef: Ref<HTMLInputElement>;
+    history: ICommandResponse[];
+    setHistory: StateUpdater<ICommandResponse[]>;
+    displayedHistory: ICommandResponse[];
+    setDisplayedHistory: StateUpdater<ICommandResponse[]>;
+}
+
 export function TerminalPrompt(
-    { inputRef, history, setHistory }: {
-        inputRef: Ref<HTMLInputElement>;
-        history: unknown[];
-        setHistory: StateUpdater<unknown[]>;
-    },
+    { inputRef, history, setHistory, displayedHistory, setDisplayedHistory }:
+        ITerminalPrompt,
 ) {
     const textRef = createRef<HTMLPreElement>();
     const [input, setInput] = useState("");
@@ -32,9 +39,19 @@ export function TerminalPrompt(
         }
     };
 
-    //TODO Assign custom response components
+    //-> Handle the command history
+    // If the input is empty, add an empty command to the displayed history
     const handleHistory = () => {
-        setHistory([...history, input]);
+        if (input === "") {
+            setDisplayedHistory([...displayedHistory, {
+                command: "",
+                response: () => <></>,
+            }]);
+            return;
+        }
+        const output: ICommandResponse = handleCommandComponents(input);
+        setHistory([...history, output]);
+        setDisplayedHistory([...displayedHistory, output]);
     };
 
     return (
@@ -60,8 +77,8 @@ export function TerminalPrompt(
                     ref={textRef}
                     className="block-caret bg-transparent m-0 p-0 w-full overflow-x-auto whitespace-nowrap max-w-full hide-scrollbar"
                 >
-					{input}
-					<span>&nbsp;</span>
+                    {input}
+                    <span>&nbsp;</span>
                 </pre>
             </div>
         </>
@@ -72,7 +89,10 @@ export function TerminalPrompt(
 export function Terminal() {
     const terminalPromptRef = createRef<HTMLInputElement>();
     const terminalRef = createRef<HTMLDivElement>();
-    const [history, setHistory] = useState<unknown[]>([]); // TODO Create component/model for history
+    const [history, setHistory] = useState<ICommandResponse[]>([]); // Command history
+    const [displayedHistory, setDisplayedHistory] = useState<
+        ICommandResponse[]
+    >([]); // Displayed command history - Includes empty commands
 
     // Focus the input on load
     useEffect(() => {
@@ -86,20 +106,41 @@ export function Terminal() {
             const scrollHeight = terminalRef.current.scrollHeight;
             terminalRef.current.scrollTop = scrollHeight;
         }
-    }, [history]);
+    }, [displayedHistory]);
 
     return (
         <div
             ref={terminalRef}
-            className="flex flex-col flex-grow p-4 max-h-full overflow-y-auto hide-scrollbar"
+            className="flex flex-col flex-grow p-4 max-h-full overflow-y-auto ide-scrollbar"
             onClick={() => terminalPromptRef.current?.focus()}
         >
-            <History items={history} />
+            <History items={displayedHistory} />
             <TerminalPrompt
                 inputRef={terminalPromptRef}
                 history={history}
                 setHistory={setHistory}
+                displayedHistory={displayedHistory}
+                setDisplayedHistory={setDisplayedHistory}
             />
         </div>
     );
+}
+
+function handleCommandComponents(input: string): ICommandResponse {
+    //TODO Assign all commands cases
+    switch (input) {
+        case "help":
+        case "?":
+            return Help({ command: input });
+        default:
+            return {
+                command: input,
+                response: () => (
+                    <p>
+                        Command not found. For a list of all commands, type{" "}
+                        <span>'help'</span>.
+                    </p>
+                ),
+            };
+    }
 }
