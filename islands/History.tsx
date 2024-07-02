@@ -20,7 +20,7 @@ export default function History({ items }: { items: ICommandResponse[] }) {
                                 {command}
                             </span>
                         </div>
-                        <div>
+                        <div className="pl-[2ch] py-[1ch]">
                             {response()}
                         </div>
                     </>

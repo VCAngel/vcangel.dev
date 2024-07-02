@@ -1,6 +1,17 @@
 import { createRef, TargetedEvent } from "preact/compat";
 import { Ref, StateUpdater, useEffect, useState } from "preact/hooks";
-import { Help } from "../src/components/Commands.tsx";
+import {
+    Cat,
+    Cd,
+    Echo,
+    Help,
+    List,
+    Mkdir,
+    Pwd,
+    Rm,
+    Whoami,
+    Whois,
+} from "../src/components/Commands.tsx";
 import { ICommandResponse } from "../src/models/Command.ts";
 import History from "./History.tsx";
 
@@ -49,8 +60,19 @@ export function TerminalPrompt(
             }]);
             return;
         }
-        const output: ICommandResponse = handleCommandComponents(input);
-        setHistory([...history, output]);
+
+        // If the input is the same as the last command, don't add it to the history
+        const isEqualToLastCommand = history.length > 0 &&
+            input.trim() === history[history.length - 1].command;
+        const output: ICommandResponse = handleCommandComponents(input.trim());
+
+        // If the command is 'clear', clear the displayed history
+        if (output.command === "clear") {
+            setDisplayedHistory([]);
+            return;
+        }
+
+        if (!isEqualToLastCommand) setHistory([...history, output]);
         setDisplayedHistory([...displayedHistory, output]);
     };
 
@@ -62,7 +84,7 @@ export function TerminalPrompt(
                 value={input}
                 onChange={(e) => setInput(e.currentTarget.value)}
                 onKeyDown={(e) => handleOutput(e)}
-                className="absolute -top-[9999] opacity-0"
+                className="absolute -top-[1000px] opacity-0"
             />
             <div
                 className="flex-shrink-0 flex gap-2 items-center justify-start max-w-full overflow-hidden"
@@ -101,17 +123,19 @@ export function Terminal() {
 
     // Focus terminal prompt input
     useEffect(() => {
-        if (terminalRef.current) {
-            // Scroll to the end of the container
-            const scrollHeight = terminalRef.current.scrollHeight;
-            terminalRef.current.scrollTop = scrollHeight;
-        }
+        setTimeout(() => {
+            if (terminalRef.current) {
+                // Scroll to the end of the container
+                const scrollHeight = terminalRef.current.scrollHeight;
+                terminalRef.current.scrollTop = scrollHeight;
+            }
+        }, 40);
     }, [displayedHistory]);
 
     return (
         <div
             ref={terminalRef}
-            className="flex flex-col flex-grow p-4 max-h-full overflow-y-auto ide-scrollbar"
+            className="flex flex-col flex-grow p-4 pb-6 max-h-full overflow-y-auto hide-scrollbar"
             onClick={() => terminalPromptRef.current?.focus()}
         >
             <History items={displayedHistory} />
@@ -132,6 +156,26 @@ function handleCommandComponents(input: string): ICommandResponse {
         case "help":
         case "?":
             return Help({ command: input });
+        case "clear":
+            return { command: input, response: () => null };
+        case "ls":
+            return List({ command: input });
+        case "pwd":
+            return Pwd({ command: input });
+        case "whoami":
+            return Whoami({ command: input });
+        case "whois":
+            return Whois({ command: input });
+        case "cd":
+            return Cd({ command: input });
+        case "mkdir":
+            return Mkdir({ command: input });
+        case "rm":
+            return Rm({ command: input });
+        case "cat":
+            return Cat({ command: input });
+        case "echo":
+            return Echo({ command: input });
         default:
             return {
                 command: input,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 
 // This hook will take a string and return a string that will be displayed as if it was being typed out
-const useTypewriter = (text: string, speed: number = 10) => {
+const useTypewriter = (text: string, speed: number = 20) => {
     const [displayedText, setDisplayedText] = useState("");
 
     useEffect(() => {
