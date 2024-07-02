@@ -1,9 +1,9 @@
 name: Deploy
 on:
   push:
-    branches: redesign
+    branches: dev
   pull_request:
-    branches: redesign
+    branches: dev
 
 jobs:
   deploy:
@@ -31,4 +31,4 @@ jobs:
         with:
           project: "vcangel"
           entrypoint: "main.ts"
-          root: "."
+          root: ""
