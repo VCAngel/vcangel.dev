@@ -198,7 +198,7 @@ export function Whoami({
             return (
                 <p>
                     <TypewriterText
-                        text="You're an awesome person! Totally deserving of love and respect 🫶🏻🦕"
+                        text="You're an awesome person! Totally deserving of love and respect 🫶 🦕"
                         key="whoami_user"
                     />
                 </p>
@@ -238,7 +238,6 @@ export function Cd({
     command: string;
     route: string;
 }): ICommandResponse {
-    //TODO Change the current directory
     return {
         command,
         route,

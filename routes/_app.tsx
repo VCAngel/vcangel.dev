@@ -76,7 +76,10 @@ export default function App({ Component }: PageProps) {
                 <link rel="stylesheet" href={asset("/css/app.css")} />
                 <title>guest@vcangel.dev</title>
             </head>
-            <body className="text-sm text-gray-100 bg-zinc-900 min-h-screen flex flex-col max-h-full">
+            <body
+                f-client-nav
+                className="text-sm text-gray-100 bg-zinc-900 min-h-screen flex flex-col max-h-full"
+            >
                 {/* TODO Render loading page onec all logic is done! */}
                 {/* <LoadingPage/> */}
                 <ConsoleState.Provider value={createConsoleState()}>
