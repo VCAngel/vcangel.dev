@@ -63,17 +63,17 @@ export default function App({ Component }: PageProps) {
                 <link
                     rel="preload"
                     as="style"
-                    href={asset("./css/normalize.css")}
+                    href={asset("/css/normalize.css")}
                 />
                 <link
                     rel="preload"
                     as="style"
-                    href={asset("./css/font-faces.css")}
+                    href={asset("/css/font-faces.css")}
                 />
-                <link rel="preload" as="style" href={asset("./css/app.css")} />
-                <link rel="stylesheet" href={asset("./css/normalize.css")} />
-                <link rel="stylesheet" href={asset("./css/font-faces.css")} />
-                <link rel="stylesheet" href={asset("./css/app.css")} />
+                <link rel="preload" as="style" href={asset("/css/app.css")} />
+                <link rel="stylesheet" href={asset("/css/normalize.css")} />
+                <link rel="stylesheet" href={asset("/css/font-faces.css")} />
+                <link rel="stylesheet" href={asset("/css/app.css")} />
                 <title>guest@vcangel.dev</title>
             </head>
             <body className="text-sm text-gray-100 bg-zinc-900 min-h-screen flex flex-col max-h-full">
