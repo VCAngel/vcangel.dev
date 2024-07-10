@@ -1,4 +1,4 @@
-#!/usr/bin/env -S deno run -A --watch=static/,routes/
+#!/usr/bin/env -S deno run -A --watch=static/,routes/,islands/,src/
 
 import dev from "$fresh/dev.ts";
 import config from "./fresh.config.ts";

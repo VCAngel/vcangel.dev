@@ -1,5 +1,39 @@
 import { PageProps } from "$fresh/server.ts";
 import { asset } from "$fresh/src/runtime/utils.ts";
+import { createContext, createRef } from "preact";
+import { Signal, signal } from "@preact/signals";
+import { Ref } from "preact/hooks";
+import { IConsoleState } from "../src/models/Command.ts";
+
+function createConsoleState(): Signal<IConsoleState> {
+    const state = signal({
+        history: [],
+        displayedHistory: [],
+    });
+
+    return state;
+}
+
+function createConsolePromptRefState(): [
+    Ref<HTMLInputElement>,
+    (el: HTMLInputElement) => void,
+] {
+    const ref = createRef<HTMLInputElement>();
+
+    const setRef = (newRef: HTMLInputElement) => {
+        ref.current = newRef;
+    };
+
+    return [ref, setRef];
+}
+
+export const ConsoleState = createContext<Signal<IConsoleState>>(
+    signal({ history: [], displayedHistory: [], currentRoute: "" }),
+);
+
+export const ConsolePromptRefState = createContext<
+    [Ref<HTMLInputElement>, (el: HTMLInputElement) => void]
+>([createRef<HTMLInputElement>(), () => {}]);
 
 export default function App({ Component }: PageProps) {
     return (
@@ -42,10 +76,16 @@ export default function App({ Component }: PageProps) {
                 <link rel="stylesheet" href={asset("./css/app.css")} />
                 <title>guest@vcangel.dev</title>
             </head>
-            <body className="text-sm text-gray-100 bg-zinc-900 min-h-screen p-3 flex flex-col max-h-full">
+            <body className="text-sm text-gray-100 bg-zinc-900 min-h-screen flex flex-col max-h-full">
                 {/* TODO Render loading page onec all logic is done! */}
                 {/* <LoadingPage/> */}
-                <Component />
+                <ConsoleState.Provider value={createConsoleState()}>
+                    <ConsolePromptRefState.Provider
+                        value={createConsolePromptRefState()}
+                    >
+                        <Component />
+                    </ConsolePromptRefState.Provider>
+                </ConsoleState.Provider>
             </body>
         </html>
     );

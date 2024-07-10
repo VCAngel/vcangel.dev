@@ -8,38 +8,45 @@ const TypewriterText = memo(({ text }: { text: string }) => {
     return <>{displayedText}</>;
 });
 
-export function Help({ command }: { command: string }): ICommandResponse {
+export function Help({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     return {
         command,
+        route,
         response: () => {
             return (
                 <>
-                    <ul>
-                        <li className="whitespace-pre-wrap">
+                    <ul className="command-wrapper">
+                        <li>
                             <TypewriterText
-                                text="contact			Display information on how to contact me 👽"
+                                text="contact			Display information on how to contact me 🐸"
                                 key="help_commands-contact"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
-                                text="help			Display this help message 🦕"
+                                text="help			Display this help message 👍"
                                 key="help_commands-help"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="projects		Display information about my projects 🚀"
                                 key="help_commands-projects"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="whoami			Who are you? 👀"
                                 key="help_commands-whoami"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="whois 			Who is VCAngel? 👨‍🚀"
                                 key="help_commands-whois"
@@ -53,50 +60,50 @@ export function Help({ command }: { command: string }): ICommandResponse {
                             key="help_other_commands"
                         />
                     </p>
-                    <ul>
-                        <li className="whitespace-pre-wrap">
+                    <ul className="command-wrapper">
+                        <li>
                             <TypewriterText
                                 text="cat				Print on the stdout"
                                 key="help_commands-cat"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="cd				Change directory"
                                 key="help_commands-cd"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="clear			Clear the terminal"
                                 key="help_commands-clear"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="echo			Display a line of text"
                                 key="help_commands-echo"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="ls				List directory contents"
                                 key="help_commands-list"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="mkdir			Make directory"
                                 key="help_commands-mkdir"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="pwd				Print name of current/working directory"
                                 key="help_commands-pwd"
                             />
                         </li>
-                        <li className="whitespace-pre-wrap">
+                        <li>
                             <TypewriterText
                                 text="rm				Remove files or directories"
                                 key="help_commands-rm"
@@ -109,34 +116,63 @@ export function Help({ command }: { command: string }): ICommandResponse {
     };
 }
 
-export function List({ command }: { command: string }): ICommandResponse {
+export function List({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO List all files in the current directory
     return {
         command,
+        route,
         response: () => {
             return (
                 <>
-                    <div className="inline-flex items-center gap-4 flex-wrap">
-                        <p>
+                    <ul className="inline-flex items-center gap-4 flex-wrap command-wrapper">
+                        <li>
                             <TypewriterText text="File 1" key="list_file-1" />
-                        </p>
-                        <p>
+                        </li>
+                        <li>
                             <TypewriterText text="File 2" key="list_file-2" />
-                        </p>
-                        <p>
+                        </li>
+                        <li>
                             <TypewriterText text="File 3" key="list_file-3" />
-                        </p>
-                    </div>
+                        </li>
+                        <li>
+                            <TypewriterText text="File 1" key="list_file-1" />
+                        </li>
+                        <li>
+                            <TypewriterText text="File 2" key="list_file-2" />
+                        </li>
+                        <li>
+                            <TypewriterText text="File 3" key="list_file-3" />
+                        </li>
+                        <li>
+                            <TypewriterText text="File 4" key="list_file-4" />
+                        </li>
+                        <li>
+                            <TypewriterText text="File 5" key="list_file-5" />
+                        </li>
+                    </ul>
                 </>
             );
         },
     };
 }
 
-export function Pwd({ command }: { command: string }): ICommandResponse {
+export function Pwd({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO Display the current directory
     return {
         command,
+        route,
         response: () => {
             return (
                 <p>
@@ -147,10 +183,17 @@ export function Pwd({ command }: { command: string }): ICommandResponse {
     };
 }
 
-export function Whoami({ command }: { command: string }): ICommandResponse {
+export function Whoami({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO Display information about the user
     return {
         command,
+        route,
         response: () => {
             return (
                 <p>
@@ -164,10 +207,17 @@ export function Whoami({ command }: { command: string }): ICommandResponse {
     };
 }
 
-export function Whois({ command }: { command: string }): ICommandResponse {
+export function Whois({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO Display information about the user
     return {
         command,
+        route,
         response: () => {
             return (
                 <p>
@@ -181,10 +231,17 @@ export function Whois({ command }: { command: string }): ICommandResponse {
     };
 }
 
-export function Cd({ command }: { command: string }): ICommandResponse {
+export function Cd({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO Change the current directory
     return {
         command,
+        route,
         response: () => {
             return (
                 <p>
@@ -198,10 +255,17 @@ export function Cd({ command }: { command: string }): ICommandResponse {
     };
 }
 
-export function Mkdir({ command }: { command: string }): ICommandResponse {
+export function Mkdir({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO Create a new directory
     return {
         command,
+        route,
         response: () => {
             return (
                 <p>
@@ -215,10 +279,17 @@ export function Mkdir({ command }: { command: string }): ICommandResponse {
     };
 }
 
-export function Rm({ command }: { command: string }): ICommandResponse {
+export function Rm({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO Remove a file or directory
     return {
         command,
+        route,
         response: () => {
             return (
                 <p>
@@ -232,10 +303,17 @@ export function Rm({ command }: { command: string }): ICommandResponse {
     };
 }
 
-export function Cat({ command }: { command: string }): ICommandResponse {
+export function Cat({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO Display the contents of a file
     return {
         command,
+        route,
         response: () => {
             return (
                 <p>
@@ -249,10 +327,17 @@ export function Cat({ command }: { command: string }): ICommandResponse {
     };
 }
 
-export function Echo({ command }: { command: string }): ICommandResponse {
+export function Echo({
+    command,
+    route,
+}: {
+    command: string;
+    route: string;
+}): ICommandResponse {
     //TODO Display the contents of a file
     return {
         command,
+        route,
         response: () => {
             return (
                 <p>

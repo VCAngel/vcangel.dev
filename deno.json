@@ -3,17 +3,10 @@
         "jsx": "react-jsx",
         "jsxImportSource": "preact"
     },
-    "exclude": [
-        "**/_fresh/*"
-    ],
+    "exclude": ["**/_fresh/*"],
     "fmt": {
-        "exclude": [
-            ".git-hooks/",
-            "static/"
-        ],
-        "include": [
-            "./"
-        ],
+        "exclude": [".git-hooks/", "static/"],
+        "include": ["./"],
         "indentWidth": 4,
         "lineWidth": 80,
         "semiColons": true
@@ -32,16 +25,9 @@
     },
     "lint": {
         "rules": {
-            "exclude": [
-                "static/fonts/"
-            ],
-            "include": [
-                "./**/*.ts"
-            ],
-            "tags": [
-                "fresh",
-                "recommended"
-            ]
+            "exclude": ["static/fonts/"],
+            "include": ["./**/*.ts"],
+            "tags": ["fresh", "recommended"]
         }
     },
     "nodeModulesDir": true,
@@ -52,7 +38,7 @@
         "format": "deno fmt",
         "manifest": "deno task cli manifest $(pwd)",
         "preview": "deno run -A main.ts",
-        "start": "deno run -A --watch=routes/,islands/,components/,static/css dev.ts",
+        "start": "deno run -A --watch=routes/,islands/,src/,static/ dev.ts",
         "update": "deno run -A -r https://fresh.deno.dev/update ."
     }
 }
