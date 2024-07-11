@@ -2,8 +2,7 @@ import { ConsoleState } from "./ContextWrapper.tsx";
 import { useContext } from "preact/hooks";
 
 export default function History() {
-    const consoleState = useContext(ConsoleState);
-    const { displayedHistory } = consoleState.value;
+    const { displayedHistory } = useContext(ConsoleState);
 
     return (
         <>

@@ -5,12 +5,17 @@ import { JSX } from "preact/jsx-runtime";
 //-> Contexts
 export interface IConsoleState {
     history: ICommandResponse[];
+    setHistory: StateUpdater<ICommandResponse[]>;
+
     displayedHistory: ICommandResponse[];
+    setDisplayedHistory: StateUpdater<ICommandResponse[]>;
 }
 
 export interface INavigatorState {
-    routeToNavigate: string;
-    setRouteToNavigate: StateUpdater<string>;
+    routeToNavigate: { route: string; activatedWithCd: boolean };
+    setRouteToNavigate: StateUpdater<
+        { route: string; activatedWithCd: boolean }
+    >;
 }
 
 export type IConsolePromptRefState = [

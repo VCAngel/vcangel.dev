@@ -20,8 +20,8 @@ import {
 } from "./ContextWrapper.tsx";
 
 export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
-    const consoleState = useContext(ConsoleState);
-    const { history, displayedHistory } = consoleState.value;
+    const { history, setHistory, displayedHistory, setDisplayedHistory } =
+        useContext(ConsoleState);
     const navigatorState = useContext(NavigatorState);
 
     const [consolePromptRef] = useContext(
@@ -72,17 +72,15 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     // If the input is empty, add an empty command to the displayed history
     const handleHistory = () => {
         if (input === "") {
-            consoleState.value = {
-                history: [...history],
-                displayedHistory: [
-                    ...displayedHistory,
-                    {
-                        command: "",
-                        response: () => <></>,
-                        route: urlPathName,
-                    },
-                ],
-            };
+            setHistory([...history]);
+            setDisplayedHistory([
+                ...displayedHistory,
+                {
+                    command: "",
+                    response: () => <></>,
+                    route: urlPathName,
+                },
+            ]);
 
             return;
         }
@@ -98,19 +96,13 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
 
         // If the command is 'clear', clear the displayed history
         if (output.command === "clear") {
-            consoleState.value = {
-                history: [...history],
-                displayedHistory: [],
-            };
+            setHistory([...history]);
+            setDisplayedHistory([]);
             return;
         }
 
-        consoleState.value = {
-            history: !isEqualToLastCommand
-                ? [...history, output]
-                : [...history],
-            displayedHistory: [...displayedHistory, output],
-        };
+        setHistory(!isEqualToLastCommand ? [...history, output] : [...history]);
+        setDisplayedHistory([...displayedHistory, output]);
     };
 
     return (
@@ -162,7 +154,7 @@ export function Terminal({ children }: { children: ComponentChildren }) {
     const [terminalPromptRef] = useContext(
         ConsolePromptRefState,
     );
-    const consoleState = useContext(ConsoleState);
+    const { displayedHistory } = useContext(ConsoleState);
 
     // Focus the input on load
     useEffect(() => {
@@ -178,7 +170,7 @@ export function Terminal({ children }: { children: ComponentChildren }) {
                 terminalRef.current.scrollTop = scrollHeight;
             }
         }, 40);
-    }, [consoleState.value.displayedHistory]);
+    }, [displayedHistory]);
 
     return (
         <main

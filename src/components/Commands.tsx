@@ -224,7 +224,10 @@ export function Cd(
 
     // Redirect to user's home
     if (params.length === 0) {
-        navigatorState.setRouteToNavigate("/home/guest");
+        navigatorState.setRouteToNavigate({
+            route: "/home/guest",
+            activatedWithCd: true,
+        });
         return resp;
     }
 

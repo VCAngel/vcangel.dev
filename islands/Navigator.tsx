@@ -4,19 +4,24 @@ import { NavigatorState } from "./ContextWrapper.tsx";
 
 export default function NavigatorAnchor() {
     const navigatorRef = createRef<HTMLAnchorElement>();
-    const { routeToNavigate } = useContext(NavigatorState);
+    const { routeToNavigate, setRouteToNavigate } = useContext(NavigatorState);
 
-    useEffect(() => navigatorRef.current?.click(), [routeToNavigate]);
+    useEffect(() => {
+        if (routeToNavigate.activatedWithCd && routeToNavigate.route !== "") {
+            navigatorRef.current?.click();
+            setRouteToNavigate({ route: "", activatedWithCd: false });
+        }
+    }, [routeToNavigate.route]);
 
     return (
         <a
             id="navigator"
             onClick={() => console.log(routeToNavigate)}
             ref={navigatorRef}
-            href={routeToNavigate}
+            href={routeToNavigate.route}
             className="hidden "
         >
-            {routeToNavigate}
+            {routeToNavigate.route}
         </a>
     );
 }

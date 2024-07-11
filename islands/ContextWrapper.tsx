@@ -1,14 +1,17 @@
-import { Signal, signal } from "@preact/signals";
 import { ComponentChildren, createContext, createRef } from "preact";
 import { useMemo, useState } from "preact/hooks";
 import {
+    ICommandResponse,
     IConsolePromptRefState,
     IConsoleState,
     INavigatorState,
 } from "../src/models/Command.ts";
 
 function createNavigatorState(): INavigatorState {
-    const [routeToNavigate, setRouteToNavigate] = useState("/");
+    const [routeToNavigate, setRouteToNavigate] = useState({
+        route: "",
+        activatedWithCd: false,
+    });
 
     const navState = useMemo(() => ({
         routeToNavigate,
@@ -28,22 +31,31 @@ function createConsolePromptRefState(): IConsolePromptRefState {
     return [ref, setRef];
 }
 
-function createConsoleState(): Signal<IConsoleState> {
-    const state = signal({
-        history: [],
-        displayedHistory: [],
-    });
+function createConsoleState(): IConsoleState {
+    const [history, setHistory] = useState<ICommandResponse[]>([]);
+    const [displayedHistory, setDisplayedHistory] = useState<
+        ICommandResponse[]
+    >([]);
+
+    const state = useMemo(() => ({
+        history,
+        setHistory,
+        displayedHistory,
+        setDisplayedHistory,
+    }), [history, displayedHistory]);
 
     return state;
 }
 
-export const ConsoleState = createContext<Signal<IConsoleState>>(signal({
+export const ConsoleState = createContext<IConsoleState>({
     history: [],
+    setHistory: () => {},
     displayedHistory: [],
-}));
+    setDisplayedHistory: () => {},
+});
 
 export const NavigatorState = createContext<INavigatorState>({
-    routeToNavigate: "",
+    routeToNavigate: { route: "", activatedWithCd: false },
     setRouteToNavigate: () => {},
 });
 
