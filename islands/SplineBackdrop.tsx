@@ -1,4 +1,5 @@
 import { Application } from "@splinetool/runtime";
+import { asset } from "$fresh/src/runtime/utils.ts";
 import { useEffect, useState } from "preact/hooks";
 
 export default function SplineBackdrop() {
@@ -9,11 +10,10 @@ export default function SplineBackdrop() {
         if (canvas) {
             setLoading(false);
             const app = new Application(canvas as HTMLCanvasElement);
-            app
-                .load(
-                    "https://prod.spline.design/obAagtgFjXohyWML/scene.splinecode",
-                )
-                .then(() => setLoading(false));
+            const splineModel = asset(
+                "https://prod.spline.design/obAagtgFjXohyWML/scene.splinecode",
+            );
+            app.load(splineModel).then(() => setLoading(false));
         }
     }, []);
 
