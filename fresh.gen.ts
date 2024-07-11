@@ -8,7 +8,9 @@ import * as $_layout from "./routes/_layout.tsx";
 import * as $home_guest_index from "./routes/home/guest/index.tsx";
 import * as $home_index from "./routes/home/index.tsx";
 import * as $index from "./routes/index.tsx";
+import * as $ContextWrapper from "./islands/ContextWrapper.tsx";
 import * as $History from "./islands/History.tsx";
+import * as $Navigator from "./islands/Navigator.tsx";
 import * as $SplineBackdrop from "./islands/SplineBackdrop.tsx";
 import * as $Terminal from "./islands/Terminal.tsx";
 import { type Manifest } from "$fresh/server.ts";
@@ -23,7 +25,9 @@ const manifest = {
         "./routes/index.tsx": $index,
     },
     islands: {
+        "./islands/ContextWrapper.tsx": $ContextWrapper,
         "./islands/History.tsx": $History,
+        "./islands/Navigator.tsx": $Navigator,
         "./islands/SplineBackdrop.tsx": $SplineBackdrop,
         "./islands/Terminal.tsx": $Terminal,
     },

@@ -1,3 +1,4 @@
+import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
 import { useContext, useEffect, useState } from "preact/hooks";
 import {
@@ -6,34 +7,39 @@ import {
     Echo,
     Help,
     List,
-    Mkdir,
     Pwd,
     Rm,
     Whoami,
     Whois,
 } from "../src/components/Commands.tsx";
-import { ICommandResponse } from "../src/models/Command.ts";
-import { ConsolePromptRefState, ConsoleState } from "../routes/_app.tsx";
-import { ComponentChildren } from "preact";
+import { ICommandResponse, INavigatorState } from "../src/models/Command.ts";
+import {
+    ConsolePromptRefState,
+    ConsoleState,
+    NavigatorState,
+} from "./ContextWrapper.tsx";
 
 export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
-    const [consolePromptRef, _setConsolePromptRef] = useContext(
-        ConsolePromptRefState,
-    );
     const consoleState = useContext(ConsoleState);
     const { history, displayedHistory } = consoleState.value;
+    const navigatorState = useContext(NavigatorState);
 
+    const [consolePromptRef] = useContext(
+        ConsolePromptRefState,
+    );
     const textRef = createRef<HTMLParagraphElement>();
     const caretRef = createRef<HTMLDivElement>();
     const [input, setInput] = useState("");
     const [_output, setOutput] = useState("");
     const [caretPosition, setCaretPosition] = useState(0);
+    const [commandItems, setCommandItems] = useState<string[]>([]);
 
     useEffect(() => {
         if (textRef.current) {
             // Scroll to the end of the pre element
             const scrollWidth = textRef.current.scrollWidth;
             textRef.current.scrollLeft = scrollWidth;
+            setCommandItems(input.trim().split(/\s+/));
         }
     }, [input]);
 
@@ -73,7 +79,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
                     {
                         command: "",
                         response: () => <></>,
-                        route: "",
+                        route: urlPathName,
                     },
                 ],
             };
@@ -83,10 +89,11 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
 
         // If the input is the same as the last command, don't add it to the history
         const isEqualToLastCommand = history.length > 0 &&
-            input.trim() === history[history.length - 1].command;
+            commandItems[0] === history[history.length - 1].command;
         const output: ICommandResponse = handleCommandComponents(
-            input,
+            commandItems,
             urlPathName,
+            navigatorState,
         );
 
         // If the command is 'clear', clear the displayed history
@@ -130,7 +137,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
                 onClick={() => consolePromptRef.current?.focus()}
             >
                 <pre className="shrink-0">
-          <span className="text-[#C541F2]">guest</span> in{" "}
+          <span className="text-[#C541F2]">guest@vcangel.dev</span> in{" "}
           <span className="text-[#41F2A9]">{urlPathName}</span>{" "}
           <span className="text-[#F2BB41]">λ</span>
                 </pre>
@@ -152,7 +159,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
 
 export function Terminal({ children }: { children: ComponentChildren }) {
     const terminalRef = createRef<HTMLInputElement>();
-    const [terminalPromptRef, _setTerminalPromptRef] = useContext(
+    const [terminalPromptRef] = useContext(
         ConsolePromptRefState,
     );
     const consoleState = useContext(ConsoleState);
@@ -185,21 +192,24 @@ export function Terminal({ children }: { children: ComponentChildren }) {
 }
 
 function handleCommandComponents(
-    input: string,
+    commandItems: string[],
     route: string,
+    navigatorState: INavigatorState,
 ): ICommandResponse {
     //TODO Assign all commands cases
     const commandData: { command: string; route: string } = {
-        command: input,
+        command: commandItems[0],
         route,
     };
 
-    switch (commandData.command.trim()) {
+    switch (commandData.command) {
         case "help":
         case "?":
             return Help(commandData);
         case "clear":
             return { ...commandData, response: () => null, route: "" };
+        case "cd":
+            return Cd(commandData, commandItems.slice(1), navigatorState);
         case "ls":
             return List(commandData);
         case "pwd":
@@ -208,10 +218,6 @@ function handleCommandComponents(
             return Whoami(commandData);
         case "whois":
             return Whois(commandData);
-        case "cd":
-            return Cd(commandData);
-        case "mkdir":
-            return Mkdir(commandData);
         case "rm":
             return Rm(commandData);
         case "cat":
@@ -220,14 +226,14 @@ function handleCommandComponents(
             return Echo(commandData);
         default:
             return {
-                command: input,
+                command: commandData.command,
                 response: () => (
                     <p>
                         Command not found. For a list of all commands, type{" "}
                         <span>'help'</span>.
                     </p>
                 ),
-                route: "",
+                route: commandData.route,
             };
     }
 }

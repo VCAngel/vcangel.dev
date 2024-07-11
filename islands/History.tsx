@@ -1,4 +1,4 @@
-import { ConsoleState } from "../routes/_app.tsx";
+import { ConsoleState } from "./ContextWrapper.tsx";
 import { useContext } from "preact/hooks";
 
 export default function History() {
@@ -19,8 +19,10 @@ export default function History() {
                             }`}
                         >
                             <p class="shrink-0">
-                                <span className="text-[#C541F2]">guest</span> in
-                                {" "}
+                                <span className="text-[#C541F2]">
+                                    guest@vcangel.dev
+                                </span>{" "}
+                                in{" "}
                                 <span className="text-[#41F2A9]">{route}</span>
                                 {" "}
                                 <span className="text-[#F2BB41]">λ</span>

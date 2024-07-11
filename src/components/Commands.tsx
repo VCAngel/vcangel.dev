@@ -1,6 +1,6 @@
 import { memo } from "preact/compat";
 import useTypewriter from "../hooks/Typewriter.ts"; // useTypeWriter hook
-import { ICommandResponse } from "../models/Command.ts";
+import { ICommandResponse, INavigatorState } from "../models/Command.ts";
 
 // Memoized TypewriterText component to prevent re-renders
 const TypewriterText = memo(({ text }: { text: string }) => {
@@ -8,13 +8,9 @@ const TypewriterText = memo(({ text }: { text: string }) => {
     return <>{displayedText}</>;
 });
 
-export function Help({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function Help(
+    { command, route }: { command: string; route: string },
+): ICommandResponse {
     return {
         command,
         route,
@@ -116,13 +112,9 @@ export function Help({
     };
 }
 
-export function List({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function List(
+    { command, route }: { command: string; route: string },
+): ICommandResponse {
     //TODO List all files in the current directory
     return {
         command,
@@ -162,13 +154,9 @@ export function List({
     };
 }
 
-export function Pwd({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function Pwd(
+    { command, route }: { command: string; route: string },
+): ICommandResponse {
     //TODO Display the current directory
     return {
         command,
@@ -183,13 +171,9 @@ export function Pwd({
     };
 }
 
-export function Whoami({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function Whoami(
+    { command, route }: { command: string; route: string },
+): ICommandResponse {
     //TODO Display information about the user
     return {
         command,
@@ -207,13 +191,9 @@ export function Whoami({
     };
 }
 
-export function Whois({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function Whois(
+    { command, route }: { command: string; route: string },
+): ICommandResponse {
     //TODO Display information about the user
     return {
         command,
@@ -231,13 +211,37 @@ export function Whois({
     };
 }
 
-export function Cd({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function Cd(
+    { command, route }: { command: string; route: string },
+    params: string[],
+    navigatorState: INavigatorState,
+): ICommandResponse {
+    const resp: ICommandResponse = {
+        command,
+        route,
+        response: () => <></>,
+    };
+
+    // Redirect to user's home
+    if (params.length === 0) {
+        navigatorState.setRouteToNavigate("/home/guest");
+        return resp;
+    }
+
+    if (params.length > 1) {
+        resp.response = () => {
+            return (
+                <p>
+                    <TypewriterText
+                        text={`cd: String not in pwd: ${params[0]}`}
+                        key="cd_too_many_arguments"
+                    />
+                </p>
+            );
+        };
+        return resp;
+    }
+
     return {
         command,
         route,
@@ -245,7 +249,7 @@ export function Cd({
             return (
                 <p>
                     <TypewriterText
-                        text="TODO: Change directory!"
+                        text="this is cd!"
                         key="cd_change_directory"
                     />
                 </p>
@@ -254,37 +258,9 @@ export function Cd({
     };
 }
 
-export function Mkdir({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
-    //TODO Create a new directory
-    return {
-        command,
-        route,
-        response: () => {
-            return (
-                <p>
-                    <TypewriterText
-                        text="TODO: Create directory!"
-                        key="mkdir_new_directory"
-                    />
-                </p>
-            );
-        },
-    };
-}
-
-export function Rm({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function Rm(
+    { command, route }: { command: string; route: string },
+): ICommandResponse {
     //TODO Remove a file or directory
     return {
         command,
@@ -302,13 +278,9 @@ export function Rm({
     };
 }
 
-export function Cat({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function Cat(
+    { command, route }: { command: string; route: string },
+): ICommandResponse {
     //TODO Display the contents of a file
     return {
         command,
@@ -326,13 +298,9 @@ export function Cat({
     };
 }
 
-export function Echo({
-    command,
-    route,
-}: {
-    command: string;
-    route: string;
-}): ICommandResponse {
+export function Echo(
+    { command, route }: { command: string; route: string },
+): ICommandResponse {
     //TODO Display the contents of a file
     return {
         command,

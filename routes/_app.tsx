@@ -1,40 +1,6 @@
 import { PageProps } from "$fresh/server.ts";
 import { asset } from "$fresh/src/runtime/utils.ts";
-import { createContext, createRef } from "preact";
-import { Signal, signal } from "@preact/signals";
-import { Ref } from "preact/hooks";
-import { IConsoleState } from "../src/models/Command.ts";
 import SplineBackdrop from "../islands/SplineBackdrop.tsx";
-
-function createConsoleState(): Signal<IConsoleState> {
-    const state = signal({
-        history: [],
-        displayedHistory: [],
-    });
-
-    return state;
-}
-
-function createConsolePromptRefState(): [
-    Ref<HTMLInputElement>,
-    (el: HTMLInputElement) => void,
-] {
-    const ref = createRef<HTMLInputElement>();
-
-    const setRef = (newRef: HTMLInputElement) => {
-        ref.current = newRef;
-    };
-
-    return [ref, setRef];
-}
-
-export const ConsoleState = createContext<Signal<IConsoleState>>(
-    signal({ history: [], displayedHistory: [], currentRoute: "" }),
-);
-
-export const ConsolePromptRefState = createContext<
-    [Ref<HTMLInputElement>, (el: HTMLInputElement) => void]
->([createRef<HTMLInputElement>(), () => {}]);
 
 export default function App({ Component }: PageProps) {
     return (
@@ -85,15 +51,7 @@ export default function App({ Component }: PageProps) {
 
                 <SplineBackdrop></SplineBackdrop>
 
-                {/* TODO Render loading page onec all logic is done! */}
-                {/* <LoadingPage/> */}
-                <ConsoleState.Provider value={createConsoleState()}>
-                    <ConsolePromptRefState.Provider
-                        value={createConsolePromptRefState()}
-                    >
-                        <Component />
-                    </ConsolePromptRefState.Provider>
-                </ConsoleState.Provider>
+                <Component />
             </body>
         </html>
     );
