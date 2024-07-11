@@ -176,7 +176,7 @@ export function Terminal({ children }: { children: ComponentChildren }) {
     return (
         <main
             ref={terminalRef}
-            className="border rounded-sm border-slate-300 flex flex-col flex-grow m-4 mb-6 max-h-full overflow-y-auto hide-scrollbar"
+            className="z-10 bg-[#000000bb] border rounded-sm border-slate-300 flex flex-col flex-grow m-4 mb-6 max-h-full overflow-y-auto hide-scrollbar"
             onClick={() => terminalPromptRef.current?.focus()}
         >
             {children}

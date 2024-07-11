@@ -1552,7 +1552,13 @@
     "https://esm.sh/v135/scheduler@0.20.2/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0/denonext/scheduler.mjs": "22e03c34630e36d4841aebe299bd33b20732e01b7414bb00131f380c1fff2612",
     "https://esm.sh/v135/three@0.159.0/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0/denonext/three.mjs": "5dea9777eab16f8d5f2ac5518672c8da382eccc06487ec33a59037f0c110481d",
     "https://esm.sh/v135/use-asset@1.0.4/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0/denonext/use-asset.mjs": "be73065bf9c9c0c71cc2879301cc5ca3ebbb4ca39a6be8fc48e5f7c7093ed994",
-    "https://esm.sh/v135/zustand@3.7.2/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0/denonext/zustand.mjs": "160e74b21093df512135748e44f9552a730aa4bc75ba4909573c4d00ab6dd6d3"
+    "https://esm.sh/v135/zustand@3.7.2/X-YS9yZWFjdDpwcmVhY3QvY29tcGF0/denonext/zustand.mjs": "160e74b21093df512135748e44f9552a730aa4bc75ba4909573c4d00ab6dd6d3",
+    "https://unpkg.com/@splinetool/viewer@1.8.9/build/boolean.js": "de7444ebe268861a6101e393625afaf53e0c0de572a9efe61c1b028da332d6c9",
+    "https://unpkg.com/@splinetool/viewer@1.8.9/build/navmesh.js": "8d3731a7044ba5831d0da5c1568957ff0e75cfebbcca18a4aa12b282b6c41021",
+    "https://unpkg.com/@splinetool/viewer@1.8.9/build/opentype.js": "995080ac80dde69be990a4f04a23f9f19bb6d6196096e1fa1c4ea64b7a238714",
+    "https://unpkg.com/@splinetool/viewer@1.8.9/build/physics.js": "ec2c0f17aa57945b220c4d37668350d270b1dfa1e5d8c2283aed6f315562322f",
+    "https://unpkg.com/@splinetool/viewer@1.8.9/build/process.js": "08ba000a06b6a37c906bf0e15f319aabea67060d3f0f9005baea6d212aa05db1",
+    "https://unpkg.com/@splinetool/viewer@1.8.9/build/spline-viewer.js": "64aeef5ec1553630a037288f565fedc7e37397588cc3b0d4ed39782d44417f9e"
   },
   "workspace": {
     "dependencies": [
