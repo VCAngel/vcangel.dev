@@ -9,6 +9,7 @@ import * as $home_guest_index from "./routes/home/guest/index.tsx";
 import * as $home_index from "./routes/home/index.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $History from "./islands/History.tsx";
+import * as $SplineBackdrop from "./islands/SplineBackdrop.tsx";
 import * as $Terminal from "./islands/Terminal.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
@@ -23,6 +24,7 @@ const manifest = {
     },
     islands: {
         "./islands/History.tsx": $History,
+        "./islands/SplineBackdrop.tsx": $SplineBackdrop,
         "./islands/Terminal.tsx": $Terminal,
     },
     baseUrl: import.meta.url,
