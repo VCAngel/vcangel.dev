@@ -1,45 +1,45 @@
 {
-    "compilerOptions": {
-        "jsx": "react-jsx",
-        "jsxImportSource": "preact"
-    },
-    "exclude": ["**/_fresh/*"],
-    "fmt": {
-        "exclude": [".git-hooks/", "static/"],
-        "include": ["./"],
-        "indentWidth": 4,
-        "lineWidth": 80,
-        "semiColons": true
-    },
-    "imports": {
-        "$fresh/": "https://deno.land/x/fresh@1.6.8/",
-        "$std/": "https://deno.land/std@0.216.0/",
-        "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
-        "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
-        "@splinetool/runtime": "npm:@splinetool/runtime@^1.8.9",
-        "preact": "https://esm.sh/preact@10.19.6",
-        "preact/": "https://esm.sh/preact@10.19.6/",
-        "std/path": "https://deno.land/std@0.121.0/path/mod.ts",
-        "tailwindcss": "npm:tailwindcss@3.4.1",
-        "tailwindcss/": "npm:/tailwindcss@3.4.1/",
-        "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
-    },
-    "lint": {
-        "rules": {
-            "exclude": ["static/fonts/"],
-            "include": ["./**/*.ts"],
-            "tags": ["fresh", "recommended"]
-        }
-    },
-    "nodeModulesDir": true,
-    "tasks": {
-        "build": "deno run -A dev.ts build",
-        "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
-        "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
-        "format": "deno fmt",
-        "manifest": "deno task cli manifest $(pwd)",
-        "preview": "deno run -A main.ts",
-        "start": "deno run -A --watch=routes/,islands/,src/,static/ dev.ts",
-        "update": "deno run -A -r https://fresh.deno.dev/update ."
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
+  "exclude": ["**/_fresh/*"],
+  "fmt": {
+    "exclude": [".git-hooks/", "static/"],
+    "include": ["./"],
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "semiColons": true
+  },
+  "imports": {
+    "$fresh/": "https://deno.land/x/fresh@1.6.8/",
+    "$std/": "https://deno.land/std@0.216.0/",
+    "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
+    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+    "@splinetool/runtime": "npm:@splinetool/runtime@^1.8.9",
+    "preact": "https://esm.sh/preact@10.19.6",
+    "preact/": "https://esm.sh/preact@10.19.6/",
+    "std/path": "https://deno.land/std@0.121.0/path/mod.ts",
+    "tailwindcss": "npm:tailwindcss@3.4.1",
+    "tailwindcss/": "npm:/tailwindcss@3.4.1/",
+    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
+  },
+  "lint": {
+    "rules": {
+      "exclude": ["static/fonts/"],
+      "include": ["./**/*.ts"],
+      "tags": ["fresh", "recommended"]
     }
+  },
+  "nodeModulesDir": true,
+  "tasks": {
+    "build": "deno run -A dev.ts build",
+    "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
+    "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
+    "format": "deno fmt",
+    "manifest": "deno task cli manifest $(pwd)",
+    "preview": "deno run -A main.ts",
+    "start": "deno run -A --watch=routes/,islands/,src/,static/ dev.ts",
+    "update": "deno run -A -r https://fresh.deno.dev/update ."
+  }
 }
