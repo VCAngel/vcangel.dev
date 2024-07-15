@@ -1,17 +1,12 @@
 import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
 import { useContext, useEffect, useState } from "preact/hooks";
-import {
-  Cat,
-  Cd,
-  Echo,
-  Help,
-  List,
-  Pwd,
-  Rm,
-  Whoami,
-  Whois,
-} from "../src/components/Commands.tsx";
+import { Cat } from "../src/components/commands/gnu-linux/Cat.tsx";
+import { Cd } from "../src/components/commands/gnu-linux/Cd.tsx";
+import { Echo } from "../src/components/commands/gnu-linux/Echo.tsx";
+import { List } from "../src/components/commands/gnu-linux/List.tsx";
+import { Pwd } from "../src/components/commands/gnu-linux/Pwd.tsx";
+import { Whoami, Whois } from "../src/components/commands/gnu-linux/Whoami.tsx";
 import { ICommandResponse, INavigatorState } from "../src/models/Command.ts";
 import {
   ConsolePromptRefState,
@@ -213,8 +208,6 @@ async function handleCommandComponents(
       return Whoami(commandData);
     case "whois":
       return Whois(commandData);
-    case "rm":
-      return Rm(commandData);
     case "cat":
       return Cat(commandData);
     case "echo":
