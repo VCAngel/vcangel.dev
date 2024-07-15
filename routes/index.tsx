@@ -5,10 +5,9 @@ import { IDirectoryItem } from "../src/models/Command.ts";
 export const handler: Handlers = {
   GET(req, ctx) {
     const rootItems: IDirectoryItem[] = [
-      { name: "..", type: "dir" },
-      { name: "/", type: "dir" },
+      { name: "/", type: "dir", ignoredByList: true },
       { name: "home", type: "dir" },
-      { name: "home/guest", type: "dir" },
+      { name: "home/guest", type: "dir", ignoredByList: true },
     ];
 
     if (req.headers.get("noRender")) {

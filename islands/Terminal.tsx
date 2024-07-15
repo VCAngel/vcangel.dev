@@ -1,6 +1,7 @@
 import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
 import { useContext, useEffect, useState } from "preact/hooks";
+import { Help } from "../src/components/commands/Base.tsx";
 import { Cat } from "../src/components/commands/gnu-linux/Cat.tsx";
 import { Cd } from "../src/components/commands/gnu-linux/Cd.tsx";
 import { Echo } from "../src/components/commands/gnu-linux/Echo.tsx";
@@ -19,9 +20,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     useContext(ConsoleState);
   const navigatorState = useContext(NavigatorState);
 
-  const [consolePromptRef] = useContext(
-    ConsolePromptRefState,
-  );
+  const [consolePromptRef] = useContext(ConsolePromptRefState);
   const textRef = createRef<HTMLParagraphElement>();
   const caretRef = createRef<HTMLDivElement>();
   const [input, setInput] = useState("");
@@ -63,8 +62,6 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     setCaretPosition(e.currentTarget.selectionStart || 0);
   };
 
-  //-> Handle the command history
-  // If the input is empty, add an empty command to the displayed history
   const handleHistory = () => {
     if (input === "") {
       setHistory([...history]);
@@ -80,24 +77,23 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       return;
     }
 
-    // If the input is the same as the last command, don't add it to the history
     const isEqualToLastCommand = history.length > 0 &&
       commandItems[0] === history[history.length - 1].command;
-    handleCommandComponents(
-      commandItems,
-      urlPathName,
-      navigatorState,
-    ).then((output) => {
-      // If the command is 'clear', clear the displayed history
-      if (output.command === "clear") {
-        setHistory([...history]);
-        setDisplayedHistory([]);
-        return;
-      }
 
-      setHistory(!isEqualToLastCommand ? [...history, output] : [...history]);
-      setDisplayedHistory([...displayedHistory, output]);
-    });
+    handleCommandComponents(commandItems, urlPathName, navigatorState).then(
+      (output) => {
+        if (output.command === "clear") {
+          setHistory([...history]);
+          setDisplayedHistory([]);
+          return;
+        }
+
+        setHistory(
+          !isEqualToLastCommand ? [...history, output] : [...history],
+        );
+        setDisplayedHistory([...displayedHistory, output]);
+      },
+    );
   };
 
   return (
@@ -145,23 +141,17 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
 
 export function Terminal({ children }: { children: ComponentChildren }) {
   const terminalRef = createRef<HTMLInputElement>();
-  const [terminalPromptRef] = useContext(
-    ConsolePromptRefState,
-  );
+  const [terminalPromptRef] = useContext(ConsolePromptRefState);
   const { displayedHistory } = useContext(ConsoleState);
 
-  // Focus the input on load
   useEffect(() => {
     terminalPromptRef.current?.focus();
   }, []);
 
-  // Focus terminal prompt input
   useEffect(() => {
     setTimeout(() => {
       if (terminalRef.current) {
-        // Scroll to the end of the container
-        const scrollHeight = terminalRef.current.scrollHeight;
-        terminalRef.current.scrollTop = scrollHeight;
+        terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
       }
     }, 40);
   }, [displayedHistory]);
@@ -182,7 +172,6 @@ async function handleCommandComponents(
   route: string,
   navigatorState: INavigatorState,
 ): Promise<ICommandResponse> {
-  //TODO Assign all commands cases
   const commandData: { command: string; route: string } = {
     command: commandItems[0],
     route,
@@ -201,7 +190,10 @@ async function handleCommandComponents(
         navigatorState,
       );
     case "ls":
-      return List(commandData);
+      return List(
+        { command: commandItems.join(" "), route },
+        commandItems.slice(1),
+      );
     case "pwd":
       return Pwd(commandData);
     case "whoami":
