@@ -32,6 +32,8 @@ export interface ICommandResponse {
 export interface IDirectoryItem {
   name: string;
   type: "dir" | "file" | "exe";
+  hidden?: true;
+  ignoredByList?: true;
 }
 
 //-> Routing

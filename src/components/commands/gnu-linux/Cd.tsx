@@ -22,8 +22,8 @@ export async function Cd(
     // Fetch current route's contents
     try {
       const res = await fetch(route, { headers: { "noRender": "true" } });
-      const content: IDirectoryItem[] = await res.json();
-      const directories = content.filter((item) => item.type === "dir");
+      const contentItems: IDirectoryItem[] = await res.json();
+      const directories = contentItems.filter((item) => item.type === "dir");
       resp.response = () => {
         return <></>;
       };
@@ -31,26 +31,14 @@ export async function Cd(
       if (directories.some((item) => item.name === newRoute)) {
         const slicedRoute = route.split("/");
 
-        switch (newRoute) {
-          case "/":
-            newRoute = "/";
-            break;
-          case "..": {
-            // Go back to the previous directory
-            const prevRoute = slicedRoute.slice(0, -1);
-            newRoute = prevRoute.length === 1 ? "/" : prevRoute.join("/");
-            break;
-          }
-          default: {
-            if (route === "/") {
-              newRoute = `/${newRoute}`;
-              break;
-            }
-
-            // Go to the new directory
-            newRoute = `${route}/${newRoute}`;
-            break;
-          }
+        // Simplify directory navigation logic
+        if (newRoute === "/") {
+          newRoute = "/";
+        } else if (newRoute === "..") {
+          const prevRoute = slicedRoute.slice(0, -1);
+          newRoute = prevRoute.length === 1 ? "/" : prevRoute.join("/");
+        } else {
+          newRoute = route === "/" ? `/${newRoute}` : `${route}/${newRoute}`;
         }
 
         navigatorState.setRouteToNavigate({
@@ -60,7 +48,10 @@ export async function Cd(
       } else {
         // If the new route doesn't exist in the current directory
         resp.response = () => (
-          <TypewriterText text={`cd: No such file or directory: ${newRoute}`} />
+          <TypewriterText
+            text={`cd: No such file or directory: ${newRoute}`}
+            key="cd_no_such_file"
+          />
         );
       }
     } catch (error) {
@@ -68,6 +59,7 @@ export async function Cd(
       resp.response = () => (
         <TypewriterText
           text={`FATAL: Error fetching directory contents: ${error}`}
+          key="cd_error_fetching_contents"
         />
       );
     }
