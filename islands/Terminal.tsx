@@ -88,21 +88,21 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     // If the input is the same as the last command, don't add it to the history
     const isEqualToLastCommand = history.length > 0 &&
       commandItems[0] === history[history.length - 1].command;
-    const output: ICommandResponse = handleCommandComponents(
+    handleCommandComponents(
       commandItems,
       urlPathName,
       navigatorState,
-    );
+    ).then((output) => {
+      // If the command is 'clear', clear the displayed history
+      if (output.command === "clear") {
+        setHistory([...history]);
+        setDisplayedHistory([]);
+        return;
+      }
 
-    // If the command is 'clear', clear the displayed history
-    if (output.command === "clear") {
-      setHistory([...history]);
-      setDisplayedHistory([]);
-      return;
-    }
-
-    setHistory(!isEqualToLastCommand ? [...history, output] : [...history]);
-    setDisplayedHistory([...displayedHistory, output]);
+      setHistory(!isEqualToLastCommand ? [...history, output] : [...history]);
+      setDisplayedHistory([...displayedHistory, output]);
+    });
   };
 
   return (
@@ -182,11 +182,11 @@ export function Terminal({ children }: { children: ComponentChildren }) {
   );
 }
 
-function handleCommandComponents(
+async function handleCommandComponents(
   commandItems: string[],
   route: string,
   navigatorState: INavigatorState,
-): ICommandResponse {
+): Promise<ICommandResponse> {
   //TODO Assign all commands cases
   const commandData: { command: string; route: string } = {
     command: commandItems[0],
@@ -200,7 +200,11 @@ function handleCommandComponents(
     case "clear":
       return { ...commandData, response: () => null, route: "" };
     case "cd":
-      return Cd(commandData, commandItems.slice(1), navigatorState);
+      return await Cd(
+        { command: commandItems.join(" "), route },
+        commandItems.slice(1),
+        navigatorState,
+      );
     case "ls":
       return List(commandData);
     case "pwd":

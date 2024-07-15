@@ -13,9 +13,7 @@ export interface IConsoleState {
 
 export interface INavigatorState {
   routeToNavigate: { route: string; activatedWithCd: boolean };
-  setRouteToNavigate: StateUpdater<
-    { route: string; activatedWithCd: boolean }
-  >;
+  setRouteToNavigate: StateUpdater<{ route: string; activatedWithCd: boolean }>;
 }
 
 export type IConsolePromptRefState = [
@@ -34,4 +32,10 @@ export interface ICommandResponse {
 export interface IDirectoryItem {
   name: string;
   type: "dir" | "file" | "exe";
+}
+
+//-> Routing
+export interface IRouteContents {
+  route: string;
+  items: IDirectoryItem[];
 }
