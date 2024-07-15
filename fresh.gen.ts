@@ -16,22 +16,22 @@ import * as $Terminal from "./islands/Terminal.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
-    routes: {
-        "./routes/_404.tsx": $_404,
-        "./routes/_app.tsx": $_app,
-        "./routes/_layout.tsx": $_layout,
-        "./routes/home/guest/index.tsx": $home_guest_index,
-        "./routes/home/index.tsx": $home_index,
-        "./routes/index.tsx": $index,
-    },
-    islands: {
-        "./islands/ContextWrapper.tsx": $ContextWrapper,
-        "./islands/History.tsx": $History,
-        "./islands/Navigator.tsx": $Navigator,
-        "./islands/SplineBackdrop.tsx": $SplineBackdrop,
-        "./islands/Terminal.tsx": $Terminal,
-    },
-    baseUrl: import.meta.url,
+  routes: {
+    "./routes/_404.tsx": $_404,
+    "./routes/_app.tsx": $_app,
+    "./routes/_layout.tsx": $_layout,
+    "./routes/home/guest/index.tsx": $home_guest_index,
+    "./routes/home/index.tsx": $home_index,
+    "./routes/index.tsx": $index,
+  },
+  islands: {
+    "./islands/ContextWrapper.tsx": $ContextWrapper,
+    "./islands/History.tsx": $History,
+    "./islands/Navigator.tsx": $Navigator,
+    "./islands/SplineBackdrop.tsx": $SplineBackdrop,
+    "./islands/Terminal.tsx": $Terminal,
+  },
+  baseUrl: import.meta.url,
 } satisfies Manifest;
 
 export default manifest;
