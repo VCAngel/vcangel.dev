@@ -85,6 +85,12 @@ export function Help({
             </li>
             <li>
               <TypewriterText
+                text="history			Keep track of the commands you've run"
+                key="help_commands-history"
+              />
+            </li>
+            <li>
+              <TypewriterText
                 text="ls				List directory contents"
                 key="help_commands-list"
               />

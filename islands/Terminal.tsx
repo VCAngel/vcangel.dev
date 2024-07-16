@@ -1,13 +1,13 @@
 import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
 import { useContext, useEffect, useState } from "preact/hooks";
-import { Help } from "../src/components/commands/Base.tsx";
+import { Help, WhoAmI, WhoIs } from "../src/components/commands/Base.tsx";
 import { Cat } from "../src/components/commands/gnu-linux/Cat.tsx";
 import { Cd } from "../src/components/commands/gnu-linux/Cd.tsx";
 import { Echo } from "../src/components/commands/gnu-linux/Echo.tsx";
 import { List } from "../src/components/commands/gnu-linux/List.tsx";
 import { Pwd } from "../src/components/commands/gnu-linux/Pwd.tsx";
-import { Whoami, Whois } from "../src/components/commands/gnu-linux/Whoami.tsx";
+import { History as CmdHistory } from "../src/components/commands/gnu-linux/History.tsx";
 import { ICommandResponse, INavigatorState } from "../src/models/Command.ts";
 import {
   ConsolePromptRefState,
@@ -80,7 +80,13 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     const isEqualToLastCommand = history.length > 0 &&
       commandItems[0] === history[history.length - 1].command;
 
-    handleCommandComponents(commandItems, urlPathName, navigatorState, input)
+    handleCommandComponents(
+      commandItems,
+      input,
+      urlPathName,
+      history,
+      navigatorState,
+    )
       .then(
         (output) => {
           if (output.command === "clear") {
@@ -170,9 +176,10 @@ export function Terminal({ children }: { children: ComponentChildren }) {
 
 async function handleCommandComponents(
   commandItems: string[],
+  fullCommand: string,
   route: string,
+  history: ICommandResponse[],
   navigatorState: INavigatorState,
-  fullCommand?: string,
 ): Promise<ICommandResponse> {
   const commandData: { command: string; route: string } = {
     command: commandItems[0],
@@ -195,9 +202,11 @@ async function handleCommandComponents(
       return { ...commandData, response: () => null, route: "" };
     case "echo":
       return Echo({
-        command: fullCommand?.replace(/^(echo\s+)/, "") || "",
+        command: fullCommand.replace(/^(echo\s+)/, ""),
         route,
       });
+    case "history":
+      return CmdHistory(commandData, history);
     case "ls":
       return List(
         { command: commandItems.join(" "), route },
@@ -206,9 +215,9 @@ async function handleCommandComponents(
     case "pwd":
       return Pwd(commandData);
     case "whoami":
-      return Whoami(commandData);
+      return WhoAmI(commandData);
     case "whois":
-      return Whois(commandData);
+      return WhoIs(commandData);
     default:
       return {
         command: commandData.command,
