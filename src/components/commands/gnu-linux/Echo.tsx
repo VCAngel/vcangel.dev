@@ -16,7 +16,7 @@ export function Echo({
         <ul class="command-wrapper">
           <li>
             <TypewriterText
-              text={command}
+              text={command.replace(/^(echo\s+)/, "")}
               key="echo_print_params"
             />
           </li>
