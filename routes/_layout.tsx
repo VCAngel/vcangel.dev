@@ -1,8 +1,8 @@
 import { PageProps } from "$fresh/server.ts";
 import { Partial } from "$fresh/src/runtime/Partial.tsx";
-import History from "../islands/History.tsx";
-import NavigatorAnchor from "../islands/Navigator.tsx";
-import { Terminal } from "../islands/Terminal.tsx";
+import History from "../islands/terminal/History.tsx";
+import NavigatorAnchor from "../islands/terminal/Navigator.tsx";
+import { Terminal } from "../islands/terminal/Terminal.tsx";
 import ContextWrapper from "../islands/ContextWrapper.tsx";
 
 export default function Wrapper({ Component }: PageProps) {

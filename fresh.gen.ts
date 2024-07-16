@@ -11,10 +11,10 @@ import * as $home_guest_index from "./routes/home/guest/index.tsx";
 import * as $home_index from "./routes/home/index.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $ContextWrapper from "./islands/ContextWrapper.tsx";
-import * as $History from "./islands/History.tsx";
-import * as $Navigator from "./islands/Navigator.tsx";
 import * as $SplineBackdrop from "./islands/SplineBackdrop.tsx";
-import * as $Terminal from "./islands/Terminal.tsx";
+import * as $terminal_History from "./islands/terminal/History.tsx";
+import * as $terminal_Navigator from "./islands/terminal/Navigator.tsx";
+import * as $terminal_Terminal from "./islands/terminal/Terminal.tsx";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -30,10 +30,10 @@ const manifest = {
   },
   islands: {
     "./islands/ContextWrapper.tsx": $ContextWrapper,
-    "./islands/History.tsx": $History,
-    "./islands/Navigator.tsx": $Navigator,
     "./islands/SplineBackdrop.tsx": $SplineBackdrop,
-    "./islands/Terminal.tsx": $Terminal,
+    "./islands/terminal/History.tsx": $terminal_History,
+    "./islands/terminal/Navigator.tsx": $terminal_Navigator,
+    "./islands/terminal/Terminal.tsx": $terminal_Terminal,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
