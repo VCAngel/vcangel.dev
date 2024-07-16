@@ -74,6 +74,14 @@ img {
   }
 }
 
+.console-pane-wrapper{
+  @apply  bg-[#000000bb] border rounded-md border-slate-300 flex flex-col flex-grow max-h-full overflow-y-auto hide-scrollbar;
+}
+
+.console-pane {
+  @apply max-w-full overflow-hidden p-[2ch] py-[1ch];
+}
+
 /* Commands wrapping behaviour */
 *.command-wrapper > * {
   white-space: pre-wrap;

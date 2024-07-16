@@ -152,7 +152,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       >
       </label>
       <div
-        className="flex-shrink-0 flex gap-2 items-center justify-start max-w-full overflow-hidden p-[2ch] py-[1ch]"
+        className="console-pane flex-shrink-0 flex gap-2 items-center justify-start"
         onClick={() => consolePromptRef.current?.focus()}
       >
         <pre className="shrink-0">
@@ -176,7 +176,9 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   );
 }
 
-export function Terminal({ children }: { children: ComponentChildren }) {
+export function Terminal(
+  { children, className }: { children: ComponentChildren; className: string },
+) {
   const terminalRef = createRef<HTMLInputElement>();
   const [terminalPromptRef] = useContext(ConsolePromptRefState);
   const { displayedHistory } = useContext(ConsoleState);
@@ -196,7 +198,7 @@ export function Terminal({ children }: { children: ComponentChildren }) {
   return (
     <main
       ref={terminalRef}
-      className="z-10 bg-[#000000bb] border rounded-sm border-slate-300 flex flex-col flex-grow m-4 mb-6 max-h-full overflow-y-auto hide-scrollbar"
+      className={className}
       onClick={() => terminalPromptRef.current?.focus()}
     >
       {children}
