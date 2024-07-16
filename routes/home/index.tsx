@@ -1,13 +1,13 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { TerminalPrompt } from "../islands/Terminal.tsx";
-import { IDirectoryItem } from "../src/models/Command.ts";
+import { TerminalPrompt } from "../../islands/Terminal.tsx";
+import { IDirectoryItem } from "../../src/models/Command.ts";
 
 export const handler: Handlers = {
   GET(req, ctx) {
     const rootItems: IDirectoryItem[] = [
+      { name: "..", type: "dir", ignoredByList: true },
       { name: "/", type: "dir", ignoredByList: true },
-      { name: "home", type: "dir" },
-      { name: "home/guest", type: "dir", ignoredByList: true },
+      { name: "guest", type: "dir" },
     ];
 
     if (req.headers.get("noRender")) {
@@ -23,7 +23,7 @@ export const handler: Handlers = {
   },
 };
 
-export default function Root({ url }: PageProps) {
+export default function Home({ url }: PageProps) {
   return (
     <>
       <TerminalPrompt urlPathName={url.pathname} />
