@@ -1,15 +1,15 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { TerminalPrompt } from "../../../islands/Terminal.tsx";
-import { IDirectoryItem } from "../../../src/models/Command.ts";
+import { TerminalPrompt } from "../../../../islands/Terminal.tsx";
+import { IDirectoryItem } from "../../../../src/models/Command.ts";
 
 export const handler: Handlers = {
   GET(req, ctx) {
     const rootItems: IDirectoryItem[] = [
       { name: "..", type: "dir", ignoredByList: true },
       { name: "/", type: "dir", ignoredByList: true },
-      { name: "Documents", type: "dir" },
-      { name: "Images", type: "dir" },
-      { name: "README.md", type: "file" },
+      { name: "me.png", type: "file" },
+      { name: "phrog.gif", type: "file" },
+      { name: "le_meme.png", type: "file" },
     ];
 
     if (req.headers.get("noRender")) {
@@ -25,7 +25,7 @@ export const handler: Handlers = {
   },
 };
 
-export default function Guest({ url }: PageProps) {
+export default function Images({ url }: PageProps) {
   return (
     <>
       <TerminalPrompt urlPathName={url.pathname} />

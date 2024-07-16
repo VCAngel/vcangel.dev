@@ -14,9 +14,11 @@ export function Pwd({
     route,
     response: () => {
       return (
-        <p>
-          <TypewriterText text="~" key="pwd_current_directory" />
-        </p>
+        <ul class="command-wrapper">
+          <li>
+            <TypewriterText text={route} key="pwd_current_directory" />
+          </li>
+        </ul>
       );
     },
   };

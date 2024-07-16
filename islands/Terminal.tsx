@@ -120,7 +120,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       >
         <pre className="shrink-0">
           <span className="text-[#C541F2]">guest@vcangel.dev</span> in{" "}
-          <span className="text-[#41F2A9]">{urlPathName}</span>{" "}
+          <span className="text-[#41F2A9]">{urlPathName.replace('/home/guest', '~')}</span>{" "}
           <span className="text-[#F2BB41]">λ</span>
         </pre>
         <p

@@ -19,7 +19,10 @@ export default function History() {
                 <span className="text-[#C541F2]">
                   guest@vcangel.dev
                 </span>{" "}
-                in <span className="text-[#41F2A9]">{route}</span>{" "}
+                in{" "}
+                <span className="text-[#41F2A9]">
+                  {route.replace("/home/guest", "~")}
+                </span>{" "}
                 <span className="text-[#F2BB41]">λ</span>
               </p>
               <span className="whitespace-nowrap max-w-full">
