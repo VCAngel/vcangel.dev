@@ -19,14 +19,16 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   const { history, setHistory, displayedHistory, setDisplayedHistory } =
     useContext(ConsoleState);
   const navigatorState = useContext(NavigatorState);
-
   const [consolePromptRef] = useContext(ConsolePromptRefState);
+
   const textRef = createRef<HTMLParagraphElement>();
   const caretRef = createRef<HTMLDivElement>();
+
   const [input, setInput] = useState("");
   const [_output, setOutput] = useState("");
   const [caretPosition, setCaretPosition] = useState(0);
   const [commandItems, setCommandItems] = useState<string[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(history.length);
 
   useEffect(() => {
     if (textRef.current) {
@@ -42,6 +44,8 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       caretRef.current.style.left = `${caretPosition}ch`;
     }
   }, [caretPosition]);
+
+  useEffect(() => setHistoryIndex(history.length), [history]);
 
   const handleInput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     setInput(e.currentTarget.value);
@@ -89,18 +93,44 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     )
       .then(
         (output) => {
+          setHistory(
+            !isEqualToLastCommand ? [...history, output] : [...history],
+          );
+
           if (output.command === "clear") {
-            setHistory([...history]);
             setDisplayedHistory([]);
             return;
           }
 
-          setHistory(
-            !isEqualToLastCommand ? [...history, output] : [...history],
-          );
           setDisplayedHistory([...displayedHistory, output]);
         },
       );
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      setCaretPosition(e.currentTarget?.selectionStart || 0);
+    }
+
+    if (e.key === "ArrowUp") {
+      e.preventDefault(); // Prevent cursor from moving
+      const newIndex = historyIndex > 0 ? historyIndex - 1 : 0;
+      if (history.length > 0 && newIndex >= 0) {
+        setInput(history[newIndex].command);
+        setHistoryIndex(newIndex);
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault(); // Prevent cursor from moving
+      const newIndex = historyIndex < history.length - 1
+        ? historyIndex + 1
+        : history.length;
+      if (newIndex >= 0 && newIndex < history.length) {
+        setInput(history[newIndex].command);
+      } else {
+        setInput(""); // Clear input if we've gone past the most recent command
+      }
+      setHistoryIndex(newIndex);
+    }
   };
 
   return (
@@ -111,7 +141,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
         value={input}
         onChange={handleInput}
         onKeyUp={handleOutput}
-        onKeyDown={(e) => setCaretPosition(e.currentTarget.selectionStart || 0)}
+        onKeyDown={handleKeyDown}
         className="absolute -top-[1000px] opacity-0"
         id="terminalInput"
         name="terminalInput"

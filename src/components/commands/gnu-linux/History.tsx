@@ -17,7 +17,7 @@ export function History({
           {history.map((historyItem, index) => (
             <li key={index}>
               <TypewriterText
-                text={historyItem.command}
+                text={`${index + 1} ${historyItem.command}`}
                 key={`history_${index}`}
               />
             </li>
