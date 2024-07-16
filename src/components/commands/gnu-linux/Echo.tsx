@@ -8,18 +8,19 @@ export function Echo({
   command: string;
   route: string;
 }): ICommandResponse {
-  //TODO Display the contents of a file
   return {
     command,
     route,
     response: () => {
       return (
-        <p>
-          <TypewriterText
-            text="TODO: Echo file contents!"
-            key="echo_echo_contents"
-          />
-        </p>
+        <ul class="command-wrapper">
+          <li>
+            <TypewriterText
+              text={command}
+              key="echo_print_params"
+            />
+          </li>
+        </ul>
       );
     },
   };

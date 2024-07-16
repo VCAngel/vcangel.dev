@@ -80,20 +80,21 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     const isEqualToLastCommand = history.length > 0 &&
       commandItems[0] === history[history.length - 1].command;
 
-    handleCommandComponents(commandItems, urlPathName, navigatorState).then(
-      (output) => {
-        if (output.command === "clear") {
-          setHistory([...history]);
-          setDisplayedHistory([]);
-          return;
-        }
+    handleCommandComponents(commandItems, urlPathName, navigatorState, input)
+      .then(
+        (output) => {
+          if (output.command === "clear") {
+            setHistory([...history]);
+            setDisplayedHistory([]);
+            return;
+          }
 
-        setHistory(
-          !isEqualToLastCommand ? [...history, output] : [...history],
-        );
-        setDisplayedHistory([...displayedHistory, output]);
-      },
-    );
+          setHistory(
+            !isEqualToLastCommand ? [...history, output] : [...history],
+          );
+          setDisplayedHistory([...displayedHistory, output]);
+        },
+      );
   };
 
   return (
@@ -171,6 +172,7 @@ async function handleCommandComponents(
   commandItems: string[],
   route: string,
   navigatorState: INavigatorState,
+  fullCommand?: string,
 ): Promise<ICommandResponse> {
   const commandData: { command: string; route: string } = {
     command: commandItems[0],
@@ -181,14 +183,21 @@ async function handleCommandComponents(
     case "help":
     case "?":
       return Help(commandData);
-    case "clear":
-      return { ...commandData, response: () => null, route: "" };
+    case "cat":
+      return Cat(commandData);
     case "cd":
       return await Cd(
         { command: commandItems.join(" "), route },
         commandItems.slice(1),
         navigatorState,
       );
+    case "clear":
+      return { ...commandData, response: () => null, route: "" };
+    case "echo":
+      return Echo({
+        command: fullCommand?.replace(/^(echo\s+)/, "") || "",
+        route,
+      });
     case "ls":
       return List(
         { command: commandItems.join(" "), route },
@@ -200,10 +209,6 @@ async function handleCommandComponents(
       return Whoami(commandData);
     case "whois":
       return Whois(commandData);
-    case "cat":
-      return Cat(commandData);
-    case "echo":
-      return Echo(commandData);
     default:
       return {
         command: commandData.command,
