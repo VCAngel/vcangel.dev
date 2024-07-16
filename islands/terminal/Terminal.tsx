@@ -1,19 +1,19 @@
 import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
 import { useContext, useEffect, useState } from "preact/hooks";
-import { Help, WhoAmI, WhoIs } from "../src/components/commands/Base.tsx";
-import { Cat } from "../src/components/commands/gnu-linux/Cat.tsx";
-import { Cd } from "../src/components/commands/gnu-linux/Cd.tsx";
-import { Echo } from "../src/components/commands/gnu-linux/Echo.tsx";
-import { List } from "../src/components/commands/gnu-linux/List.tsx";
-import { Pwd } from "../src/components/commands/gnu-linux/Pwd.tsx";
-import { History as CmdHistory } from "../src/components/commands/gnu-linux/History.tsx";
-import { ICommandResponse, INavigatorState } from "../src/models/Command.ts";
+import { Help, WhoAmI, WhoIs } from "../../src/components/commands/Base.tsx";
+import { Cat } from "../../src/components/commands/gnu-linux/Cat.tsx";
+import { Cd } from "../../src/components/commands/gnu-linux/Cd.tsx";
+import { Echo } from "../../src/components/commands/gnu-linux/Echo.tsx";
+import { List } from "../../src/components/commands/gnu-linux/List.tsx";
+import { Pwd } from "../../src/components/commands/gnu-linux/Pwd.tsx";
+import { History as CmdHistory } from "../../src/components/commands/gnu-linux/History.tsx";
+import { ICommandResponse, INavigatorState } from "../../src/models/Command.ts";
 import {
   ConsolePromptRefState,
   ConsoleState,
   NavigatorState,
-} from "./ContextWrapper.tsx";
+} from "../ContextWrapper.tsx";
 
 export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   const { history, setHistory, displayedHistory, setDisplayedHistory } =

@@ -1,6 +1,6 @@
 import { createRef } from "preact";
 import { useContext, useEffect } from "preact/hooks";
-import { NavigatorState } from "./ContextWrapper.tsx";
+import { NavigatorState } from "../ContextWrapper.tsx";
 
 export default function NavigatorAnchor() {
   const navigatorRef = createRef<HTMLAnchorElement>();

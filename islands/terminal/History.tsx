@@ -1,4 +1,4 @@
-import { ConsoleState } from "./ContextWrapper.tsx";
+import { ConsoleState } from "../ContextWrapper.tsx";
 import { useContext } from "preact/hooks";
 
 export default function History() {

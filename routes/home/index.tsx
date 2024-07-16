@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { TerminalPrompt } from "../../islands/Terminal.tsx";
+import { TerminalPrompt } from "../../islands/terminal/Terminal.tsx";
 import { IDirectoryItem } from "../../src/models/Command.ts";
 
 export const handler: Handlers = {
