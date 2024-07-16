@@ -232,7 +232,7 @@ async function handleCommandComponents(
       return { ...commandData, response: () => null, route: "" };
     case "echo":
       return Echo({
-        command: fullCommand.replace(/^(echo\s+)/, ""),
+        command: fullCommand,
         route,
       });
     case "history":
