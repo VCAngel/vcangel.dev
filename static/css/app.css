@@ -30,15 +30,6 @@ img {
 }
 
 #spaceBg {
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -10;
-  }
-
   &::before {
     content: "";
     position: fixed;
@@ -49,12 +40,12 @@ img {
     display: block;
     background: radial-gradient(
         ellipse at left,
-        rgba(7, 34, 39, 0.3),
+        rgb(0, 19, 20),
         transparent
       ),
-      radial-gradient(ellipse at top, rgba(76, 0, 112, 0.05), transparent),
-      radial-gradient(ellipse at right, rgba(0, 145, 142, 0.15), transparent),
-      radial-gradient(ellipse at bottom, rgba(169, 16, 121, 0.1), transparent);
+      radial-gradient(ellipse at top, rgb(14, 0, 21), transparent),
+      radial-gradient(ellipse at right, rgb(0, 17, 17), transparent),
+      radial-gradient(ellipse at bottom, rgb(19, 0, 14), transparent);
     mask-image: linear-gradient(
       -65deg,
       rgba(0, 0, 0, 0) 20%,
@@ -74,30 +65,13 @@ img {
   }
 }
 
-.pixelated-image-container {
-  width: 100%;
-  overflow: hidden;
-  height: auto;
-}
-
-.pixelated-image-container img {
-  width: 1%;
-  height: auto;
-
-  transform: scale(10);
-  transform-origin: top left;
-  
-  object-fit: contain;
-  image-rendering: pixelated;
-}
-
-.svg-filters {
-  height: 0; /* Hide the SVG element */
-}
 
 .pixelated-image {
-  filter: url(#pixelate); /* Apply the SVG filter */
-  /* image-rendering: pixelated; */
+  opacity: 0%;
+  position: absolute;
+  top: -100%;
+  pointer-events: none;
+  user-select: none;
 }
 
 .console-pane-wrapper{
