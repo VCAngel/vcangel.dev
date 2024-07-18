@@ -74,8 +74,34 @@ img {
   }
 }
 
+.pixelated-image-container {
+  width: 100%;
+  overflow: hidden;
+  height: auto;
+}
+
+.pixelated-image-container img {
+  width: 1%;
+  height: auto;
+
+  transform: scale(10);
+  transform-origin: top left;
+  
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.svg-filters {
+  height: 0; /* Hide the SVG element */
+}
+
+.pixelated-image {
+  filter: url(#pixelate); /* Apply the SVG filter */
+  /* image-rendering: pixelated; */
+}
+
 .console-pane-wrapper{
-  @apply  bg-[#000000bb] border rounded-md border-slate-300 flex flex-col flex-grow max-h-full overflow-y-auto hide-scrollbar;
+  @apply bg-[#000000bb] border rounded-md border-slate-300 flex flex-col flex-grow max-h-full overflow-y-auto hide-scrollbar;
 }
 
 .console-pane {
