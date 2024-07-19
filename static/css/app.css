@@ -16,8 +16,12 @@ html {
     margin 0.2s ease-out,
     padding 0.2s ease-out,
     border 0.2s ease-out,
-    font-size 0.2s ease-out,
-    background-color 0.2s ease-out;
+    font-size 0.2s ease-out
+}
+
+*::selection {
+  background-color: #f9f9f9;
+  color: #000;
 }
 
 body {

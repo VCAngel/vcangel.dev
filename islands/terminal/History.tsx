@@ -16,14 +16,14 @@ export default function History() {
               }`}
             >
               <p class="shrink-0">
-                <span className="text-[#C541F2]">
+                <span className="text-[#C541F2] selection:bg-[#C541F2]">
                   guest@vcangel.dev
                 </span>{" "}
                 in{" "}
-                <span className="text-[#41F2A9]">
+                <span className="text-[#41F2A9] selection:bg-[#41F2A9]">
                   {route.replace("/home/guest", "~")}
                 </span>{" "}
-                <span className="text-[#F2BB41]">λ</span>
+                <span className="text-[#F2BB41] selection:bg-[#F2BB41]">λ</span>
               </p>
               <span className="whitespace-nowrap max-w-full">
                 {command}

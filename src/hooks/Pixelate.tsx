@@ -83,13 +83,18 @@ const usePixelate = (src: string, increment = 0.001, {
     // Ensure 'percentage' does not exceed 1.
     if (percentage <= maxPercentage) {
       globalThis.requestAnimationFrame(() => animate(canvas, image));
+    } else {
+      image.classList.add("hidden");
+      image.classList.remove("block");
     }
   };
 
   useEffect(() => {
     globalThis.addEventListener("resize", () => {
       if (!canvasRef.current || !imageRef.current) return;
-      drawImage(percentage, canvasRef.current, imageRef.current, maxPercentage);
+      imageRef.current.classList.add("block");
+      imageRef.current.classList.remove("hidden");
+      animate(canvasRef.current, imageRef.current);
     });
 
     if (!canvasRef.current || !imageRef.current) return;

@@ -16,7 +16,6 @@ export default function NavigatorAnchor() {
   return (
     <a
       id="navigator"
-      onClick={() => console.log(routeToNavigate)}
       ref={navigatorRef}
       href={routeToNavigate.route}
       className="hidden "
