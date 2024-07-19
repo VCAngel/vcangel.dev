@@ -1,5 +1,5 @@
 import { createRef } from "preact";
-import { useEffect } from "preact/hooks";
+import { useCallback, useEffect, useState } from "preact/hooks";
 
 const drawImage = (
   percentage: number,
@@ -58,48 +58,67 @@ const usePixelate = (src: string, increment = 0.001, {
   imageClassName?: string;
   maxPercentage?: number;
 }) => {
+  const [rendering, setRendering] = useState(false);
   const canvasRef = createRef<HTMLCanvasElement>();
   const imageRef = createRef<HTMLImageElement>();
   let percentage = 0;
+  let auxIncrement = increment;
 
-  const animate = (canvas: HTMLCanvasElement, image: HTMLImageElement) => {
-    drawImage(percentage, canvas, image, maxPercentage);
+  const animate = useCallback(
+    (canvas: HTMLCanvasElement, image: HTMLImageElement) => {
+      drawImage(percentage, canvas, image, maxPercentage);
 
-    // `increment` controls the speed of the transition.
-    percentage += increment * (1 - percentage) * (1 - percentage);
+      // `increment` controls the speed of the transition.
+      percentage += auxIncrement * (1 - percentage) * (1 - percentage);
 
-    if (percentage <= 0.1) {
-      increment *= 1.1;
-    }
+      if (percentage <= 0.1) {
+        auxIncrement *= 1.1;
+      }
 
-    if (percentage > 0.1) {
-      increment *= 1.3;
-    }
+      if (percentage > 0.1) {
+        auxIncrement *= 1.3;
+      }
 
-    if (percentage > 0.5) {
-      increment *= 2;
-    }
+      if (percentage > 0.5) {
+        auxIncrement *= 2;
+      }
 
-    // Ensure 'percentage' does not exceed 1.
-    if (percentage <= maxPercentage) {
-      globalThis.requestAnimationFrame(() => animate(canvas, image));
-    } else {
-      image.classList.add("hidden");
-      image.classList.remove("block");
-    }
-  };
+      // Ensure 'percentage' does not exceed 1.
+      if (percentage <= maxPercentage) {
+        globalThis.requestAnimationFrame(() => animate(canvas, image));
+        setRendering(true);
+      } else {
+        image.classList.add("hidden");
+        image.classList.remove("block");
+        setRendering(false);
+      }
+    },
+    [percentage, auxIncrement, maxPercentage],
+  );
 
   useEffect(() => {
-    globalThis.addEventListener("resize", () => {
-      if (!canvasRef.current || !imageRef.current) return;
+    const handleResize = () => {
+      if (!canvasRef.current || !imageRef.current || rendering) return;
       imageRef.current.classList.add("block");
       imageRef.current.classList.remove("hidden");
+      percentage = 0;
+      auxIncrement = increment;
+      setRendering(true);
       animate(canvasRef.current, imageRef.current);
-    });
+    };
 
+    globalThis.addEventListener("resize", handleResize);
+
+    return () => {
+      globalThis.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!canvasRef.current || !imageRef.current) return;
     animate(canvasRef.current, imageRef.current);
-  });
+    setRendering(true);
+  }, []);
 
   return (
     <>
