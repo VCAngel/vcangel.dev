@@ -19,7 +19,13 @@ export default function Preview({ className }: { className?: string }) {
       </div>
       <ul class="flex flex-col overflow-y-auto hide-scrollbar max-h-[16ch] lg:max-h-full">
         <li className="text-indigo-400 selection:bg-indigo-400">
-          <TypewriterText text="VCAngel@github" key="preview_vcangel" />
+          <a
+            target="_blank"
+            href="https://github.com/VCAngel"
+            className="hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black"
+          >
+            <TypewriterText text="VCAngel@github" key="preview_vcangel" />
+          </a>
         </li>
         <li className="hidden lg:block">
           <TypewriterText text="- - - - - - - -" key="preview_division" />
