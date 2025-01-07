@@ -1,23 +1,25 @@
-import { Ref } from "preact";
-import { StateUpdater } from "preact/hooks";
+import { RefObject } from "preact";
+import { Dispatch, StateUpdater } from "preact/hooks";
 import { JSX } from "preact/jsx-runtime";
 
 //-> Contexts
 export interface IConsoleState {
   history: ICommandResponse[];
-  setHistory: StateUpdater<ICommandResponse[]>;
+  setHistory: Dispatch<StateUpdater<ICommandResponse[]>>;
 
   displayedHistory: ICommandResponse[];
-  setDisplayedHistory: StateUpdater<ICommandResponse[]>;
+  setDisplayedHistory: Dispatch<StateUpdater<ICommandResponse[]>>;
 }
 
 export interface INavigatorState {
   routeToNavigate: { route: string; activatedWithCd: boolean };
-  setRouteToNavigate: StateUpdater<{ route: string; activatedWithCd: boolean }>;
+  setRouteToNavigate: Dispatch<
+    StateUpdater<{ route: string; activatedWithCd: boolean }>
+  >;
 }
 
 export type IConsolePromptRefState = [
-  Ref<HTMLInputElement>,
+  RefObject<HTMLInputElement>,
   (el: HTMLInputElement) => void,
 ];
 

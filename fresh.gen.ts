@@ -16,7 +16,7 @@ import * as $SplineBackdrop from "./islands/SplineBackdrop.tsx";
 import * as $terminal_History from "./islands/terminal/History.tsx";
 import * as $terminal_Navigator from "./islands/terminal/Navigator.tsx";
 import * as $terminal_Terminal from "./islands/terminal/Terminal.tsx";
-import { type Manifest } from "$fresh/server.ts";
+import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
