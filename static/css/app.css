@@ -16,8 +16,12 @@ html {
     margin 0.2s ease-out,
     padding 0.2s ease-out,
     border 0.2s ease-out,
-    font-size 0.2s ease-out,
-    background-color 0.2s ease-out;
+    font-size 0.2s ease-out
+}
+
+*::selection {
+  background-color: #f9f9f9;
+  color: #000;
 }
 
 body {
@@ -30,15 +34,6 @@ img {
 }
 
 #spaceBg {
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -10;
-  }
-
   &::before {
     content: "";
     position: fixed;
@@ -49,12 +44,12 @@ img {
     display: block;
     background: radial-gradient(
         ellipse at left,
-        rgba(7, 34, 39, 0.3),
+        rgb(0, 19, 20),
         transparent
       ),
-      radial-gradient(ellipse at top, rgba(76, 0, 112, 0.05), transparent),
-      radial-gradient(ellipse at right, rgba(0, 145, 142, 0.15), transparent),
-      radial-gradient(ellipse at bottom, rgba(169, 16, 121, 0.1), transparent);
+      radial-gradient(ellipse at top, rgb(14, 0, 21), transparent),
+      radial-gradient(ellipse at right, rgb(0, 17, 17), transparent),
+      radial-gradient(ellipse at bottom, rgb(19, 0, 14), transparent);
     mask-image: linear-gradient(
       -65deg,
       rgba(0, 0, 0, 0) 20%,
@@ -72,6 +67,23 @@ img {
     animation: shine 60s infinite linear;
     z-index: -9;
   }
+}
+
+
+.pixelated-image {
+  opacity: 0%;
+  position: absolute;
+  top: -100%;
+  pointer-events: none;
+  user-select: none;
+}
+
+.console-pane-wrapper{
+  @apply bg-[#000000bb] border rounded-md border-slate-300 flex flex-col flex-grow max-h-full overflow-y-auto hide-scrollbar;
+}
+
+.console-pane {
+  @apply max-w-full overflow-hidden p-[2ch] py-[1ch];
 }
 
 /* Commands wrapping behaviour */

@@ -13,10 +13,13 @@ function createNavigatorState(): INavigatorState {
     activatedWithCd: false,
   });
 
-  const navState = useMemo(() => ({
-    routeToNavigate,
-    setRouteToNavigate,
-  }), [routeToNavigate]);
+  const navState = useMemo(
+    () => ({
+      routeToNavigate,
+      setRouteToNavigate,
+    }),
+    [routeToNavigate],
+  );
 
   return navState;
 }
@@ -33,25 +36,28 @@ function createConsolePromptRefState(): IConsolePromptRefState {
 
 function createConsoleState(): IConsoleState {
   const [history, setHistory] = useState<ICommandResponse[]>([]);
-  const [displayedHistory, setDisplayedHistory] = useState<
-    ICommandResponse[]
-  >([]);
+  const [displayedHistory, setDisplayedHistory] = useState<ICommandResponse[]>(
+    [],
+  );
 
-  const state = useMemo(() => ({
-    history,
-    setHistory,
-    displayedHistory,
-    setDisplayedHistory,
-  }), [history, displayedHistory]);
+  const state = useMemo(
+    () => ({
+      history,
+      setHistory,
+      displayedHistory,
+      setDisplayedHistory,
+    }),
+    [history, displayedHistory],
+  );
 
   return state;
 }
 
 export const ConsoleState = createContext<IConsoleState>({
   history: [],
-  setHistory: () => {},
+  setHistory: () => [],
   displayedHistory: [],
-  setDisplayedHistory: () => {},
+  setDisplayedHistory: () => [],
 });
 
 export const NavigatorState = createContext<INavigatorState>({
@@ -64,15 +70,15 @@ export const ConsolePromptRefState = createContext<IConsolePromptRefState>([
   () => {},
 ]);
 
-export default function ContextWrapper(
-  { children }: { children: ComponentChildren },
-) {
+export default function ContextWrapper({
+  children,
+}: {
+  children: ComponentChildren;
+}) {
   return (
     <NavigatorState.Provider value={createNavigatorState()}>
       <ConsoleState.Provider value={createConsoleState()}>
-        <ConsolePromptRefState.Provider
-          value={createConsolePromptRefState()}
-        >
+        <ConsolePromptRefState.Provider value={createConsolePromptRefState()}>
           {children}
         </ConsolePromptRefState.Provider>
       </ConsoleState.Provider>

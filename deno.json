@@ -1,8 +1,6 @@
 {
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact"
-  },
+  "version": "0.1.0-beta.1",
+  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "exclude": ["**/_fresh/*"],
   "fmt": {
     "exclude": [".git-hooks/", "static/"],
@@ -12,13 +10,13 @@
     "semiColons": true
   },
   "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.6.8/",
+    "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$std/": "https://deno.land/std@0.216.0/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "@splinetool/runtime": "npm:@splinetool/runtime@^1.8.9",
-    "preact": "https://esm.sh/preact@10.19.6",
-    "preact/": "https://esm.sh/preact@10.19.6/",
+    "preact": "https://esm.sh/preact@10.22.0",
+    "preact/": "https://esm.sh/preact@10.22.0/",
     "std/path": "https://deno.land/std@0.121.0/path/mod.ts",
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
@@ -26,12 +24,12 @@
   },
   "lint": {
     "rules": {
-      "exclude": ["static/fonts/"],
-      "include": ["./**/*.ts"],
       "tags": ["fresh", "recommended"]
-    }
+    },
+    "exclude": ["static/fonts/"],
+    "include": ["./**/*.ts"]
   },
-  "nodeModulesDir": true,
+  "nodeModulesDir": "auto",
   "tasks": {
     "build": "deno run -A dev.ts build",
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",

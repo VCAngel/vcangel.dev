@@ -52,9 +52,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     setCaretPosition(e.currentTarget.selectionStart || 0);
   };
 
-  const handleOutput = (
-    e: TargetedEvent<HTMLInputElement, KeyboardEvent>,
-  ) => {
+  const handleOutput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     if (e.key === "Enter") {
       setOutput(input);
       handleHistory();
@@ -90,28 +88,19 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       urlPathName,
       history,
       navigatorState,
-    )
-      .then(
-        (output) => {
-          setHistory(
-            !isEqualToLastCommand ? [...history, output] : [...history],
-          );
+    ).then((output) => {
+      setHistory(!isEqualToLastCommand ? [...history, output] : [...history]);
 
-          if (output.command === "clear") {
-            setDisplayedHistory([]);
-            return;
-          }
+      if (output.command === "clear") {
+        setDisplayedHistory([]);
+        return;
+      }
 
-          setDisplayedHistory([...displayedHistory, output]);
-        },
-      );
+      setDisplayedHistory([...displayedHistory, output]);
+    });
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      setCaretPosition(e.currentTarget?.selectionStart || 0);
-    }
-
     if (e.key === "ArrowUp") {
       e.preventDefault(); // Prevent cursor from moving
       const newIndex = historyIndex > 0 ? historyIndex - 1 : 0;
@@ -152,13 +141,18 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       >
       </label>
       <div
-        className="flex-shrink-0 flex gap-2 items-center justify-start max-w-full overflow-hidden p-[2ch] py-[1ch]"
-        onClick={() => consolePromptRef.current?.focus()}
+        className="console-pane flex-shrink-0 flex gap-2 items-center justify-start"
+        onClick={() => consolePromptRef?.current?.focus()}
       >
         <pre className="shrink-0">
-          <span className="text-[#C541F2]">guest@vcangel.dev</span> in{" "}
-          <span className="text-[#41F2A9]">{urlPathName.replace('/home/guest', '~')}</span>{" "}
-          <span className="text-[#F2BB41]">λ</span>
+          <span className="text-[#C541F2] selection:bg-[#C541F2]">
+            guest@vcangel.dev
+          </span>{" "}
+          in{" "}
+          <span className="text-[#41F2A9] selection:bg-[#41F2A9]">
+            {urlPathName.replace("/home/guest", "~")}
+          </span>{" "}
+          <span className="text-[#F2BB41] selection:bg-[#F2BB41]">λ</span>
         </pre>
         <p
           ref={textRef}
@@ -176,13 +170,19 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   );
 }
 
-export function Terminal({ children }: { children: ComponentChildren }) {
+export function Terminal({
+  children,
+  className,
+}: {
+  children: ComponentChildren;
+  className: string;
+}) {
   const terminalRef = createRef<HTMLInputElement>();
   const [terminalPromptRef] = useContext(ConsolePromptRefState);
   const { displayedHistory } = useContext(ConsoleState);
 
   useEffect(() => {
-    terminalPromptRef.current?.focus();
+    terminalPromptRef?.current?.focus();
   }, []);
 
   useEffect(() => {
@@ -196,7 +196,7 @@ export function Terminal({ children }: { children: ComponentChildren }) {
   return (
     <main
       ref={terminalRef}
-      className="z-10 bg-[#000000bb] border rounded-sm border-slate-300 flex flex-col flex-grow m-4 mb-6 max-h-full overflow-y-auto hide-scrollbar"
+      className={className}
       onClick={() => terminalPromptRef.current?.focus()}
     >
       {children}
