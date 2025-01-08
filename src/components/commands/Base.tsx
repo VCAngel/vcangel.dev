@@ -3,12 +3,80 @@ import useTypewriter from "../../hooks/Typewriter.ts"; // useTypeWriter hook
 import { ICommandResponse } from "../../models/Command.ts";
 
 // Memoized TypewriterText component to prevent re-renders
-export const TypewriterText = memo(({ text }: { text: string }) => {
-  const displayedText = useTypewriter(text);
-  return <>{displayedText}</>;
-});
+export const TypewriterText = memo(
+  ({ text, speed }: { text: string; speed?: number }) => {
+    const displayedText = useTypewriter(text, speed);
+    return <>{displayedText}</>;
+  },
+);
 
-// TODO Base commands
+// vvv Base commands
+
+export function Banner({
+  command,
+  route,
+}: {
+  command: string;
+  route: string;
+}): ICommandResponse {
+  const banner = `
+   ✦      .   .       *           .         .       ✦    .    .        .      .             .      .             .  +
+ .              +   .                .     .    .     .   .        ✦         +      .  .      ✦           *    ✦   .
+    | | / / ___/ _ | / |/ / ___/ __/ /       .       +       .    *       ✦    .      .           .     .           .
+ +  | |/ / /__/ __ |/    / (_ / _// /__   ✦ .    *   .    .     .       .                        .    +      .       
+    |___/\\___/_/ |_/_/|_/\\___/___/____/ ©2025      .     +             .                 .                    +   .
+         .           *  .         .       .   .                    .              *                     .            
+    ✦  The only limit is your imagination! 🐸        .    .    *             .      +       *         .             .
+  .       *            ✦           .     .  .   .  +        .          . +                    ✦  .                .
+     +        +     .               .      ✦  .               .                             .                .
+
+`;
+
+  const bannerLines = banner.split("\n").map((line, index) => (
+    <p className="whitespace-nowrap">
+      <TypewriterText
+        text={line}
+        speed={10 - index * 1.2}
+        key={`banner_line-${index}`}
+      />
+    </p>
+  ));
+
+  return {
+    command,
+    route,
+    response: () => {
+      return (
+        <>
+          <ul className="command-wrapper overflow-hidden">
+            {bannerLines}
+            <p className="whitespace-nowrap mt-[1ch]">
+              Welcome to my website! 🚀
+            </p>
+            <p className="whitespace-nowrap">
+              For a list of commands, type&nbsp;
+              <code
+                className="text-indigo-400"
+                style="text-shadow:0 0 2px #818cf8;"
+              >
+                help
+              </code>{" "}
+              or{" "}
+              <code
+                className="text-indigo-400"
+                style="text-shadow:0 0 2px #818cf8;"
+              >
+                ?
+              </code>
+              .
+            </p>
+          </ul>
+        </>
+      );
+    },
+  };
+}
+
 export function Help({
   command,
   route,
