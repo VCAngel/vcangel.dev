@@ -50,7 +50,7 @@ export default function Preview({ className }: { className?: string }) {
             <TypewriterText text="OS:" key="preview_os" />
           </span>
           <span>
-            <TypewriterText text="Arch Linux" key="preview_os_value" />
+            <TypewriterText text="Arch Linux (btw)" key="preview_os_value" />
           </span>
         </li>
         <li className="inline-flex gap-[1ch] items-start">
@@ -59,7 +59,7 @@ export default function Preview({ className }: { className?: string }) {
           </span>
           <span>
             <TypewriterText
-              text="[Javascript, Typescript, Python, Java, HTML5, CSS3, Angular, React, Node.js, TailwindCSS]"
+              text="[Javascript, Typescript, Python, Java, HTML5, CSS3, Angular, React, AWS, Node.js, Deno, TailwindCSS]"
               key="preview_skills_val"
             />
           </span>
