@@ -1,7 +1,12 @@
 import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
 import { useContext, useEffect, useState } from "preact/hooks";
-import { Help, WhoAmI, WhoIs } from "../../src/components/commands/Base.tsx";
+import {
+  Banner,
+  Help,
+  WhoAmI,
+  WhoIs,
+} from "../../src/components/commands/Base.tsx";
 import { Cat } from "../../src/components/commands/gnu-linux/Cat.tsx";
 import { Cd } from "../../src/components/commands/gnu-linux/Cd.tsx";
 import { Echo } from "../../src/components/commands/gnu-linux/Echo.tsx";
@@ -24,7 +29,8 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   const textRef = createRef<HTMLParagraphElement>();
   const caretRef = createRef<HTMLDivElement>();
 
-  const [input, setInput] = useState("");
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [input, setInput] = useState("banner");
   const [_output, setOutput] = useState("");
   const [caretPosition, setCaretPosition] = useState(0);
   const [commandItems, setCommandItems] = useState<string[]>([]);
@@ -46,6 +52,19 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   }, [caretPosition]);
 
   useEffect(() => setHistoryIndex(history.length), [history]);
+
+  // Run banner on component mount
+  useEffect(() => {
+    if (!isInitialized) setIsInitialized(true);
+  }, [isInitialized]);
+
+  useEffect(() => {
+    if (isInitialized && consolePromptRef.current) {
+      consolePromptRef.current.dispatchEvent(
+        new KeyboardEvent("keyup", { key: "Enter" }),
+      );
+    }
+  }, [isInitialized]);
 
   const handleInput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     setInput(e.currentTarget.value);
@@ -244,6 +263,8 @@ async function handleCommandComponents(
       );
     case "pwd":
       return Pwd(commandData);
+    case "banner":
+      return Banner(commandData);
     case "whoami":
       return WhoAmI(commandData);
     case "whois":
