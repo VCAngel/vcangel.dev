@@ -1,6 +1,10 @@
 {
   "version": "0.1.0-beta.1",
-  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
   "exclude": ["**/_fresh/*"],
   "fmt": {
     "exclude": [".git-hooks/", "static/"],

@@ -7,7 +7,7 @@ export default function History() {
   return (
     <>
       <section id="history">
-        {displayedHistory.map(({ command, route, response }, index) => (
+        {displayedHistory.value.map(({ command, route, response }, index) => (
           <>
             <div
               key={`prev_command_${index}`}
@@ -25,13 +25,11 @@ export default function History() {
                 </span>{" "}
                 <span className="text-[#F2BB41] selection:bg-[#F2BB41]">λ</span>
               </p>
-              <span className="whitespace-nowrap max-w-full">
-                {command}
-              </span>
+              <span className="whitespace-nowrap max-w-full">{command}</span>
             </div>
-            {command !== ""
-              ? <div className="pl-[4ch]">{response()}</div>
-              : null}
+            {command !== "" ? (
+              <div className="pl-[4ch]">{response()}</div>
+            ) : null}
           </>
         ))}
       </section>
