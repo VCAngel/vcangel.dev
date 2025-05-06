@@ -33,38 +33,6 @@ img {
   max-width: 100%;
 }
 
-#spaceBg {
-  &::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    background: radial-gradient(ellipse at left, rgb(0, 19, 20), transparent),
-      radial-gradient(ellipse at top, rgb(14, 0, 21), transparent),
-      radial-gradient(ellipse at right, rgb(0, 17, 17), transparent),
-      radial-gradient(ellipse at bottom, rgb(19, 0, 14), transparent);
-    mask-image: linear-gradient(
-      -65deg,
-      rgba(0, 0, 0, 0) 20%,
-      #000,
-      rgba(0, 0, 0, 0) 80%
-    );
-    mask-size: 200%;
-    -webkit-mask-image: linear-gradient(
-      -65deg,
-      rgba(0, 0, 0, 1) 20%,
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 1) 80%
-    );
-    -webkit-mask-size: 200%;
-    animation: shine 60s infinite linear;
-    z-index: -9;
-  }
-}
-
 .pixelated-image {
   opacity: 0%;
   position: absolute;
@@ -74,15 +42,27 @@ img {
 }
 
 .console-pane-wrapper {
-  @apply bg-[#000000ef] border rounded-sm border-slate-300 flex flex-col flex-grow max-h-full overflow-y-auto hide-scrollbar;
+  background-color: rgba(0, 0, 0, 0.94);
+  border: 1px solid #cbd5e1;
+  border-radius: 0.125rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-height: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .console-pane {
-  @apply max-w-full overflow-hidden p-[2ch] py-[1ch];
+  max-width: 100%;
+  overflow: hidden;
+  padding: 2ch;
+  padding-top: 1ch;
+  padding-bottom: 1ch;
 }
 
 /* Commands wrapping behaviour */
-*.command-wrapper > * {
+.command-wrapper > * {
   white-space: pre-wrap;
   text-wrap: nowrap;
 }
@@ -119,4 +99,37 @@ p.block-caret > span > div {
   /* For Firefox */
   -ms-overflow-style: none;
   /* For Internet Explorer and Edge */
+}
+
+/* CRT Effect */
+.crt-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.05),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.05)
+    );
+  background-size:
+    100% 6px,
+    8px 100%;
+  pointer-events: none;
+  z-index: 100;
+  animation: flicker 0.25s infinite;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
 }
