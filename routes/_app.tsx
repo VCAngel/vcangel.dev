@@ -11,7 +11,7 @@ export default function App({ Component }: PageProps) {
         <meta name="title" content="guest@vcangel.dev" />
         <meta
           name="description"
-          content="Welcome to vcangel.dev! Feel free to explore around 🦕"
+          content="Welcome! Feel free to explore around _(°︿°)_"
         />
         <meta
           name="keywords"
@@ -25,7 +25,14 @@ export default function App({ Component }: PageProps) {
           rel="preload"
           as="fetch"
           href={asset(
-            "https://prod.spline.design/obAagtgFjXohyWML/scene.splinecode",
+            "https://prod.spline.design/voxqxNJ1YBrX0pRe/scene.splinecode",
+          )}
+        />
+        <link
+          rel="preload"
+          as="fetch"
+          href={asset(
+            "https://prod.spline.design/awLjgvKUH4WDBCFL/scene.splinecode",
           )}
         />
         <link rel="preload" as="style" href={asset("/css/normalize.css")} />
@@ -38,12 +45,11 @@ export default function App({ Component }: PageProps) {
       </head>
       <body
         f-client-nav
-        className="relative text-sm text-gray-100 bg-zinc-900 min-h-screen max-h-full flex flex-col"
+        className="relative text-sm text-gray-100 bg-black min-h-screen max-h-full flex flex-col"
       >
-        <div id="spaceBg" className="absolute -z-10" />
+        <div id="crt-effect" className="crt-effect" />
 
         <SplineBackdrop />
-
         <Component />
       </body>
     </html>

@@ -7,20 +7,23 @@ export default function NavigatorAnchor() {
   const { routeToNavigate, setRouteToNavigate } = useContext(NavigatorState);
 
   useEffect(() => {
-    if (routeToNavigate.activatedWithCd && routeToNavigate.route !== "") {
+    if (
+      routeToNavigate.value.activatedWithCd &&
+      routeToNavigate.value.route !== ""
+    ) {
       navigatorRef.current?.click();
       setRouteToNavigate({ route: "", activatedWithCd: false });
     }
-  }, [routeToNavigate.route]);
+  }, [routeToNavigate.value.route]);
 
   return (
     <a
       id="navigator"
       ref={navigatorRef}
-      href={routeToNavigate.route}
+      href={routeToNavigate.value.route}
       className="hidden "
     >
-      {routeToNavigate.route}
+      {routeToNavigate.value.route}
     </a>
   );
 }

@@ -1,21 +1,24 @@
 import { RefObject } from "preact";
-import { Dispatch, StateUpdater } from "preact/hooks";
+import { Signal } from "@preact/signals";
 import { JSX } from "preact/jsx-runtime";
 
 //-> Contexts
 export interface IConsoleState {
-  history: ICommandResponse[];
-  setHistory: Dispatch<StateUpdater<ICommandResponse[]>>;
+  history: Signal<ICommandResponse[]>;
+  setHistory: (val: ICommandResponse[]) => void;
 
-  displayedHistory: ICommandResponse[];
-  setDisplayedHistory: Dispatch<StateUpdater<ICommandResponse[]>>;
+  displayedHistory: Signal<ICommandResponse[]>;
+  setDisplayedHistory: (val: ICommandResponse[]) => void;
 }
 
 export interface INavigatorState {
-  routeToNavigate: { route: string; activatedWithCd: boolean };
-  setRouteToNavigate: Dispatch<
-    StateUpdater<{ route: string; activatedWithCd: boolean }>
-  >;
+  routeToNavigate: Signal<RouteToNavigate>;
+  setRouteToNavigate: (val: RouteToNavigate) => void;
+}
+
+export interface RouteToNavigate {
+  route: string;
+  activatedWithCd: boolean;
 }
 
 export type IConsolePromptRefState = [

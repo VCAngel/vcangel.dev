@@ -1,25 +1,36 @@
 type PromiseStatus = "pending" | "resolved" | "rejected";
 
-export function createResource<T = unknown>(promiseFn: Promise<T>) {
-  let status: PromiseStatus = "pending";
-  let result: T;
+export interface ResourceResponse<T, S extends PromiseStatus = "pending"> {
+  status: S;
+  result: S extends "rejected" ? Error : T;
+}
 
-  const suspender = promiseFn.then(
-    (data) => {
-      status = "resolved";
-      result = data;
-    },
-    (error) => {
-      status = "rejected";
-      result = error;
-    },
-  );
+export function createResource<T>(promiseFn: Promise<T>): {
+  read: () => Promise<ResourceResponse<T, PromiseStatus>>;
+} {
+  let response: ResourceResponse<T, PromiseStatus> = {
+    result: undefined as unknown as T,
+    status: "pending",
+  };
 
   return {
-    read() {
-      if (status === "pending") throw suspender;
-      if (status === "rejected") throw result;
-      return result;
+    read: async () => {
+      try {
+        const promiseRes = await promiseFn;
+        response = {
+          result: promiseRes,
+          status: "resolved",
+        } as ResourceResponse<T, "resolved">;
+
+        return response;
+      } catch (error) {
+        response = {
+          result: error as Error,
+          status: "rejected",
+        };
+        console.log("Rejected", response);
+        return response;
+      }
     },
   };
 }

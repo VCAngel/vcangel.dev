@@ -1,6 +1,7 @@
 import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
-import { useContext, useEffect, useState } from "preact/hooks";
+import { useContext, useEffect } from "preact/hooks";
+import { useSignal } from "@preact/signals";
 import {
   Banner,
   Help,
@@ -29,42 +30,51 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   const textRef = createRef<HTMLParagraphElement>();
   const caretRef = createRef<HTMLDivElement>();
 
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [input, setInput] = useState("banner");
-  const [_output, setOutput] = useState("");
-  const [caretPosition, setCaretPosition] = useState(0);
-  const [commandItems, setCommandItems] = useState<string[]>([]);
-  const [historyIndex, setHistoryIndex] = useState(history.length);
+  const isInitialized = useSignal<boolean>(false);
+  const setIsInitialized = (val: boolean) => (isInitialized.value = val);
+  const input = useSignal<string>("banner");
+  const setInput = (val: string) => (input.value = val);
+  const _output = useSignal<string>("");
+  const setOutput = (val: string) => (_output.value = val);
+
+  const caretPosition = useSignal<number>(0);
+  const setCaretPosition = (val: number) => (caretPosition.value = val);
+  const commandItems = useSignal<string[]>([]);
+  const setCommandItems = (val: string[]) => (commandItems.value = val);
+  const historyIndex = useSignal<number>(history.value.length);
+  const setHistoryIndex = (val: number) => {
+    historyIndex.value = val;
+  };
 
   useEffect(() => {
     if (textRef.current) {
       // Scroll to the end of the pre element
       const scrollWidth = textRef.current.scrollWidth;
       textRef.current.scrollLeft = scrollWidth;
-      setCommandItems(input.trim().split(/\s+/));
+      setCommandItems(input.value.trim().split(/\s+/));
     }
-  }, [input]);
+  }, [input.value]);
 
   useEffect(() => {
     if (caretRef.current) {
-      caretRef.current.style.left = `${caretPosition}ch`;
+      caretRef.current.style.left = `${caretPosition.value}ch`;
     }
-  }, [caretPosition]);
+  }, [caretPosition.value]);
 
-  useEffect(() => setHistoryIndex(history.length), [history]);
+  useEffect(() => setHistoryIndex(history.value.length), [history.value]);
 
   // Run banner on component mount
   useEffect(() => {
-    if (!isInitialized) setIsInitialized(true);
-  }, [isInitialized]);
+    if (!isInitialized.value) setIsInitialized(true);
+  }, [isInitialized.value]);
 
   useEffect(() => {
-    if (isInitialized && consolePromptRef.current) {
+    if (isInitialized.value && consolePromptRef.current) {
       consolePromptRef.current.dispatchEvent(
         new KeyboardEvent("keyup", { key: "Enter" }),
       );
     }
-  }, [isInitialized]);
+  }, [isInitialized.value]);
 
   const handleInput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     setInput(e.currentTarget.value);
@@ -73,7 +83,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
 
   const handleOutput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     if (e.key === "Enter") {
-      setOutput(input);
+      setOutput(input.value);
       handleHistory();
       setInput("");
       setCaretPosition(0);
@@ -84,10 +94,10 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   };
 
   const handleHistory = () => {
-    if (input === "") {
-      setHistory([...history]);
+    if (input.value === "") {
+      setHistory([...history.value]);
       setDisplayedHistory([
-        ...displayedHistory,
+        ...displayedHistory.value,
         {
           command: "",
           response: () => <></>,
@@ -98,42 +108,46 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       return;
     }
 
-    const isEqualToLastCommand = history.length > 0 &&
-      commandItems[0] === history[history.length - 1].command;
+    const isEqualToLastCommand =
+      history.value.length > 0 &&
+      commandItems.value[0] === history.value[history.value.length - 1].command;
 
     handleCommandComponents(
-      commandItems,
-      input,
+      commandItems.value,
+      input.value,
       urlPathName,
-      history,
+      history.value,
       navigatorState,
     ).then((output) => {
-      setHistory(!isEqualToLastCommand ? [...history, output] : [...history]);
+      setHistory(
+        !isEqualToLastCommand ? [...history.value, output] : [...history.value],
+      );
 
       if (output.command === "clear") {
         setDisplayedHistory([]);
         return;
       }
 
-      setDisplayedHistory([...displayedHistory, output]);
+      setDisplayedHistory([...displayedHistory.value, output]);
     });
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "ArrowUp") {
       e.preventDefault(); // Prevent cursor from moving
-      const newIndex = historyIndex > 0 ? historyIndex - 1 : 0;
-      if (history.length > 0 && newIndex >= 0) {
-        setInput(history[newIndex].command);
+      const newIndex = historyIndex.value > 0 ? historyIndex.value - 1 : 0;
+      if (history.value.length > 0 && newIndex >= 0) {
+        setInput(history.value[newIndex].command);
         setHistoryIndex(newIndex);
       }
     } else if (e.key === "ArrowDown") {
       e.preventDefault(); // Prevent cursor from moving
-      const newIndex = historyIndex < history.length - 1
-        ? historyIndex + 1
-        : history.length;
-      if (newIndex >= 0 && newIndex < history.length) {
-        setInput(history[newIndex].command);
+      const newIndex =
+        historyIndex.value < history.value.length - 1
+          ? historyIndex.value + 1
+          : history.value.length;
+      if (newIndex >= 0 && newIndex < history.value.length) {
+        setInput(history.value[newIndex].command);
       } else {
         setInput(""); // Clear input if we've gone past the most recent command
       }
@@ -146,7 +160,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       <input
         ref={consolePromptRef}
         type="text"
-        value={input}
+        value={input.value}
         onChange={handleInput}
         onKeyUp={handleOutput}
         onKeyDown={handleKeyDown}
@@ -157,8 +171,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       <label
         htmlFor="terminalInput"
         className="absolute -top-[1000px] opacity-0"
-      >
-      </label>
+      ></label>
       <div
         className="console-pane flex-shrink-0 flex gap-2 items-center justify-start"
         onClick={() => consolePromptRef?.current?.focus()}
@@ -178,7 +191,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
           className="block-caret bg-transparent m-0 p-0 w-full overflow-x-auto whitespace-nowrap max-w-full hide-scrollbar"
         >
           <span class="inline-block relative whitespace-pre">
-            {input || "\u00a0"}
+            {input.value || "\u00a0"}
             <div ref={caretRef} class="absolute top-0">
               &nbsp;
             </div>
@@ -210,7 +223,7 @@ export function Terminal({
         terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
       }
     }, 40);
-  }, [displayedHistory]);
+  }, [displayedHistory.value]);
 
   return (
     <main

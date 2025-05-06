@@ -1,5 +1,6 @@
 import { createRef } from "preact";
-import { useCallback, useEffect, useState } from "preact/hooks";
+import { useCallback, useEffect } from "preact/hooks";
+import { useSignal } from "@preact/signals";
 
 const drawImage = (
   percentage: number,
@@ -49,16 +50,21 @@ const drawImage = (
   }
 };
 
-const usePixelate = (src: string, increment = 0.001, {
-  canvasClassName = "",
-  imageClassName = "",
-  maxPercentage = 1,
-}: {
-  canvasClassName?: string;
-  imageClassName?: string;
-  maxPercentage?: number;
-}) => {
-  const [rendering, setRendering] = useState(false);
+const usePixelate = (
+  src: string,
+  increment = 0.001,
+  {
+    canvasClassName = "",
+    imageClassName = "",
+    maxPercentage = 1,
+  }: {
+    canvasClassName?: string;
+    imageClassName?: string;
+    maxPercentage?: number;
+  },
+) => {
+  const rendering = useSignal<boolean>(false);
+  const setRendering = (val: boolean) => (rendering.value = val);
   const canvasRef = createRef<HTMLCanvasElement>();
   const imageRef = createRef<HTMLImageElement>();
   let percentage = 0;
@@ -98,7 +104,7 @@ const usePixelate = (src: string, increment = 0.001, {
 
   useEffect(() => {
     const handleResize = () => {
-      if (!canvasRef.current || !imageRef.current || rendering) return;
+      if (!canvasRef.current || !imageRef.current || rendering.value) return;
       imageRef.current.classList.add("block");
       imageRef.current.classList.remove("hidden");
       percentage = 0;

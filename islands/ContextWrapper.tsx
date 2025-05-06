@@ -1,24 +1,28 @@
 import { ComponentChildren, createContext, createRef } from "preact";
-import { useMemo, useState } from "preact/hooks";
+import { useMemo } from "preact/hooks";
+import { Signal, useSignal } from "@preact/signals";
 import {
   ICommandResponse,
   IConsolePromptRefState,
   IConsoleState,
   INavigatorState,
+  RouteToNavigate,
 } from "../src/models/Command.ts";
 
 function createNavigatorState(): INavigatorState {
-  const [routeToNavigate, setRouteToNavigate] = useState({
+  const routeToNavigate = useSignal({
     route: "",
     activatedWithCd: false,
   });
+  const setRouteToNavigate = (newRoute: RouteToNavigate) =>
+    (routeToNavigate.value = newRoute);
 
-  const navState = useMemo(
+  const navState: INavigatorState = useMemo(
     () => ({
       routeToNavigate,
       setRouteToNavigate,
     }),
-    [routeToNavigate],
+    [routeToNavigate.value],
   );
 
   return navState;
@@ -35,33 +39,36 @@ function createConsolePromptRefState(): IConsolePromptRefState {
 }
 
 function createConsoleState(): IConsoleState {
-  const [history, setHistory] = useState<ICommandResponse[]>([]);
-  const [displayedHistory, setDisplayedHistory] = useState<ICommandResponse[]>(
-    [],
-  );
+  const history = useSignal<ICommandResponse[]>([]);
+  const setHistory = (newHistory: ICommandResponse[]) =>
+    (history.value = newHistory);
 
-  const state = useMemo(
+  const displayedHistory = useSignal<ICommandResponse[]>([]);
+  const setDisplayedHistory = (newHistory: ICommandResponse[]) =>
+    (displayedHistory.value = newHistory);
+
+  const state: IConsoleState = useMemo(
     () => ({
       history,
       setHistory,
       displayedHistory,
       setDisplayedHistory,
     }),
-    [history, displayedHistory],
+    [history.value, displayedHistory.value],
   );
 
   return state;
 }
 
 export const ConsoleState = createContext<IConsoleState>({
-  history: [],
+  history: new Signal([]),
   setHistory: () => [],
-  displayedHistory: [],
+  displayedHistory: new Signal([]),
   setDisplayedHistory: () => [],
 });
 
 export const NavigatorState = createContext<INavigatorState>({
-  routeToNavigate: { route: "", activatedWithCd: false },
+  routeToNavigate: new Signal({ route: "", activatedWithCd: false }),
   setRouteToNavigate: () => {},
 });
 
