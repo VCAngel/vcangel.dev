@@ -11,7 +11,7 @@ export default function History() {
           <>
             <div
               key={`prev_command_${index}`}
-              className={`flex gap-2 items-center justify-start max-w-full overflow-hidden ${
+              className={`snap-start flex gap-2 items-center justify-start max-w-full overflow-hidden ${
                 command !== "" ? "p-[2ch] py-[1ch]" : "px-[2ch] pt-[1ch]"
               }`}
             >

@@ -42,8 +42,8 @@ img {
 }
 
 .console-pane-wrapper {
-  background-color: rgba(0, 0, 0, 0.94);
-  border: 1px solid #cbd5e1;
+  background-color: rgba(5, 5, 5, 0.75);
+  border: 1px solid #cecae0;
   border-radius: 0.125rem;
   display: flex;
   flex-direction: column;
@@ -51,6 +51,7 @@ img {
   max-height: 100%;
   overflow-y: auto;
   scrollbar-width: none;
+  scroll-snap-type: y mandatory;
 }
 
 .console-pane {
@@ -65,6 +66,7 @@ img {
 .command-wrapper > * {
   white-space: pre-wrap;
   text-wrap: nowrap;
+  scroll-snap-align: start !important;
 }
 
 /* Custom CSS for rectangular caret effect */

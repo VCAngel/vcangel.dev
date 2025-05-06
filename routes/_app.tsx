@@ -45,7 +45,7 @@ export default function App({ Component }: PageProps) {
       </head>
       <body
         f-client-nav
-        className="relative text-sm text-gray-100 bg-zinc-900 min-h-screen max-h-full flex flex-col"
+        className="relative text-sm text-gray-100 bg-black min-h-screen max-h-full flex flex-col"
       >
         <div id="crt-effect" className="crt-effect" />
 
