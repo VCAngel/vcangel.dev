@@ -8,7 +8,6 @@ export interface ResourceResponse<T, S extends PromiseStatus = "pending"> {
 export function createResource<T>(promiseFn: Promise<T>): {
   read: () => Promise<ResourceResponse<T, PromiseStatus>>;
 } {
-  console.log("createResource called");
   let response: ResourceResponse<T, PromiseStatus> = {
     result: undefined as unknown as T,
     status: "pending",
