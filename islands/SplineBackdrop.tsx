@@ -1,44 +1,56 @@
 import { asset, IS_BROWSER } from "$fresh/src/runtime/utils.ts";
 import { Application } from "@splinetool/runtime";
-import { createRef, Suspense } from "preact/compat";
+import { createRef } from "preact/compat";
 import { useEffect } from "preact/hooks";
 import { useSignal } from "@preact/signals";
 import { createResource } from "../src/utils/suspense.ts";
+import { isDeviceGoated } from "../src/utils/performance.ts";
+
+const HD_MODEL_URL =
+  "https://prod.spline.design/awLjgvKUH4WDBCFL/scene.splinecode";
+const SD_MODEL_URL =
+  "https://prod.spline.design/voxqxNJ1YBrX0pRe/scene.splinecode";
 
 const splineModelResource = createResource<Application | null>(
-  new Promise<Application | null>((resolve) => {
-    if (!IS_BROWSER) return resolve(null);
+  (async () => {
+    if (!IS_BROWSER) {
+      console.error("Not in browser");
+      return null;
+    }
+
+    const deviceBenchmark = isDeviceGoated();
 
     const canvas = document.createElement("canvas");
     canvas.id = "canvas3d";
-    canvas.classList.add("w-full", "h-full");
+    canvas.style.cssText = "display: block; width: 100%; height: 100%;";
 
-    const app = new Application(canvas);
-    const splineModel = asset(
-      "https://prod.spline.design/obAagtgFjXohyWML/scene.splinecode",
-    );
+    const model =
+      deviceBenchmark.webGLGood &&
+      deviceBenchmark.benchmarkGood &&
+      deviceBenchmark.memoryGood
+        ? HD_MODEL_URL
+        : SD_MODEL_URL;
 
-    app
-      .load(splineModel)
-      .then(() => resolve(app)) // Resolve with the app instance
-      .catch((err) => console.error(err)); // Log any errors
-  }),
+    if (model === SD_MODEL_URL) {
+      console.info("Device is not powerful enough to run the HD model");
+    }
+
+    try {
+      const app = new Application(canvas);
+      const splineModel = asset(model);
+      await app.load(splineModel);
+      return app;
+    } catch (err) {
+      console.error("Loading Spline model failed: ", err);
+      return null;
+    }
+  })(),
 );
 
 export default function SplineBackdrop() {
   return (
     <section className=" absolute top-0 right-0 bottom-0 left-0">
-      <Suspense
-        fallback={
-          <div className="w-full h-full flex items-center justify-center">
-            <h1 className="font-majorMonoDisplay animate-bounce text-2xl">
-              VA
-            </h1>
-          </div>
-        }
-      >
-        <SplineModel />
-      </Suspense>
+      <SplineModel />
     </section>
   );
 }
@@ -53,8 +65,11 @@ function SplineModel() {
     try {
       if (!canvas.value) {
         splineModelResource.read().then((res) => {
-          if (res.result && isApplicationInstance(res.result))
+          if (res.result && isApplicationInstance(res.result)) {
             canvas.value = res.result.canvas as HTMLCanvasElement;
+          }
+
+          setLoading(false);
         });
 
         return;
@@ -71,23 +86,21 @@ function SplineModel() {
         }
       };
     } catch (e) {
-      console.error("Loading canvas! => ", e);
+      console.error("Cannot load spline model => ", e);
     }
   }, [canvas.value]);
 
+  if (loading.value) {
+    return (
+      <div className="w-full h-full flex items-center justify-center ">
+        <h1 className="font-majorMonoDisplay animate-bounce text-3xl">VA</h1>
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={`h-full opacity-0 ${
-        !loading.value &&
-        "opacity-100 transition-opacity duration-[2s] ease-in-out"
-      }`}
-    >
-      <div
-        ref={canvasContainer}
-        className={`w-full h-full ${
-          loading.value ? "invisible" : "invisible md:visible"
-        }`}
-      >
+    <div className="appear h-full transition-opacity duration-[2s] ease-in-out">
+      <div ref={canvasContainer} className={"w-full h-full"}>
         {/* CANVAS RENDERS HERE */}
       </div>
     </div>
