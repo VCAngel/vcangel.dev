@@ -36,6 +36,7 @@
   "nodeModulesDir": "auto",
   "tasks": {
     "build": "deno run -A dev.ts build",
+    "build:reload": "deno run -A dev.ts build --reload",
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
     "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
     "format": "deno fmt",
