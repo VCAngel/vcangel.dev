@@ -13,7 +13,7 @@ export function Echo({
     route,
     response: () => {
       return (
-        <ul class="command-wrapper">
+        <ul id="prewrap" class="command-wrapper">
           <li>
             <TypewriterText
               text={command.replace(/^(echo\s+)/, "")}

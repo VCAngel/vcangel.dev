@@ -33,7 +33,7 @@ export function Banner({
 `;
 
   const bannerLines = banner.split("\n").map((line, index) => (
-    <p className="whitespace-nowrap">
+    <p className="text-nowrap">
       <TypewriterText
         text={line}
         speed={10 - index * 1.2}
@@ -50,10 +50,8 @@ export function Banner({
         <>
           <ul className="command-wrapper overflow-hidden">
             {bannerLines}
-            <p className="whitespace-nowrap mt-[1ch]">
-              Welcome to my website! 🚀
-            </p>
-            <p className="whitespace-nowrap">
+            <p className="mt-[1ch]">Welcome to my website! 🚀</p>
+            <p className="">
               For a list of commands, type&nbsp;
               <code
                 className="text-indigo-400"

@@ -64,6 +64,12 @@ img {
 
 /* Commands wrapping behaviour */
 .command-wrapper > * {
+  white-space: pre;
+  text-wrap: nowrap;
+  scroll-snap-align: start !important;
+}
+
+.command-wrapper#prewrap > * {
   white-space: pre-wrap;
   text-wrap: nowrap;
   scroll-snap-align: start !important;
