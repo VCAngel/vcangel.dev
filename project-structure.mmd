@@ -1,0 +1,107 @@
+graph TD
+    %% VCAngel.dev Project Structure
+    
+    Root["🏠 vcangel.dev<br/>Deno Fresh Portfolio"] --> Config["⚙️ Configuration"]
+    Root --> Source["📁 Source Code"]
+    Root --> Routes["🛣️ Routes & Pages"]
+    Root --> Islands["🏝️ Client Islands"]
+    Root --> Static["📦 Static Assets"]
+    Root --> CI["🔄 CI/CD"]
+    
+    %% Configuration Files
+    Config --> DenoJson["deno.json<br/>📋 Project config"]
+    Config --> FreshConfig["fresh.config.ts<br/>🔧 Fresh setup"]
+    Config --> TailwindConfig["tailwind.config.ts<br/>🎨 Styling"]
+    Config --> MainTs["main.ts<br/>🚀 Entry point"]
+    Config --> DevTs["dev.ts<br/>🛠️ Dev server"]
+    
+    %% Source Code Structure
+    Source --> Components["🧩 Components"]
+    Source --> Hooks["🪝 Hooks"]
+    Source --> Models["📊 Models"]
+    Source --> Utils["🔧 Utils"]
+    
+    Components --> CommandsBase["Base.tsx<br/>🖥️ Command base"]
+    Components --> LoadingPage["LoadingPage.tsx<br/>⏳ Loading UI"]
+    Components --> GnuLinux["gnu-linux/<br/>🐧 Terminal Commands"]
+    
+    GnuLinux --> Cat["Cat.tsx<br/>📄 File viewer"]
+    GnuLinux --> Cd["Cd.tsx<br/>📁 Directory nav"]
+    GnuLinux --> Echo["Echo.tsx<br/>💬 Echo command"]
+    GnuLinux --> History["History.tsx<br/>📜 Command history"]
+    GnuLinux --> List["List.tsx<br/>📋 File listing"]
+    GnuLinux --> Pwd["Pwd.tsx<br/>📍 Current dir"]
+    
+    Hooks --> Pixelate["Pixelate.tsx<br/>🎨 Visual effect"]
+    Hooks --> Typewriter["Typewriter.ts<br/>⌨️ Typing animation"]
+    
+    Models --> Command["Command.ts<br/>🖥️ Command model"]
+    
+    Utils --> Performance["performance.ts<br/>⚡ Performance"]
+    Utils --> Suspense["suspense.ts<br/>⏸️ Async handling"]
+    
+    %% Routes Structure
+    Routes --> HomePage["🏠 Home Pages"]
+    Routes --> LayoutFiles["📄 Layout Files"]
+    Routes --> ErrorPages["❌ Error Pages"]
+    
+    HomePage --> HomeIndex["index.tsx<br/>🏠 Main home"]
+    HomePage --> HomeSubdir["home/<br/>📁 Home section"]
+    
+    HomeSubdir --> HomePageIndex["index.tsx<br/>🏠 Home page"]
+    HomeSubdir --> GuestSection["guest/<br/>👤 Guest area"]
+    
+    GuestSection --> GuestIndex["index.tsx<br/>👤 Guest main"]
+    GuestSection --> Documents["Documents/<br/>📄 Document viewer"]
+    GuestSection --> Images["Images/<br/>🖼️ Image gallery"]
+    
+    LayoutFiles --> App["_app.tsx<br/>🏗️ App wrapper"]
+    LayoutFiles --> Layout["_layout.tsx<br/>📐 Page layout"]
+    
+    ErrorPages --> NotFound["_404.tsx<br/>❌ 404 page"]
+    
+    %% Islands (Client-side)
+    Islands --> ContextWrapper["ContextWrapper.tsx<br/>🔗 State context"]
+    Islands --> Preview["Preview.tsx<br/>👁️ Preview component"]
+    Islands --> SplineBackdrop["SplineBackdrop.tsx<br/>🌌 3D background"]
+    Islands --> Terminal["terminal/<br/>💻 Terminal UI"]
+    
+    Terminal --> TerminalHistory["History.tsx<br/>📜 Command history"]
+    Terminal --> Navigator["Navigator.tsx<br/>🧭 File navigator"]
+    Terminal --> TerminalMain["Terminal.tsx<br/>💻 Main terminal"]
+    
+    %% Static Assets
+    Static --> CSS["css/<br/>🎨 Stylesheets"]
+    Static --> Fonts["fonts/<br/>🔤 Typography"]
+    Static --> Images["img/<br/>🖼️ Images"]
+    Static --> Favicon["favicon.ico<br/>🎯 Site icon"]
+    
+    CSS --> AppCSS["app.css<br/>🎨 Main styles"]
+    CSS --> FontFaces["font-faces.css<br/>🔤 Font definitions"]
+    CSS --> Normalize["normalize.css<br/>🧹 CSS reset"]
+    
+    Fonts --> FiraCode["fira_code/<br/>💻 Monospace font"]
+    Fonts --> MajorMono["major_mono_display/<br/>🎨 Display font"]
+    
+    Images --> ProfilePic["pfp.png<br/>👤 Profile photo"]
+    Images --> PhrogGif["phrog.gif<br/>🐸 Animated frog"]
+    Images --> WoahJpeg["woah.jpeg<br/>😮 Reaction image"]
+    
+    %% CI/CD Pipeline
+    CI --> GitHubWorkflows[".github/workflows/<br/>⚙️ GitHub Actions"]
+    GitHubWorkflows --> Deploy["deploy.yml<br/>🚀 Deployment"]
+    
+    %% Styling and Theming
+    classDef configNode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+    classDef sourceNode fill:#f3e5f5,stroke:#4a148c,stroke-width:2px
+    classDef routeNode fill:#e8f5e8,stroke:#1b5e20,stroke-width:2px
+    classDef islandNode fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef staticNode fill:#fce4ec,stroke:#880e4f,stroke-width:2px
+    classDef ciNode fill:#f1f8e9,stroke:#33691e,stroke-width:2px
+    
+    class Config,DenoJson,FreshConfig,TailwindConfig,MainTs,DevTs configNode
+    class Source,Components,Hooks,Models,Utils,CommandsBase,LoadingPage,GnuLinux,Cat,Cd,Echo,History,List,Pwd,Pixelate,Typewriter,Command,Performance,Suspense sourceNode
+    class Routes,HomePage,LayoutFiles,ErrorPages,HomeIndex,HomeSubdir,HomePageIndex,GuestSection,GuestIndex,Documents,Images,App,Layout,NotFound routeNode
+    class Islands,ContextWrapper,Preview,SplineBackdrop,Terminal,TerminalHistory,Navigator,TerminalMain islandNode
+    class Static,CSS,Fonts,Images,Favicon,AppCSS,FontFaces,Normalize,FiraCode,MajorMono,ProfilePic,PhrogGif,WoahJpeg staticNode
+    class CI,GitHubWorkflows,Deploy ciNode
