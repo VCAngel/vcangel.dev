@@ -1,9 +1,6 @@
-import { ConsoleState } from "../ContextWrapper.tsx";
-import { useContext } from "preact/hooks";
+import { displayedHistory } from "../../src/state/app.state.tsx";
 
 export default function History() {
-  const { displayedHistory } = useContext(ConsoleState);
-
   return (
     <>
       <section id="history">
