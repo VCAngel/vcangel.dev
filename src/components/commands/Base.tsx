@@ -1,6 +1,6 @@
 import { memo } from "preact/compat";
 import useTypewriter from "../../hooks/Typewriter.ts"; // useTypeWriter hook
-import { ICommandResponse } from "../../models/Command.ts";
+import { ICommandResponse } from "../../models/command.model.ts";
 
 // Memoized TypewriterText component to prevent re-renders
 export const TypewriterText = memo(

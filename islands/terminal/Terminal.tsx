@@ -14,7 +14,7 @@ import { Echo } from "../../src/components/commands/gnu-linux/Echo.tsx";
 import { List } from "../../src/components/commands/gnu-linux/List.tsx";
 import { Pwd } from "../../src/components/commands/gnu-linux/Pwd.tsx";
 import { History as CmdHistory } from "../../src/components/commands/gnu-linux/History.tsx";
-import { ICommandResponse, INavigatorState } from "../../src/models/Command.ts";
+import { ICommandResponse, INavigatorState } from "../../src/models/command.model.ts";
 import { ConsolePromptRefState, NavigatorState } from "../ContextWrapper.tsx";
 import {
   addToHistory,

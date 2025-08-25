@@ -2,7 +2,7 @@ import {
   ICommandResponse,
   IDirectoryItem,
   INavigatorState,
-} from "../../../models/Command.ts";
+} from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export async function Cd(

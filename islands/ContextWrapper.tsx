@@ -5,7 +5,7 @@ import {
   IConsolePromptRefState,
   INavigatorState,
   RouteToNavigate,
-} from "../src/models/Command.ts";
+} from "../src/models/command.model.ts";
 
 function createNavigatorState(): INavigatorState {
   const routeToNavigate = useSignal({
