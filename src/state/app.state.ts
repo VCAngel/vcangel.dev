@@ -1,5 +1,5 @@
 import { computed, signal } from "@preact/signals";
-import { ICommandResponse, IDirectoryItem } from "../models/Command.ts";
+import { ICommandResponse, IDirectoryItem } from "../models/command.model.ts";
 
 // Terminal States
 export const commandHistory = signal<ICommandResponse[]>([]);

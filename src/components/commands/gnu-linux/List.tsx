@@ -1,4 +1,4 @@
-import { ICommandResponse, IDirectoryItem } from "../../../models/Command.ts";
+import { ICommandResponse, IDirectoryItem } from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export async function List(

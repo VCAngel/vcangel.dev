@@ -1,4 +1,4 @@
-import { ICommandResponse } from "../../../models/Command.ts";
+import { ICommandResponse } from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export function History({

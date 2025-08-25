@@ -24,7 +24,7 @@ import {
   commandOutput,
   displayedHistory,
   selectedHistoryIndex,
-} from "../../src/state/app.state.tsx";
+} from "../../src/state/app.state.ts";
 
 export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   const navigatorState = useContext(NavigatorState);

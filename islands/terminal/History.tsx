@@ -1,4 +1,4 @@
-import { displayedHistory } from "../../src/state/app.state.tsx";
+import { displayedHistory } from "../../src/state/app.state.ts";
 
 export default function History() {
   return (
