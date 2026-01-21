@@ -110,3 +110,7 @@ dist
 .bin
 # Fresh build directory
 _fresh/
+
+# Deno lock
+# WARN: It has been causing trouble on builds
+deno.lock
