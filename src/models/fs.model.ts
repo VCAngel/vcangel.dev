@@ -1,13 +1,13 @@
-export type Filesystem = Record<string, IDirectoryItem[]>;
+export type Filesystem = Record<string, DirectoryItem[]>;
 
-export interface IDirectoryItem {
+export interface DirectoryItem {
   name: string;
   type: "dir" | "file" | "exe";
   hidden?: true;
   ignoredByList?: true;
 }
 
-export interface IRouteContents {
+export interface RouteContents {
   route: string;
-  items: IDirectoryItem[];
+  items: DirectoryItem[];
 }

@@ -3,15 +3,15 @@ import { Signal } from "@preact/signals";
 import { JSX } from "preact/jsx-runtime";
 
 //-> Contexts
-export interface IConsoleState {
-  history: Signal<ICommandResponse[]>;
-  setHistory: (val: ICommandResponse[]) => void;
+export interface ConsoleState {
+  history: Signal<CommandResponse[]>;
+  setHistory: (val: CommandResponse[]) => void;
 
-  displayedHistory: Signal<ICommandResponse[]>;
-  setDisplayedHistory: (val: ICommandResponse[]) => void;
+  displayedHistory: Signal<CommandResponse[]>;
+  setDisplayedHistory: (val: CommandResponse[]) => void;
 }
 
-export interface INavigatorState {
+export interface NavigatorState {
   routeToNavigate: Signal<RouteToNavigate>;
   setRouteToNavigate: (val: RouteToNavigate) => void;
 }
@@ -21,14 +21,14 @@ export interface RouteToNavigate {
   activatedWithCd: boolean;
 }
 
-export type IConsolePromptRefState = [
+export type ConsolePromptRefState = [
   RefObject<HTMLInputElement>,
   (el: HTMLInputElement) => void,
 ];
 
 //-> Console commands
 
-export interface ICommandResponse {
+export interface CommandResponse {
   route: string;
   command: string;
   response: () => JSX.Element | null;

@@ -1,4 +1,4 @@
-import { ICommandResponse } from "../../../models/command.model.ts";
+import { CommandResponse } from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export function Cat({
@@ -7,7 +7,7 @@ export function Cat({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   //TODO Display the contents of a file
   return {
     command,

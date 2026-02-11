@@ -1,7 +1,8 @@
+import { useSignal } from "@preact/signals";
 import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
 import { useContext, useEffect } from "preact/hooks";
-import { useSignal } from "@preact/signals";
+
 import {
   Banner,
   Help,
@@ -11,11 +12,13 @@ import {
 import { Cat } from "../../src/components/commands/gnu-linux/Cat.tsx";
 import { Cd } from "../../src/components/commands/gnu-linux/Cd.tsx";
 import { Echo } from "../../src/components/commands/gnu-linux/Echo.tsx";
+import { History as CmdHistory } from "../../src/components/commands/gnu-linux/History.tsx";
 import { List } from "../../src/components/commands/gnu-linux/List.tsx";
 import { Pwd } from "../../src/components/commands/gnu-linux/Pwd.tsx";
-import { History as CmdHistory } from "../../src/components/commands/gnu-linux/History.tsx";
-import { ICommandResponse, INavigatorState } from "../../src/models/command.model.ts";
-import { ConsolePromptRefState, NavigatorState } from "../ContextWrapper.tsx";
+import {
+  CommandResponse,
+  NavigatorState,
+} from "../../src/models/command.model.ts";
 import {
   addToHistory,
   caretPosition,
@@ -25,10 +28,14 @@ import {
   displayedHistory,
   selectedHistoryIndex,
 } from "../../src/state/app.state.ts";
+import {
+  ConsolePromptRefStateCtx,
+  NavigatorStateCtx,
+} from "../ContextWrapper.tsx";
 
 export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
-  const navigatorState = useContext(NavigatorState);
-  const [consolePromptRef] = useContext(ConsolePromptRefState);
+  const navigatorState = useContext(NavigatorStateCtx);
+  const [consolePromptRef] = useContext(ConsolePromptRefStateCtx);
 
   const textRef = createRef<HTMLParagraphElement>();
   const caretRef = createRef<HTMLDivElement>();
@@ -183,7 +190,7 @@ export function Terminal({
   className: string;
 }) {
   const terminalRef = createRef<HTMLInputElement>();
-  const [terminalPromptRef] = useContext(ConsolePromptRefState);
+  const [terminalPromptRef] = useContext(ConsolePromptRefStateCtx);
 
   useEffect(() => {
     terminalPromptRef?.current?.focus();
@@ -212,9 +219,9 @@ async function handleCommandComponents(
   commandItems: string[],
   fullCommand: string,
   route: string,
-  history: ICommandResponse[],
-  navigatorState: INavigatorState,
-): Promise<ICommandResponse> {
+  history: CommandResponse[],
+  navigatorState: NavigatorState,
+): Promise<CommandResponse> {
   const commandData: { command: string; route: string } = {
     command: commandItems[0],
     route,

@@ -1,16 +1,16 @@
 import {
-  ICommandResponse,
-  INavigatorState,
+  CommandResponse,
+  NavigatorState,
 } from "../../../models/command.model.ts";
-import { IDirectoryItem } from "../../../models/fs.model.ts";
+import { DirectoryItem } from "../../../models/fs.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export async function Cd(
   { command, route }: { command: string; route: string },
   params: string[],
-  navigatorState: INavigatorState,
-): Promise<ICommandResponse> {
-  const resp: ICommandResponse = {
+  navigatorState: NavigatorState,
+): Promise<CommandResponse> {
+  const resp: CommandResponse = {
     command,
     route,
     response: () => <></>,
@@ -22,7 +22,7 @@ export async function Cd(
     // Fetch current route's contents
     try {
       const res = await fetch(route, { headers: { noRender: "true" } });
-      const contentItems: IDirectoryItem[] = await res.json();
+      const contentItems: DirectoryItem[] = await res.json();
       const directories = contentItems.filter((item) => item.type === "dir");
       resp.response = () => {
         return <></>;

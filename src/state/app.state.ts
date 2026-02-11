@@ -1,11 +1,11 @@
 import { computed, signal } from "@preact/signals";
 
 import { fs } from "../fs/virtualFS.ts";
-import { ICommandResponse } from "../models/command.model.ts";
+import { CommandResponse } from "../models/command.model.ts";
 
 // Terminal States
-export const commandHistory = signal<ICommandResponse[]>([]);
-export const displayedHistory = signal<ICommandResponse[]>([]);
+export const commandHistory = signal<CommandResponse[]>([]);
+export const displayedHistory = signal<CommandResponse[]>([]);
 export const selectedHistoryIndex = signal<number>(0);
 export const currentDirectory = signal<string>("/home/guest");
 export const commandInput = signal<string>("banner");
@@ -18,7 +18,7 @@ export const currentDirectoryContents = computed(() => {
 });
 
 // State actions
-export function addToHistory(response: ICommandResponse) {
+export function addToHistory(response: CommandResponse) {
   const isEqualToLastCommand =
     commandHistory.value.length > 0 &&
     response.command ===

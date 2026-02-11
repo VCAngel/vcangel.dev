@@ -1,13 +1,13 @@
+import { Signal, useSignal } from "@preact/signals";
 import { ComponentChildren, createContext, createRef } from "preact";
 import { useMemo } from "preact/hooks";
-import { Signal, useSignal } from "@preact/signals";
 import {
-  IConsolePromptRefState,
-  INavigatorState,
+  ConsolePromptRefState,
+  NavigatorState,
   RouteToNavigate,
 } from "../src/models/command.model.ts";
 
-function createNavigatorState(): INavigatorState {
+function createNavigatorState(): NavigatorState {
   const routeToNavigate = useSignal({
     route: "",
     activatedWithCd: false,
@@ -15,7 +15,7 @@ function createNavigatorState(): INavigatorState {
   const setRouteToNavigate = (newRoute: RouteToNavigate) =>
     (routeToNavigate.value = newRoute);
 
-  const navState: INavigatorState = useMemo(
+  const navState: NavigatorState = useMemo(
     () => ({
       routeToNavigate,
       setRouteToNavigate,
@@ -26,7 +26,7 @@ function createNavigatorState(): INavigatorState {
   return navState;
 }
 
-function createConsolePromptRefState(): IConsolePromptRefState {
+function createConsolePromptRefState(): ConsolePromptRefState {
   const ref = createRef<HTMLInputElement>();
 
   const setRef = (newRef: HTMLInputElement) => {
@@ -36,12 +36,12 @@ function createConsolePromptRefState(): IConsolePromptRefState {
   return [ref, setRef];
 }
 
-export const NavigatorState = createContext<INavigatorState>({
+export const NavigatorStateCtx = createContext<NavigatorState>({
   routeToNavigate: new Signal({ route: "", activatedWithCd: false }),
   setRouteToNavigate: () => {},
 });
 
-export const ConsolePromptRefState = createContext<IConsolePromptRefState>([
+export const ConsolePromptRefStateCtx = createContext<ConsolePromptRefState>([
   createRef<HTMLInputElement>(),
   () => {},
 ]);
@@ -52,10 +52,10 @@ export default function ContextWrapper({
   children: ComponentChildren;
 }) {
   return (
-    <NavigatorState.Provider value={createNavigatorState()}>
-      <ConsolePromptRefState.Provider value={createConsolePromptRefState()}>
+    <NavigatorStateCtx.Provider value={createNavigatorState()}>
+      <ConsolePromptRefStateCtx.Provider value={createConsolePromptRefState()}>
         {children}
-      </ConsolePromptRefState.Provider>
-    </NavigatorState.Provider>
+      </ConsolePromptRefStateCtx.Provider>
+    </NavigatorStateCtx.Provider>
   );
 }

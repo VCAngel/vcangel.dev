@@ -1,9 +1,9 @@
 import { signal } from "@preact/signals";
 
-import { Filesystem, IDirectoryItem } from "../models/fs.model.ts";
+import { Filesystem, DirectoryItem } from "../models/fs.model.ts";
 
 // NOTE: Initial FS structure
-const parentRoutes: IDirectoryItem[] = [
+const parentRoutes: DirectoryItem[] = [
   {
     name: "/",
     type: "dir",
@@ -46,7 +46,7 @@ export const fileContents: Record<string, string> = {
 export const fs = signal<Filesystem>(initialFS);
 
 // Filesystem operations
-export function getContents(path: string): IDirectoryItem[] | null {
+export function getContents(path: string): DirectoryItem[] | null {
   return fs.value[path] || null;
 }
 

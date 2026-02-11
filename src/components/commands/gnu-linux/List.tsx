@@ -1,18 +1,19 @@
-import { ICommandResponse, IDirectoryItem } from "../../../models/command.model.ts";
+import { CommandResponse } from "../../../models/command.model.ts";
+import { DirectoryItem } from "../../../models/fs.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export async function List(
   { command, route }: { command: string; route: string },
   params: string[],
-): Promise<ICommandResponse> {
+): Promise<CommandResponse> {
   let targetRoute = route; // Default to the current route
-  const resp: ICommandResponse = {
+  const resp: CommandResponse = {
     command,
     route: targetRoute,
     response: () => <></>,
   };
 
-  let contentItems: IDirectoryItem[] = [];
+  let contentItems: DirectoryItem[] = [];
 
   if (params.length > 0) {
     targetRoute = params[0];
@@ -21,13 +22,13 @@ export async function List(
   // Fetch target route's contents
   try {
     // Fetch current route's contents
-    const res = await fetch(route, { headers: { "noRender": "true" } });
+    const res = await fetch(route, { headers: { noRender: "true" } });
     contentItems = await res.json();
     const directories = contentItems.filter((item) => item.type === "dir");
 
     // Check if the new route exists in the current directory
-    const targetDirectory = directories.find((item) =>
-      item.name === targetRoute
+    const targetDirectory = directories.find(
+      (item) => item.name === targetRoute,
     );
     if (targetDirectory) {
       const slicedRoute = route.split("/");
@@ -55,7 +56,7 @@ export async function List(
       }
 
       // Fetch target route's contents
-      const res = await fetch(targetRoute, { headers: { "noRender": "true" } });
+      const res = await fetch(targetRoute, { headers: { noRender: "true" } });
       contentItems = await res.json();
     } else {
       if (params.length > 0) {

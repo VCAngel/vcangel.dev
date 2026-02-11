@@ -1,10 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { TerminalPrompt } from "../../islands/terminal/Terminal.tsx";
-import { IDirectoryItem } from "../../src/models/fs.model.ts";
+import { DirectoryItem } from "../../src/models/fs.model.ts";
 
 export const handler: Handlers = {
   GET(req, ctx) {
-    const rootItems: IDirectoryItem[] = [
+    const rootItems: DirectoryItem[] = [
       { name: "..", type: "dir", ignoredByList: true },
       { name: "/", type: "dir", ignoredByList: true },
       { name: "guest", type: "dir" },

@@ -1,4 +1,4 @@
-import { ICommandResponse } from "../../../models/command.model.ts";
+import { CommandResponse } from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export function Pwd({
@@ -7,7 +7,7 @@ export function Pwd({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   //TODO Display the current directory
   return {
     command,
