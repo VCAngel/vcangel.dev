@@ -1,6 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { TerminalPrompt } from "../../../../islands/terminal/Terminal.tsx";
-import { IDirectoryItem } from "../../../../src/models/command.model.ts";
+import { IDirectoryItem } from "../../../../src/models/fs.model.ts";
 
 export const handler: Handlers = {
   GET(req, ctx) {
@@ -16,7 +16,7 @@ export const handler: Handlers = {
       return new Response(JSON.stringify(rootItems), {
         headers: {
           "Content-Type": "application/json",
-          "location": "/",
+          location: "/",
         },
       });
     }

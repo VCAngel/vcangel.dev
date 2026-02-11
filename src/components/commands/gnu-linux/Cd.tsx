@@ -1,8 +1,8 @@
 import {
   ICommandResponse,
-  IDirectoryItem,
   INavigatorState,
 } from "../../../models/command.model.ts";
+import { IDirectoryItem } from "../../../models/fs.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export async function Cd(
@@ -21,7 +21,7 @@ export async function Cd(
 
     // Fetch current route's contents
     try {
-      const res = await fetch(route, { headers: { "noRender": "true" } });
+      const res = await fetch(route, { headers: { noRender: "true" } });
       const contentItems: IDirectoryItem[] = await res.json();
       const directories = contentItems.filter((item) => item.type === "dir");
       resp.response = () => {

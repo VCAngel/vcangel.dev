@@ -1,5 +1,7 @@
 import { computed, signal } from "@preact/signals";
-import { ICommandResponse, IDirectoryItem } from "../models/command.model.ts";
+
+import { fs } from "../fs/virtualFS.ts";
+import { ICommandResponse } from "../models/command.model.ts";
 
 // Terminal States
 export const commandHistory = signal<ICommandResponse[]>([]);
@@ -10,62 +12,9 @@ export const commandInput = signal<string>("banner");
 export const commandOutput = signal<string>("");
 export const caretPosition = signal<number>(0);
 
-// FS states
-const parentRoutes: IDirectoryItem[] = [
-  {
-    name: "/",
-    type: "dir",
-    ignoredByList: true,
-  },
-  {
-    name: "..",
-    type: "dir",
-    ignoredByList: true,
-  },
-];
-
-export const fileSystem = signal<Record<string, IDirectoryItem[]>>({
-  "/": [{ name: "home", type: "dir" }],
-  "/home": [
-    ...parentRoutes,
-    {
-      name: "guest",
-      type: "dir",
-    },
-  ],
-  "/home/guest": [
-    ...parentRoutes,
-    {
-      name: "Documents",
-      type: "dir",
-    },
-    {
-      name: "Images",
-      type: "dir",
-    },
-    {
-      name: "README.md",
-      type: "file",
-    },
-  ],
-  "/home/guest/Documents": [
-    ...parentRoutes,
-    {
-      name: "resume.pdf",
-      type: "file",
-    },
-  ],
-  "/home/guest/Images": [
-    ...parentRoutes,
-    { name: "me.png", type: "file" },
-    { name: "phrog.gif", type: "file" },
-    { name: "le_meme.png", type: "file" },
-  ],
-});
-
 // Computed states
 export const currentDirectoryContents = computed(() => {
-  return fileSystem.value[currentDirectory.value] || [];
+  return fs.value[currentDirectory.value] || [];
 });
 
 // State actions
@@ -88,7 +37,7 @@ export function addToHistory(response: ICommandResponse) {
 }
 
 export function changeDirectory(newPath: string) {
-  if (fileSystem.value[newPath]) {
+  if (fs.value[newPath]) {
     currentDirectory.value = newPath;
     return true;
   }

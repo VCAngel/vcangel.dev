@@ -33,16 +33,3 @@ export interface ICommandResponse {
   command: string;
   response: () => JSX.Element | null;
 }
-
-export interface IDirectoryItem {
-  name: string;
-  type: "dir" | "file" | "exe";
-  hidden?: true;
-  ignoredByList?: true;
-}
-
-//-> Routing
-export interface IRouteContents {
-  route: string;
-  items: IDirectoryItem[];
-}
