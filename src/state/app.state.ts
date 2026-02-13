@@ -33,6 +33,7 @@ export function addToHistory(response: CommandResponse) {
     return;
   }
 
+  selectedHistoryIndex.value = commandHistory.value.length; // Reset history navigation index
   displayedHistory.value = [...displayedHistory.value, response];
 }
 

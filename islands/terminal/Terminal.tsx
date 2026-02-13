@@ -189,7 +189,7 @@ export function Terminal({
   children: ComponentChildren;
   className: string;
 }) {
-  const terminalRef = createRef<HTMLInputElement>();
+  const terminalRef = createRef<HTMLElement>();
   const [terminalPromptRef] = useContext(ConsolePromptRefStateCtx);
 
   useEffect(() => {
