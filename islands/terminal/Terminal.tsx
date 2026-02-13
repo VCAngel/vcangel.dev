@@ -117,7 +117,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       if (commandHistory.value.length === 0) return;
       
       const newIndex = Math.max(0, selectedHistoryIndex.value - 1);
-      if (newIndex >= 0 && newIndex < commandHistory.value.length) {
+      if (newIndex < commandHistory.value.length) {
         commandInput.value = commandHistory.value[newIndex].command;
         selectedHistoryIndex.value = newIndex;
       }
