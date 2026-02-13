@@ -234,7 +234,7 @@ async function handleCommandComponents(
     case "cat":
       return Cat(commandData);
     case "cd":
-      return await Cd(
+      return Cd(
         { command: commandItems.join(" "), route },
         commandItems.slice(1),
         navigatorState,
