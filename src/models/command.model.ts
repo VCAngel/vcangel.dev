@@ -3,14 +3,6 @@ import { Signal } from "@preact/signals";
 import { JSX } from "preact/jsx-runtime";
 
 //-> Contexts
-export interface ConsoleState {
-  history: Signal<CommandResponse[]>;
-  setHistory: (val: CommandResponse[]) => void;
-
-  displayedHistory: Signal<CommandResponse[]>;
-  setDisplayedHistory: (val: CommandResponse[]) => void;
-}
-
 export interface NavigatorState {
   routeToNavigate: Signal<RouteToNavigate>;
   setRouteToNavigate: (val: RouteToNavigate) => void;
