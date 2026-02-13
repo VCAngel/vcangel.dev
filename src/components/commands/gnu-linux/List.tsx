@@ -2,10 +2,10 @@ import { getContents, resolvePath } from "../../../fs/virtualFS.ts";
 import { CommandResponse } from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
-export async function List(
+export function List(
   { command, route }: { command: string; route: string },
   params: string[],
-): Promise<CommandResponse> {
+): CommandResponse {
   let targetRoute = route; // Default to the current route
   const resp: CommandResponse = {
     command,

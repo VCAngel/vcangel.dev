@@ -5,11 +5,11 @@ import {
 } from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
-export async function Cd(
+export function Cd(
   { command, route }: { command: string; route: string },
   params: string[],
   navigatorState: NavigatorState,
-): Promise<CommandResponse> {
+): CommandResponse {
   const resp: CommandResponse = {
     command,
     route,
@@ -31,12 +31,13 @@ export async function Cd(
       return (
         <p>
           <TypewriterText
-            text={`cd: String not in pwd: ${params[0]}`}
+            text={`cd: Too many arguments`}
             key="cd_too_many_arguments"
           />
         </p>
       );
     };
+    return resp;
   }
 
   // NOTE: Resolve the target path
