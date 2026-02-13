@@ -1,5 +1,5 @@
+import { getContents, resolvePath } from "../../../fs/virtualFS.ts";
 import { CommandResponse } from "../../../models/command.model.ts";
-import { DirectoryItem } from "../../../models/fs.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export async function List(
@@ -13,57 +13,14 @@ export async function List(
     response: () => <></>,
   };
 
-  let contentItems: DirectoryItem[] = [];
+  // NOTE: Determine target path
+  const targetPath = params.length > 0 ? params[0] : "."; // Default to current directory
+  const resolvedPath = resolvePath(targetPath, route);
 
-  if (params.length > 0) {
-    targetRoute = params[0];
-  }
+  // NOTE: Get contents from fs
+  const contentItems = getContents(resolvedPath);
 
-  // Fetch target route's contents
-  try {
-    // Fetch current route's contents
-    const res = await fetch(route, { headers: { noRender: "true" } });
-    contentItems = await res.json();
-    const directories = contentItems.filter((item) => item.type === "dir");
-
-    // Check if the new route exists in the current directory
-    const targetDirectory = directories.find(
-      (item) => item.name === targetRoute,
-    );
-    if (targetDirectory) {
-      const slicedRoute = route.split("/");
-
-      switch (targetRoute) {
-        case "/":
-          targetRoute = "/";
-          break;
-        case "..": {
-          // Go back to the previous directory
-          const prevRoute = slicedRoute.slice(0, -1);
-          targetRoute = prevRoute.length === 1 ? "/" : prevRoute.join("/");
-          break;
-        }
-        default: {
-          if (route === "/") {
-            targetRoute = `/${targetRoute}`;
-            break;
-          }
-
-          // Go to the new directory
-          targetRoute = `${route}/${targetRoute}`;
-          break;
-        }
-      }
-
-      // Fetch target route's contents
-      const res = await fetch(targetRoute, { headers: { noRender: "true" } });
-      contentItems = await res.json();
-    } else {
-      if (params.length > 0) {
-        throw new Error("No such file or directory");
-      }
-    }
-  } catch (_ex) {
+  if (!contentItems) {
     resp.response = () => (
       <TypewriterText
         text={`ls: Cannot access '${targetRoute}': No such file or directory`}
