@@ -1,4 +1,4 @@
-import { ICommandResponse } from "../../../models/Command.ts";
+import { CommandResponse } from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
 export function Echo({
@@ -7,7 +7,7 @@ export function Echo({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   return {
     command,
     route,

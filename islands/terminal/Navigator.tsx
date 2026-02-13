@@ -1,10 +1,10 @@
 import { createRef } from "preact";
 import { useContext, useEffect } from "preact/hooks";
-import { NavigatorState } from "../ContextWrapper.tsx";
+import { NavigatorStateCtx } from "../ContextWrapper.tsx";
 
 export default function NavigatorAnchor() {
   const navigatorRef = createRef<HTMLAnchorElement>();
-  const { routeToNavigate, setRouteToNavigate } = useContext(NavigatorState);
+  const { routeToNavigate, setRouteToNavigate } = useContext(NavigatorStateCtx);
 
   useEffect(() => {
     if (
