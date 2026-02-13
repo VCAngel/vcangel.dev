@@ -1,13 +1,16 @@
-import { ICommandResponse } from "../../../models/Command.ts";
+import { CommandResponse } from "../../../models/command.model.ts";
 import { TypewriterText } from "../Base.tsx";
 
-export function History({
-  command,
-  route,
-}: {
-  command: string;
-  route: string;
-}, history: ICommandResponse[]): ICommandResponse {
+export function History(
+  {
+    command,
+    route,
+  }: {
+    command: string;
+    route: string;
+  },
+  history: CommandResponse[],
+): CommandResponse {
   return {
     command,
     route,

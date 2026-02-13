@@ -1,6 +1,7 @@
 import { memo } from "preact/compat";
+
 import useTypewriter from "../../hooks/Typewriter.ts"; // useTypeWriter hook
-import { ICommandResponse } from "../../models/Command.ts";
+import { CommandResponse } from "../../models/command.model.ts";
 
 // Memoized TypewriterText component to prevent re-renders
 export const TypewriterText = memo(
@@ -18,7 +19,7 @@ export function Banner({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   const banner = `
    ✦      .   .       *           .         .       ✦    .    .        .      .             .      .             .  +
  .              +   .                .     .    .     .   .        ✦         +      .  .      ✦           *    ✦   .
@@ -81,7 +82,7 @@ export function Help({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   return {
     command,
     route,
@@ -180,7 +181,7 @@ export function Contact({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   return {
     command,
     route,
@@ -196,7 +197,7 @@ export function Projects({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   return {
     command,
     route,
@@ -212,7 +213,7 @@ export function WhoAmI({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   return {
     command,
     route,
@@ -228,7 +229,7 @@ export function WhoIs({
 }: {
   command: string;
   route: string;
-}): ICommandResponse {
+}): CommandResponse {
   return {
     command,
     route,
