@@ -114,9 +114,10 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "ArrowUp") {
       e.preventDefault(); // Prevent cursor from moving
-      const newIndex =
-        selectedHistoryIndex.value > 0 ? selectedHistoryIndex.value - 1 : 0;
-      if (selectedHistoryIndex.value > 0 && newIndex >= 0) {
+      if (commandHistory.value.length === 0) return;
+      
+      const newIndex = Math.max(0, selectedHistoryIndex.value - 1);
+      if (newIndex >= 0 && newIndex < commandHistory.value.length) {
         commandInput.value = commandHistory.value[newIndex].command;
         selectedHistoryIndex.value = newIndex;
       }
