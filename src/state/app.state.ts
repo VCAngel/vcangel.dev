@@ -30,10 +30,12 @@ export function addToHistory(response: CommandResponse) {
 
   if (response.command === "clear") {
     displayedHistory.value = [];
+    selectedHistoryIndex.value = commandHistory.value.length;
     return;
   }
 
   displayedHistory.value = [...displayedHistory.value, response];
+  selectedHistoryIndex.value = commandHistory.value.length;
 }
 
 export function changeDirectory(newPath: string) {
