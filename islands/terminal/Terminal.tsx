@@ -1,57 +1,32 @@
-import { useSignal } from "@preact/signals";
 import { ComponentChildren } from "preact";
 import { createRef, TargetedEvent } from "preact/compat";
-import { useContext, useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
-import {
-  Banner,
-  Help,
-  WhoAmI,
-  WhoIs,
-} from "../../src/components/commands/Base.tsx";
-import { Cat } from "../../src/components/commands/gnu-linux/Cat.tsx";
-import { Cd } from "../../src/components/commands/gnu-linux/Cd.tsx";
-import { Echo } from "../../src/components/commands/gnu-linux/Echo.tsx";
-import { History as CmdHistory } from "../../src/components/commands/gnu-linux/History.tsx";
-import { List } from "../../src/components/commands/gnu-linux/List.tsx";
-import { Pwd } from "../../src/components/commands/gnu-linux/Pwd.tsx";
-import {
-  CommandResponse,
-  NavigatorState,
-} from "../../src/models/command.model.ts";
+import { executeCommand } from "../../src/commands/registry.tsx";
 import {
   addToHistory,
   caretPosition,
   commandHistory,
   commandInput,
   commandOutput,
+  currentDirectory,
   displayedHistory,
+  focusTerminal,
   selectedHistoryIndex,
+  terminalInputRef,
 } from "../../src/state/app.state.ts";
-import {
-  ConsolePromptRefStateCtx,
-  NavigatorStateCtx,
-} from "../ContextWrapper.tsx";
 
-export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
-  const navigatorState = useContext(NavigatorStateCtx);
-  const [consolePromptRef] = useContext(ConsolePromptRefStateCtx);
-
+export function TerminalPrompt() {
   const textRef = createRef<HTMLParagraphElement>();
   const caretRef = createRef<HTMLDivElement>();
 
-  const isInitialized = useSignal<boolean>(false);
-  const setIsInitialized = (val: boolean) => (isInitialized.value = val);
-
-  const commandItems = useSignal<string[]>([]);
-  const setCommandItems = (val: string[]) => (commandItems.value = val);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     if (textRef.current) {
       // Scroll to the end of the pre element
       const scrollWidth = textRef.current.scrollWidth;
       textRef.current.scrollLeft = scrollWidth;
-      setCommandItems(commandInput.value.trim().split(/\s+/));
     }
   }, [commandInput.value]);
 
@@ -63,16 +38,17 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
 
   // Run banner on component mount
   useEffect(() => {
-    if (!isInitialized.value) setIsInitialized(true);
-  }, [isInitialized.value]);
+    if (!isInitialized) {
+      setIsInitialized(true);
+      const result = executeCommand("banner", currentDirectory.value);
+      addToHistory(result);
+    }
+  }, [isInitialized]);
 
   useEffect(() => {
-    if (isInitialized.value && consolePromptRef.current) {
-      consolePromptRef.current.dispatchEvent(
-        new KeyboardEvent("keyup", { key: "Enter" }),
-      );
-    }
-  }, [isInitialized.value]);
+    // Focus the input when component mounts
+    focusTerminal();
+  }, []);
 
   const handleInput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     commandInput.value = e.currentTarget.value;
@@ -82,7 +58,9 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   const handleOutput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     if (e.key === "Enter") {
       commandOutput.value = commandInput.value;
-      handleHistory();
+      // Use the current URL path as the command route and command registry to execute the command
+      const result = executeCommand(commandInput.value, currentDirectory.value);
+      addToHistory(result);
       commandInput.value = "";
       caretPosition.value = 0;
       return;
@@ -91,31 +69,11 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
     caretPosition.value = e.currentTarget.selectionStart || 0;
   };
 
-  const handleHistory = () => {
-    if (commandInput.value === "") {
-      addToHistory({
-        command: "",
-        response: () => <></>,
-        route: urlPathName,
-      });
-
-      return;
-    }
-
-    handleCommandComponents(
-      commandItems.value,
-      commandInput.value,
-      urlPathName,
-      commandHistory.value,
-      navigatorState,
-    ).then(addToHistory);
-  };
-
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === "ArrowUp") {
       e.preventDefault(); // Prevent cursor from moving
       if (commandHistory.value.length === 0) return;
-      
+
       const newIndex = Math.max(0, selectedHistoryIndex.value - 1);
       if (newIndex < commandHistory.value.length) {
         commandInput.value = commandHistory.value[newIndex].command;
@@ -139,7 +97,9 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
   return (
     <>
       <input
-        ref={consolePromptRef}
+        ref={(el) => {
+          if (el) terminalInputRef.value = el;
+        }}
         type="text"
         value={commandInput.value}
         onChange={handleInput}
@@ -155,7 +115,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
       ></label>
       <div
         className="console-pane flex-shrink-0 flex gap-2 items-center justify-start"
-        onClick={() => consolePromptRef?.current?.focus()}
+        onClick={focusTerminal}
       >
         <pre className="shrink-0">
           <span className="text-[#C541F2] selection:bg-[#C541F2]">
@@ -163,7 +123,7 @@ export function TerminalPrompt({ urlPathName }: { urlPathName: string }) {
           </span>{" "}
           in{" "}
           <span className="text-[#41F2A9] selection:bg-[#41F2A9]">
-            {urlPathName.replace("/home/guest", "~")}
+            {currentDirectory.value.replace("/home/guest", "~")}
           </span>{" "}
           <span className="text-[#F2BB41] selection:bg-[#F2BB41]">λ</span>
         </pre>
@@ -191,10 +151,9 @@ export function Terminal({
   className: string;
 }) {
   const terminalRef = createRef<HTMLElement>();
-  const [terminalPromptRef] = useContext(ConsolePromptRefStateCtx);
 
   useEffect(() => {
-    terminalPromptRef?.current?.focus();
+    focusTerminal();
   }, []);
 
   useEffect(() => {
@@ -206,72 +165,8 @@ export function Terminal({
   }, [displayedHistory.value]);
 
   return (
-    <main
-      ref={terminalRef}
-      className={className}
-      onClick={() => terminalPromptRef.current?.focus()}
-    >
+    <main ref={terminalRef} className={className} onClick={focusTerminal}>
       {children}
     </main>
   );
-}
-
-async function handleCommandComponents(
-  commandItems: string[],
-  fullCommand: string,
-  route: string,
-  history: CommandResponse[],
-  navigatorState: NavigatorState,
-): Promise<CommandResponse> {
-  const commandData: { command: string; route: string } = {
-    command: commandItems[0],
-    route,
-  };
-
-  switch (commandData.command) {
-    case "help":
-    case "?":
-      return Help(commandData);
-    case "cat":
-      return Cat(commandData);
-    case "cd":
-      return Cd(
-        { command: commandItems.join(" "), route },
-        commandItems.slice(1),
-        navigatorState,
-      );
-    case "clear":
-      return { ...commandData, response: () => null, route: "" };
-    case "echo":
-      return Echo({
-        command: fullCommand,
-        route,
-      });
-    case "history":
-      return CmdHistory(commandData, history);
-    case "ls":
-      return List(
-        { command: commandItems.join(" "), route },
-        commandItems.slice(1),
-      );
-    case "pwd":
-      return Pwd(commandData);
-    case "banner":
-      return Banner(commandData);
-    case "whoami":
-      return WhoAmI(commandData);
-    case "whois":
-      return WhoIs(commandData);
-    default:
-      return {
-        command: commandData.command,
-        response: () => (
-          <p>
-            Command not found. For a list of all commands, type{" "}
-            <span>'help'</span>.
-          </p>
-        ),
-        route: commandData.route,
-      };
-  }
 }

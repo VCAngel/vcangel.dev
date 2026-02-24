@@ -12,7 +12,7 @@ export default function History() {
                 command !== "" ? "p-[2ch] py-[1ch]" : "px-[2ch] pt-[1ch]"
               }`}
             >
-              <p class="shrink-0">
+              <pre class="shrink-0">
                 <span className="text-[#C541F2] selection:bg-[#C541F2]">
                   guest@vcangel.dev
                 </span>{" "}
@@ -21,7 +21,7 @@ export default function History() {
                   {route.replace("/home/guest", "~")}
                 </span>{" "}
                 <span className="text-[#F2BB41] selection:bg-[#F2BB41]">λ</span>
-              </p>
+              </pre>
               <span className="whitespace-nowrap max-w-full">{command}</span>
             </div>
             {command !== "" ? (
