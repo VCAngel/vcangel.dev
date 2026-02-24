@@ -41,7 +41,7 @@ export default function App({ Component }: PageProps) {
         <link rel="stylesheet" href={asset("/css/normalize.css")} />
         <link rel="stylesheet" href={asset("/css/font-faces.css")} />
         <link rel="stylesheet" href={asset("/css/app.css")} />
-        <title>guest@vcangel.dev</title>
+        <title>guest@cli.vcangel.dev</title>
       </head>
       <body
         f-client-nav
