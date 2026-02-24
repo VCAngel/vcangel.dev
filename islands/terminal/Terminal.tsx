@@ -8,7 +8,6 @@ import {
   caretPosition,
   commandHistory,
   commandInput,
-  commandOutput,
   currentDirectory,
   displayedHistory,
   focusTerminal,
@@ -57,7 +56,6 @@ export function TerminalPrompt() {
 
   const handleOutput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     if (e.key === "Enter") {
-      commandOutput.value = commandInput.value;
       // Use the current URL path as the command route and command registry to execute the command
       const result = executeCommand(commandInput.value, currentDirectory.value);
       addToHistory(result);

@@ -12,7 +12,6 @@ export const currentDirectory = signal<string>("/home/guest");
 // Terminal states
 export const terminalInputRef = signal<HTMLInputElement | null>(null);
 export const commandInput = signal<string>("");
-export const commandOutput = signal<string>("");
 export const caretPosition = signal<number>(0);
 
 // Computed states
