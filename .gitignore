@@ -114,3 +114,6 @@ _fresh/
 # Deno lock
 # WARN: It has been causing trouble on builds
 deno.lock
+
+# Codegraph
+.codegraph/
