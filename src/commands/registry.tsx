@@ -103,7 +103,7 @@ export function executeCommand(
   currentPath: string,
 ): CommandResponse {
   if (!commandString.trim()) {
-    return { command: "", response: () => <></>, route: currentPath };
+    return { command: "", response: () => null, route: currentPath };
   }
 
   const parts = commandString.trim().split(/\s+/);
@@ -111,8 +111,7 @@ export function executeCommand(
   const args = parts.slice(1);
 
   // Check if the command exists in the registry
-  const command =
-    commands[cmd] ||
+  const command = commands[cmd] ||
     Object.values(commands).find((c) => c.aliases?.includes(cmd));
 
   if (command) {
@@ -121,7 +120,7 @@ export function executeCommand(
 
   // Default response for unknown commands
   return {
-    command,
+    command: commandString,
     response: () => (
       <pre>
         Command not found: {cmd}. For a list of commands, type{" "}
