@@ -6,10 +6,10 @@ import { historyCommand } from "./bin/history.tsx";
 import { lsCommand } from "./bin/list.tsx";
 import { pwdCommand } from "./bin/pwd.tsx";
 import { whoAmICommand } from "./bin/whoami.tsx";
-import { whoIsCommand } from "./bin/whois.tsx";
 import { contactCommand } from "./bin/contact.tsx";
+import { projectsCommand } from "./bin/projects.tsx";
 
-import { bannerCommand, helpCommand, projectsCommand } from "./bin/custom.tsx";
+import { bannerCommand, helpCommand } from "./bin/custom.tsx";
 
 import { Command, CommandResponse } from "../models/command.model.ts";
 
@@ -74,6 +74,7 @@ const custom: Record<string, Command> = {
   projects: {
     execute: projectsCommand,
     help: "Display projects information",
+    usage: "projects",
   },
 };
 
