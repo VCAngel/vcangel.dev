@@ -166,13 +166,3 @@ export const helpCommand: CommandExecutor = (args, fullCommand) => {
     route: currentDirectory.value,
   };
 };
-
-export const contactCommand: CommandExecutor = (_args, fullCommand) => {
-  return {
-    command: fullCommand,
-    route: currentDirectory.value,
-    response: () => {
-      return <pre>Main command: Contact</pre>;
-    },
-  };
-};

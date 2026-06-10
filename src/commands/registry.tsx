@@ -6,11 +6,10 @@ import { historyCommand } from "./bin/history.tsx";
 import { lsCommand } from "./bin/list.tsx";
 import { pwdCommand } from "./bin/pwd.tsx";
 import { whoAmICommand } from "./bin/whoami.tsx";
-import { whoIsCommand } from "./bin/whois.tsx";
-
+import { contactCommand } from "./bin/contact.tsx";
 import { projectsCommand } from "./bin/projects.tsx";
 
-import { bannerCommand, contactCommand, helpCommand } from "./bin/custom.tsx";
+import { bannerCommand, helpCommand } from "./bin/custom.tsx";
 
 import { Command, CommandResponse } from "../models/command.model.ts";
 
@@ -55,11 +54,6 @@ const linux: Record<string, Command> = {
     help: "Display the current user",
     usage: "whoami",
   },
-  whois: {
-    execute: whoIsCommand,
-    help: "Display information about VCAngel",
-    usage: "whois",
-  },
 };
 
 const custom: Record<string, Command> = {
@@ -75,6 +69,7 @@ const custom: Record<string, Command> = {
   contact: {
     execute: contactCommand,
     help: "Display contact information",
+    usage: "contact",
   },
   projects: {
     execute: projectsCommand,
