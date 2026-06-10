@@ -6,7 +6,6 @@ import { historyCommand } from "./bin/history.tsx";
 import { lsCommand } from "./bin/list.tsx";
 import { pwdCommand } from "./bin/pwd.tsx";
 import { whoAmICommand } from "./bin/whoami.tsx";
-import { whoIsCommand } from "./bin/whois.tsx";
 
 import {
   bannerCommand,
@@ -57,11 +56,6 @@ const linux: Record<string, Command> = {
     execute: whoAmICommand,
     help: "Display the current user",
     usage: "whoami",
-  },
-  whois: {
-    execute: whoIsCommand,
-    help: "Display information about VCAngel",
-    usage: "whois",
   },
 };
 
