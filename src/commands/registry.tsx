@@ -54,11 +54,6 @@ const linux: Record<string, Command> = {
     help: "Display the current user",
     usage: "whoami",
   },
-  whois: {
-    execute: whoIsCommand,
-    help: "Display information about VCAngel",
-    usage: "whois",
-  },
 };
 
 const custom: Record<string, Command> = {
