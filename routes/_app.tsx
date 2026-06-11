@@ -1,5 +1,5 @@
-import { PageProps } from "$fresh/server.ts";
-import { asset } from "$fresh/src/runtime/utils.ts";
+import { PageProps } from "fresh";
+import { asset } from "fresh/runtime";
 import SplineBackdrop from "../islands/SplineBackdrop.tsx";
 
 export default function App({ Component }: PageProps) {

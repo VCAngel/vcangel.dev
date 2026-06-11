@@ -1,4 +1,4 @@
-import { asset } from "$fresh/src/runtime/utils.ts";
+import { asset } from "fresh/runtime";
 import { TypewriterText } from "../src/components/TypewriterText.tsx";
 import usePixelate from "../src/hooks/Pixelate.tsx";
 

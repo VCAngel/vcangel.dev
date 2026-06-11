@@ -3,46 +3,45 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "preact",
+    "types": ["vite/client"]
   },
   "exclude": ["**/_fresh/*"],
   "fmt": {
-    "exclude": [".git-hooks/", "static/"],
+    "exclude": [".git-hooks/", "assets/", "static/"],
     "include": ["./"],
     "indentWidth": 2,
     "lineWidth": 80,
     "semiColons": true
   },
   "imports": {
-    "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$std/": "https://deno.land/std@0.216.0/",
-    "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
-    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
+    "fresh": "jsr:@fresh/core@^2.3.3",
+    "@fresh/plugin-vite": "jsr:@fresh/plugin-vite@^1.1.2",
+    "@preact/signals": "npm:@preact/signals@^2.9.0",
     "@splinetool/runtime": "npm:@splinetool/runtime@^1.8.9",
-    "preact": "https://esm.sh/preact@10.22.0",
+    "@types/babel__core": "npm:@types/babel__core@^7.20.5",
+    "preact": "npm:preact@^10.29.1",
     "preact/": "https://esm.sh/preact@10.22.0/",
     "std/path": "https://deno.land/std@0.121.0/path/mod.ts",
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
-    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
+    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
+    "vite": "npm:vite@^8.0.16"
   },
   "lint": {
-    "rules": {
-      "tags": ["fresh", "recommended"]
-    },
-    "exclude": ["static/fonts/"],
+    "rules": { "tags": ["fresh", "recommended"] },
+    "exclude": ["assets/fonts/", "static/fonts/"],
     "include": ["./**/*.ts"]
   },
   "nodeModulesDir": "auto",
   "tasks": {
-    "build": "deno run -A dev.ts build",
+    "build": "vite build",
     "build:reload": "deno run -A dev.ts build --reload",
-    "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
-    "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run --unstable -A -",
+    "check": "deno fmt --check && deno lint && deno check",
     "format": "deno fmt",
-    "manifest": "deno task cli manifest $(pwd)",
     "start": "deno run -A main.ts",
-    "dev": "deno run -A --watch=routes/,islands/,src/,static/ dev.ts",
-    "update": "deno run -A -r https://fresh.deno.dev/update ."
+    "dev": "vite",
+    "update": "deno run -A -r jsr:@fresh/update ."
   }
 }

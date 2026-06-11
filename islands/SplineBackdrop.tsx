@@ -1,4 +1,4 @@
-import { asset, IS_BROWSER } from "$fresh/src/runtime/utils.ts";
+import { asset, IS_BROWSER } from "fresh/runtime";
 import { Application } from "@splinetool/runtime";
 import { createRef } from "preact/compat";
 import { useEffect } from "preact/hooks";

@@ -1,4 +1,4 @@
-import { PageProps } from "$fresh/server.ts";
+import { PageProps } from "fresh";
 import Preview from "../islands/Preview.tsx";
 import History from "../islands/terminal/History.tsx";
 import { Terminal } from "../islands/terminal/Terminal.tsx";
