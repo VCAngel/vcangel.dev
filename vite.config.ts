@@ -6,7 +6,13 @@ export default defineConfig({
   plugins: [fresh(), tailwindcss()],
   build: {
     rolldownOptions: {
-      external: ["fresh/runtime"],
-    }
-  }
+      external: [
+        "fresh",
+        "fresh/internal",
+        "fresh/runtime",
+        "fresh/runtime-client",
+        "@fresh/plugin-vite/client",
+      ],
+    },
+  },
 });
