@@ -103,17 +103,17 @@ export function TerminalPrompt() {
         onChange={handleInput}
         onKeyUp={handleOutput}
         onKeyDown={handleKeyDown}
-        className="absolute -top-[1000px] opacity-0"
+        className="absolute top-[-1000px] opacity-0"
         id="terminalInput"
         name="terminalInput"
       />
       <label
         htmlFor="terminalInput"
-        className="absolute -top-[1000px] opacity-0"
+        className="absolute top-[-1000px] opacity-0"
       >
       </label>
       <div
-        className="console-pane flex-shrink-0 flex gap-2 items-center justify-start"
+        className="console-pane shrink-0 flex gap-2 items-center justify-start"
         onClick={focusTerminal}
       >
         <pre className="shrink-0">

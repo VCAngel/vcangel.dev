@@ -1,4 +1,4 @@
-import { asset } from "$fresh/src/runtime/utils.ts";
+import { asset } from "fresh/runtime";
 import { TypewriterText } from "../src/components/TypewriterText.tsx";
 import usePixelate from "../src/hooks/Pixelate.tsx";
 
@@ -10,7 +10,7 @@ export default function Preview({ className }: { className?: string }) {
         0.0005,
         {
           canvasClassName:
-            "object-contain w-auto h-[16ch] lg:h-auto lg:flex-grow lg:w-full lg:max-h-32 2xl:max-h-48",
+            "object-contain w-auto h-[16ch] lg:h-auto lg:grow lg:w-full lg:max-h-32 2xl:max-h-48",
           maxPercentage: 0.25,
         },
       )}
