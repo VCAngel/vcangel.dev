@@ -6,14 +6,10 @@ import { historyCommand } from "./bin/history.tsx";
 import { lsCommand } from "./bin/list.tsx";
 import { pwdCommand } from "./bin/pwd.tsx";
 import { whoAmICommand } from "./bin/whoami.tsx";
-import { whoIsCommand } from "./bin/whois.tsx";
+import { contactCommand } from "./bin/contact.tsx";
+import { projectsCommand } from "./bin/projects.tsx";
 
-import {
-  bannerCommand,
-  contactCommand,
-  helpCommand,
-  projectsCommand,
-} from "./bin/custom.tsx";
+import { bannerCommand, helpCommand } from "./bin/custom.tsx";
 
 import { Command, CommandResponse } from "../models/command.model.ts";
 
@@ -58,11 +54,6 @@ const linux: Record<string, Command> = {
     help: "Display the current user",
     usage: "whoami",
   },
-  whois: {
-    execute: whoIsCommand,
-    help: "Display information about VCAngel",
-    usage: "whois",
-  },
 };
 
 const custom: Record<string, Command> = {
@@ -78,10 +69,12 @@ const custom: Record<string, Command> = {
   contact: {
     execute: contactCommand,
     help: "Display contact information",
+    usage: "contact",
   },
   projects: {
     execute: projectsCommand,
     help: "Display projects information",
+    usage: "projects",
   },
 };
 
@@ -103,7 +96,7 @@ export function executeCommand(
   currentPath: string,
 ): CommandResponse {
   if (!commandString.trim()) {
-    return { command: "", response: () => <></>, route: currentPath };
+    return { command: "", response: () => null, route: currentPath };
   }
 
   const parts = commandString.trim().split(/\s+/);
@@ -111,8 +104,7 @@ export function executeCommand(
   const args = parts.slice(1);
 
   // Check if the command exists in the registry
-  const command =
-    commands[cmd] ||
+  const command = commands[cmd] ||
     Object.values(commands).find((c) => c.aliases?.includes(cmd));
 
   if (command) {
@@ -121,7 +113,7 @@ export function executeCommand(
 
   // Default response for unknown commands
   return {
-    command,
+    command: commandString,
     response: () => (
       <pre>
         Command not found: {cmd}. For a list of commands, type{" "}

@@ -24,9 +24,9 @@ export default function History() {
               </pre>
               <span className="whitespace-nowrap max-w-full">{command}</span>
             </div>
-            {command !== "" ? (
-              <div className="pl-[4ch]">{response()}</div>
-            ) : null}
+            {command !== ""
+              ? <div className="pl-[4ch]">{response()}</div>
+              : null}
           </>
         ))}
       </section>

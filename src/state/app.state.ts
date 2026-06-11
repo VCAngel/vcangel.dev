@@ -29,8 +29,7 @@ export function changeDirectory(newPath: string) {
 }
 
 export function addToHistory(response: CommandResponse) {
-  const isEqualToLastCommand =
-    commandHistory.value.length > 0 &&
+  const isEqualToLastCommand = commandHistory.value.length > 0 &&
     response.command ===
       commandHistory.value[commandHistory.value.length - 1].command;
 

@@ -32,5 +32,3 @@ jobs:
           project: "vcangel"
           entrypoint: "main.ts"
           root: "."
-          
-          

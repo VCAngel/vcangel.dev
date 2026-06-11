@@ -158,31 +158,11 @@ export const helpCommand: CommandExecutor = (args, fullCommand) => {
         <br />
         <ul>
           {Object.entries(commands).map(([name, cmd]) =>
-            helpCommandEntryFactory(name, cmd),
+            helpCommandEntryFactory(name, cmd)
           )}
         </ul>
       </>
     ),
     route: currentDirectory.value,
-  };
-};
-
-export const contactCommand: CommandExecutor = (_args, fullCommand) => {
-  return {
-    command: fullCommand,
-    route: currentDirectory.value,
-    response: () => {
-      return <pre>Main command: Contact</pre>;
-    },
-  };
-};
-
-export const projectsCommand: CommandExecutor = (_args, fullCommand) => {
-  return {
-    command: fullCommand,
-    route: currentDirectory.value,
-    response: () => {
-      return <pre>Main command: Projects</pre>;
-    },
   };
 };

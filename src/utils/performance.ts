@@ -5,7 +5,7 @@
  * sufficient GPU capabilities, memory, and performance benchmarks.
  *
  *  @returns Returns an object containing the results of the checks
- * */
+ */
 export function isDeviceGoated(): {
   /** Device has WebGL support */
   webGLGood: boolean;
