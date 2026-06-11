@@ -1,6 +1,6 @@
 import { App, staticFiles, trailingSlashes } from "fresh";
 
-export const app = new App({ basePath: import.meta.url })
+export const app = new App()
   // Add static file serving middleware
   .use(staticFiles())
   // Enable file-system based routing
