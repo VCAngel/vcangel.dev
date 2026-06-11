@@ -36,12 +36,11 @@
   },
   "nodeModulesDir": "auto",
   "tasks": {
-    "build": "vite build",
-    "build:reload": "deno run -A dev.ts build --reload",
     "check": "deno fmt --check && deno lint && deno check",
     "format": "deno fmt",
-    "start": "deno run -A main.ts",
+    "update": "deno run -A -r jsr:@fresh/update .",
     "dev": "vite",
-    "update": "deno run -A -r jsr:@fresh/update ."
+    "build": "vite build",
+    "start": "deno run -A _fresh/server.js"
   }
 }
