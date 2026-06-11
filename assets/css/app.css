@@ -1,34 +1,43 @@
+@import "./normalize.css" layer(base);
 @import "tailwindcss";
 
-html {
-  box-sizing: border-box;
-  height: 100%;
+@theme {
+  --font-firaCode: "FiraCode", "Noto Sans", sans-serif;
+  --font-majorMonoDisplay: "Major Mono Display", "Noto Sans Mono", sans-serif;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-  transition:
-    max-width 0.6s ease-in-out,
-    margin 0.2s ease-out,
-    padding 0.2s ease-out,
-    border 0.2s ease-out,
-    font-size 0.2s ease-out;
-}
+/* Site base styles live in the base layer so utility classes keep
+   overriding them, matching the Tailwind v3 cascade behavior. */
+@layer base {
+  html {
+    box-sizing: border-box;
+    height: 100%;
+  }
 
-*::selection {
-  background-color: #f9f9f9;
-  color: #000;
-}
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+    transition:
+      max-width 0.6s ease-in-out,
+      margin 0.2s ease-out,
+      padding 0.2s ease-out,
+      border 0.2s ease-out,
+      font-size 0.2s ease-out;
+  }
 
-body {
-  font-size: 1.6rem;
-  font-family: "FiraCode", "Noto Sans", "sans-serif";
-}
+  *::selection {
+    background-color: #f9f9f9;
+    color: #000;
+  }
 
-img {
-  max-width: 100%;
+  body {
+    font-family: "FiraCode", "Noto Sans", "sans-serif";
+  }
+
+  img {
+    max-width: 100%;
+  }
 }
 
 .pixelated-image {
