@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [fresh(), tailwindcss()],
-  build: {
+  /* build: {
     rolldownOptions: {
       external: [
         "fresh",
@@ -14,5 +14,5 @@ export default defineConfig({
         "@fresh/plugin-vite/client",
       ],
     },
-  },
+  }, */
 });
