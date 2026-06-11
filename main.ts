@@ -1,7 +1,9 @@
-import { App, staticFiles } from "fresh";
+import { App, staticFiles, trailingSlashes } from "fresh";
 
-export const app = new App()
+export const app = new App({ basePath: import.meta.url })
   // Add static file serving middleware
   .use(staticFiles())
   // Enable file-system based routing
-  .fsRoutes();
+  .fsRoutes()
+  // Handle trailling slashes in URLs
+  .use(trailingSlashes("never"));
