@@ -24,9 +24,8 @@
     "preact": "npm:preact@^10.29.1",
     "preact/": "https://esm.sh/preact@10.22.0/",
     "std/path": "https://deno.land/std@0.121.0/path/mod.ts",
-    "tailwindcss": "npm:tailwindcss@3.4.1",
-    "tailwindcss/": "npm:/tailwindcss@3.4.1/",
-    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
+    "tailwindcss": "npm:tailwindcss@^4.3.0",
+    "@tailwindcss/vite": "npm:@tailwindcss/vite@^4.3.0",
     "vite": "npm:vite@^8.0.16"
   },
   "lint": {
