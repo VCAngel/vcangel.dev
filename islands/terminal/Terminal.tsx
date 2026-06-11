@@ -110,7 +110,8 @@ export function TerminalPrompt() {
       <label
         htmlFor="terminalInput"
         className="absolute -top-[1000px] opacity-0"
-      ></label>
+      >
+      </label>
       <div
         className="console-pane flex-shrink-0 flex gap-2 items-center justify-start"
         onClick={focusTerminal}

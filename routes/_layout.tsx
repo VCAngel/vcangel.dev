@@ -15,18 +15,22 @@ export default function Wrapper({ Component }: PageProps) {
 
       <Preview className="console-pane-wrapper !flex-row lg:!flex-col gap-[2ch] p-[2ch] py-[1ch] lg:row-span-3 lg:row-start-1 lg:col-start-4" />
 
-      {/* Spotify status
+      {
+        /* Spotify status
           TODO: Create component and fetch functionality
-        */}
+        */
+      }
       <aside className="console-pane-wrapper !hidden lg:!flex lg:row-span-1 lg:row-start-4 lg:col-start-4">
         <div class="console-pane h-full flex flex-col">
-          {/* TODO Add realtime Spotify component
+          {
+            /* TODO Add realtime Spotify component
 
               Calls https://vca-api.deno.dev/spotify/now-playing
               Displays current song, artist, album, and album art
 
               Current fallback: Using github profiles spotify badge
-            */}
+            */
+          }
 
           <p className="inline-flex items-center justify-between grow gap-2 py-1 border-b ">
             <span>

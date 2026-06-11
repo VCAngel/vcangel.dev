@@ -15,7 +15,8 @@ export default function Preview({ className }: { className?: string }) {
         },
       )}
 
-      <div className="border-l lg:border-b lg:border-l-0 border-slate-300 h-full lg:h-auto lg:w-full"></div>
+      <div className="border-l lg:border-b lg:border-l-0 border-slate-300 h-full lg:h-auto lg:w-full">
+      </div>
       <ul class="flex flex-col overflow-y-auto hide-scrollbar max-h-[16ch] lg:max-h-full">
         <li className="text-indigo-400 selection:bg-indigo-400">
           <a

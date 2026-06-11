@@ -24,12 +24,11 @@ const splineModelResource = createResource<Application | null>(
     canvas.id = "canvas3d";
     canvas.style.cssText = "display: block; width: 100%; height: 100%;";
 
-    const model =
-      deviceBenchmark.webGLGood &&
-      deviceBenchmark.benchmarkGood &&
-      deviceBenchmark.memoryGood
-        ? HD_MODEL_URL
-        : SD_MODEL_URL;
+    const model = deviceBenchmark.webGLGood &&
+        deviceBenchmark.benchmarkGood &&
+        deviceBenchmark.memoryGood
+      ? HD_MODEL_URL
+      : SD_MODEL_URL;
 
     if (model === SD_MODEL_URL) {
       console.info("Device is not powerful enough to run the HD model");

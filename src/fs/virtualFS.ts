@@ -1,6 +1,6 @@
 import { signal } from "@preact/signals";
 
-import { Filesystem, DirectoryItem } from "../models/fs.model.ts";
+import { DirectoryItem, Filesystem } from "../models/fs.model.ts";
 
 // NOTE: Initial FS structure
 const parentRoutes: DirectoryItem[] = [
