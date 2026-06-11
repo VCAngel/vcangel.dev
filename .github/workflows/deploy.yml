@@ -1,8 +1,5 @@
 name: Deploy
 on:
-  push:
-    branches: 
-      - master
   pull_request:
     branches:
       - master
@@ -25,8 +22,11 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Install fresh deps
+        run: "deno install --allow-scripts"
+
       - name: Build step
-        run: "deno task build"
+        run: "deno task build --debug -l warn"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
