@@ -36,7 +36,7 @@ export const bannerCommand: CommandExecutor = (_args, fullCommand) => {
     route: currentDirectory.value,
     response: () => (
       <>
-        <ul className="command-wrapper overflow-hidden">
+        <div className="command-wrapper overflow-hidden">
           {bannerLines}
           <pre className="mt-[1ch]">Welcome to my website! 🚀</pre>
           <pre>
@@ -56,7 +56,7 @@ export const bannerCommand: CommandExecutor = (_args, fullCommand) => {
             </code>
             .
           </pre>
-        </ul>
+        </div>
       </>
     ),
   };
@@ -65,11 +65,11 @@ export const bannerCommand: CommandExecutor = (_args, fullCommand) => {
 const helpCommandEntryFactory = (name: string, cmd: Command) => {
   if (name === "divider") {
     return (
-      <>
+      <li key={name} className="list-none">
         <br />
-        <pre key={name}>Other commands:</pre>
+        <pre>Other commands:</pre>
         <br />
-      </>
+      </li>
     );
   }
 
