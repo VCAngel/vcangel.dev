@@ -99,7 +99,7 @@ function SplineModel() {
 
   return (
     <div className="appear h-full transition-opacity duration-[2s] ease-in-out">
-      <div ref={canvasContainer} className={"w-full h-full"}>
+      <div ref={canvasContainer} className="w-full h-full">
         {/* CANVAS RENDERS HERE */}
       </div>
     </div>
