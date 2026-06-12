@@ -57,9 +57,11 @@ function checkWebGLPerformance() {
 }
 
 function hasEnoughMemory() {
-  if ("deviceMemory" in navigator) {
+  if (
+    "deviceMemory" in navigator && typeof navigator.deviceMemory === "number"
+  ) {
     // Memory is reported in GB
-    return (navigator as any).deviceMemory >= 4; // 4GB or more
+    return navigator.deviceMemory >= 4; // 4GB or more
   }
 
   // Fall back to other checks if deviceMemory isn't available

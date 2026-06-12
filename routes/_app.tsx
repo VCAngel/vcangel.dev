@@ -1,5 +1,5 @@
-import { PageProps } from "$fresh/server.ts";
-import { asset } from "$fresh/src/runtime/utils.ts";
+import { PageProps } from "fresh";
+import { asset } from "fresh/runtime";
 import SplineBackdrop from "../islands/SplineBackdrop.tsx";
 
 export default function App({ Component }: PageProps) {
@@ -35,12 +35,6 @@ export default function App({ Component }: PageProps) {
             "https://prod.spline.design/awLjgvKUH4WDBCFL/scene.splinecode",
           )}
         />
-        <link rel="preload" as="style" href={asset("/css/normalize.css")} />
-        <link rel="preload" as="style" href={asset("/css/font-faces.css")} />
-        <link rel="preload" as="style" href={asset("/css/app.css")} />
-        <link rel="stylesheet" href={asset("/css/normalize.css")} />
-        <link rel="stylesheet" href={asset("/css/font-faces.css")} />
-        <link rel="stylesheet" href={asset("/css/app.css")} />
         <title>guest@cli.vcangel.dev</title>
       </head>
       <body

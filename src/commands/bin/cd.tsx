@@ -13,6 +13,7 @@ export const cdCommand: CommandExecutor = (args, fullCommand) => {
     return {
       command: fullCommand,
       route: initialRoute,
+      // deno-lint-ignore jsx-no-useless-fragment
       response: () => <></>,
     };
   }
@@ -60,6 +61,7 @@ export const cdCommand: CommandExecutor = (args, fullCommand) => {
   return {
     command: fullCommand,
     route: initialRoute,
+    // deno-lint-ignore jsx-no-useless-fragment
     response: () => <></>,
   };
 };

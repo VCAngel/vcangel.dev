@@ -1,17 +1,22 @@
-name: Deploy
+name: CI
+
 on:
-  push:
-    branches: master
   pull_request:
-    branches: master
+    branches:
+      - master
+
+# Cancel superseded runs on the same PR to save CI minutes
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  deploy:
-    name: Deploy
+  build:
+    name: Build & Check
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     permissions:
-      id-token: write # Needed for auth with Deno Deploy
       contents: read # Needed to clone the repository
 
     steps:
@@ -22,13 +27,13 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+          cache: true # Cache deps keyed off the lockfile
+
+      - name: Install fresh deps
+        run: deno install --allow-scripts
+
+      - name: Lint revision
+        run: deno task check
 
       - name: Build step
-        run: "deno task build --reload"
-
-      - name: Upload to Deno Deploy
-        uses: denoland/deployctl@v1
-        with:
-          project: "vcangel"
-          entrypoint: "main.ts"
-          root: "."
+        run: deno task build --debug -l warn
