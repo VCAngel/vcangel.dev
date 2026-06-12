@@ -35,17 +35,23 @@ export default function Wrapper({ Component }: PageProps) {
           <p className="inline-flex items-center justify-between grow gap-2 py-1 border-b ">
             <span>
               <img
-                className="max-h-[3ch]"
+                className="max-h-[3ch] w-auto"
                 src="https://media.tenor.com/9sDktwVuiGUAAAAi/catjam-jam.gif"
                 alt="🎶"
+                width="112"
+                height="112"
+                loading="lazy"
               />
             </span>
             <span>Vibing to:</span>
             <span>
               <img
-                className="max-h-[3ch] -scale-x-100"
+                className="max-h-[3ch] w-auto -scale-x-100"
                 src="https://media.tenor.com/9sDktwVuiGUAAAAi/catjam-jam.gif"
                 alt="🎶"
+                width="112"
+                height="112"
+                loading="lazy"
               />
             </span>
           </p>
@@ -55,6 +61,7 @@ export default function Wrapper({ Component }: PageProps) {
               <img
                 src="https://spotify-github-profile.kittinanx.com/api/view?uid=dedoloco321&cover_image=true&theme=natemoo-re&bar_color=99c1f1&bar_color_cover=true"
                 alt="current song 🎶"
+                loading="lazy"
               />
             </a>
           </div>

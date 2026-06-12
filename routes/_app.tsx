@@ -1,5 +1,4 @@
 import { PageProps } from "fresh";
-import { asset } from "fresh/runtime";
 import SplineBackdrop from "../islands/SplineBackdrop.tsx";
 
 export default function App({ Component }: PageProps) {
@@ -21,19 +20,35 @@ export default function App({ Component }: PageProps) {
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="language" content="English" />
         <meta name="author" content="vcangel" />
-        <link
-          rel="preload"
-          as="fetch"
-          href={asset(
-            "https://prod.spline.design/voxqxNJ1YBrX0pRe/scene.splinecode",
-          )}
+        <meta name="theme-color" content="#000000" />
+        <link rel="canonical" href="https://cli.vcangel.dev/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://cli.vcangel.dev/" />
+        <meta property="og:title" content="guest@vcangel.dev" />
+        <meta
+          property="og:description"
+          content="Welcome! Feel free to explore around _(°︿°)_"
+        />
+        <meta
+          property="og:image"
+          content="https://cli.vcangel.dev/img/pfp.png"
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="guest@vcangel.dev" />
+        <meta
+          name="twitter:description"
+          content="Welcome! Feel free to explore around _(°︿°)_"
+        />
+        <meta
+          name="twitter:image"
+          content="https://cli.vcangel.dev/img/pfp.png"
         />
         <link
           rel="preload"
-          as="fetch"
-          href={asset(
-            "https://prod.spline.design/awLjgvKUH4WDBCFL/scene.splinecode",
-          )}
+          as="font"
+          type="font/ttf"
+          href="/fonts/fira_code/FiraCode-VariableFont_wght.ttf"
+          crossorigin="anonymous"
         />
         <title>guest@cli.vcangel.dev</title>
       </head>

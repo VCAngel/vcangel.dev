@@ -12,7 +12,11 @@ const useTypewriter = (text: string, speed: number = 24) => {
       return;
     }
 
-    if (speed <= 0) {
+    const reducedMotion = globalThis.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (speed <= 0 || reducedMotion) {
       setDisplayedText(text);
       return;
     }
