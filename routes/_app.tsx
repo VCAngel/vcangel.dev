@@ -46,8 +46,8 @@ export default function App({ Component }: PageProps) {
         <link
           rel="preload"
           as="font"
-          type="font/ttf"
-          href="/fonts/fira_code/FiraCode-VariableFont_wght.ttf"
+          type="font/woff2"
+          href="/fonts/fira_code/FiraCode-VariableFont_wght.woff2"
           crossorigin="anonymous"
         />
         <title>guest@cli.vcangel.dev</title>
