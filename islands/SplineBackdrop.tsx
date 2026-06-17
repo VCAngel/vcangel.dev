@@ -11,14 +11,38 @@ const SD_MODEL_URL =
 
 let splineAppPromise: Promise<Application | null> | null = null;
 
-// Wait until the main thread is idle so hydration and first input are
-// never blocked by the (heavy) Spline runtime.
-const whenIdle = () =>
+// NOTE: Defer Spline loading until interaction
+// Fallback to rendering the backdorp after 15 seconds
+const whenInteracted = () =>
   new Promise<void>((resolve) => {
-    if ("requestIdleCallback" in globalThis) {
-      globalThis.requestIdleCallback(() => resolve(), { timeout: 4000 });
-    } else {
-      setTimeout(resolve, 1500);
+    if (!IS_BROWSER) {
+      resolve();
+      return;
+    }
+
+    const events = [
+      "pointerdown",
+      "keydown",
+      "wheel",
+      "touchstart",
+      "mousemove",
+      "scroll",
+    ] as const;
+
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      clearTimeout(timer);
+      for (const event of events) {
+        globalThis.removeEventListener(event, start);
+      }
+      resolve();
+    };
+
+    const timer = setTimeout(start, 15000);
+    for (const event of events) {
+      globalThis.addEventListener(event, start, { once: true, passive: true });
     }
   });
 
@@ -39,7 +63,7 @@ async function loadSplineApp(): Promise<Application | null> {
     return null;
   }
 
-  await whenIdle();
+  await whenInteracted();
 
   const deviceBenchmark = isDeviceGoated();
   const model = deviceBenchmark.webGLGood &&

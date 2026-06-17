@@ -3,62 +3,15 @@ import { Command, CommandExecutor } from "../../models/command.model.ts";
 import { currentDirectory } from "../../state/app.state.ts";
 import { commands } from "../registry.tsx";
 
-const BANNER_TEXT = `
-   ✦      .   .       *           .         .       ✦    .    .        .      .             .      .             .  +
- .              +   .                .     .    .     .   .        ✦         +      .  .      ✦           *    ✦   .
-    | | / / ___/ _ | / |/ / ___/ __/ /       .       +       .    *       ✦    .      .           .     .           .
- +  | |/ / /__/ __ |/    / (_ / _// /__   ✦ .    *   .    .     .       .                        .    +      .       
-    |___/\\___/_/ |_/_/|_/\\___/___/____/ ©2026      .     +             .                 .                    +   .
-         .           *  .         .       .                       .              *                     .             
-    ✦  The only limit is your imagination!  (ง•\`ω\´•)ว__/  ✦    .    .    *             .      +       *         .  
-  .       *            .           *     .  .   .  +        .          . +                    ✦  .                .
-     +        +     .               .      ✦  .               .                             .                .
-
-`;
-
-const BANNER_LINES = BANNER_TEXT.split("\n").map((line) => line.trimEnd());
+import Banner from "../../../islands/terminal/Banner.tsx";
 
 // NOTE: vvv Custom commands for website
 
 export const bannerCommand: CommandExecutor = (_args, fullCommand) => {
-  const bannerLines = BANNER_LINES.map((line, index) => (
-    <pre className="text-nowrap">
-      <TypewriterText
-        text={line}
-        speed={10 + index * 1.1}
-        key={`banner_line-${index}`}
-      />
-    </pre>
-  ));
-
   return {
     command: fullCommand,
     route: currentDirectory.value,
-    response: () => (
-      <>
-        <div className="command-wrapper overflow-hidden">
-          {bannerLines}
-          <pre className="mt-[1ch]">Welcome to my website! 🚀</pre>
-          <pre>
-            For a list of commands, type&nbsp;
-            <code
-              className="text-indigo-400"
-              style="text-shadow:0 0 2px #818cf8;"
-            >
-              help
-            </code>{" "}
-            or{" "}
-            <code
-              className="text-indigo-400"
-              style="text-shadow:0 0 2px #818cf8;"
-            >
-              ?
-            </code>
-            .
-          </pre>
-        </div>
-      </>
-    ),
+    response: () => <Banner />,
   };
 };
 

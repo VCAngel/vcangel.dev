@@ -43,12 +43,53 @@ export default function App({ Component }: PageProps) {
           name="twitter:image"
           content="https://cli.vcangel.dev/img/pfp.png"
         />
+        {
+          /* Warm up connections to the origins on the critical path so the
+            avatar (LCP) and the Spline backdrop chain resolve faster. */
+        }
+        <link
+          rel="preconnect"
+          href="https://avatars.githubusercontent.com"
+          crossorigin="anonymous"
+        />
+        <link rel="preconnect" href="https://prod.spline.design" />
+        <link
+          rel="preconnect"
+          href="https://www.gstatic.com"
+          crossorigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://media.tenor.com" />
+        <link
+          rel="dns-prefetch"
+          href="https://spotify-github-profile.kittinanx.com"
+        />
         <link
           rel="preload"
           as="font"
-          type="font/ttf"
-          href="/fonts/fira_code/FiraCode-VariableFont_wght.ttf"
+          type="font/woff2"
+          href="/fonts/fira_code/FiraCode-VariableFont_wght.woff2"
           crossorigin="anonymous"
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/major_mono_display/MajorMonoDisplay-Regular.woff2"
+          crossorigin="anonymous"
+        />
+        {
+          /* Preview avatar is rendered by a client island; warm its fetch
+            before hydration so the pane fills without a late reflow. */
+        }
+        <link
+          rel="preload"
+          as="image"
+          href="https://avatars.githubusercontent.com/u/42756104?v=4"
         />
         <title>guest@cli.vcangel.dev</title>
       </head>
