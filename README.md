@@ -4,9 +4,13 @@
 root@vcangel.dev ~ % ./portfolio.sh
 ```
 
+<a href="https://cli.vcangel.dev">
 <img width="800" height="262" alt="banner_showcase" src="https://github.com/user-attachments/assets/91d8daa3-751b-47a5-b2f9-c746ede59487" />
+</a>
 
 A terminal-styled portfolio... In space! :rocket::frog:
+
+> 🍳 **Still cookin'**, stuff *will* change
 
 [![Live Demo](https://img.shields.io/badge/live-cli.vcangel.dev-99c1f1?style=for-the-badge&logo=deno&logoColor=white)](https://cli.vcangel.dev/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](./LICENSE)
