@@ -6,7 +6,6 @@ root@vcangel.dev ~ % ./portfolio.sh
 
 <img width="800" height="262" alt="banner_showcase" src="https://github.com/user-attachments/assets/91d8daa3-751b-47a5-b2f9-c746ede59487" />
 
-
 A terminal-styled portfolio... In space! :rocket::frog:
 
 [![Live Demo](https://img.shields.io/badge/live-cli.vcangel.dev-99c1f1?style=for-the-badge&logo=deno&logoColor=white)](https://cli.vcangel.dev/)
@@ -19,30 +18,32 @@ A terminal-styled portfolio... In space! :rocket::frog:
 
 ## 🛰️ what's this
 
-I wanted to make a simple portfolio and ended up making this thing in the end ⁽˙³˙⁾
+I wanted to make a simple portfolio and ended up making this thing in the end
+⁽˙³˙⁾
 
-Try `help`, poke around, find some stuff. 
-All of it sitting on top of a 3D space scene 'cause space is nice. 🌌
+Try `help`, poke around, find some stuff. All of it sitting on top of a 3D space
+scene 'cause space is nice. 🌌
 
 ## ✨ the good stuff
 
 - **Type your way around** - `help` to kick things off
 - **3D space backdrop** - interactive Spline scene chillin' behind the terminal
 - **Retro / CRT vibes** - scanlines, glow, monospace, the whole aesthetic
-- **Islands architecture** - only the interactive bits hydrate, rest stays static n' snappy
+- **Islands architecture** - only the interactive bits hydrate, rest stays
+  static n' snappy
 - **Works on mobile** - terminal scales down so your phone ain't left out
 
 ## 🕹️ commands
 
 Here's what you can throw at it (run `help` in the site for the full list):
 
-| Command    | what it does               |
-| ---------- | -------------------------- |
-| `help`     | shows everything you can do |
-| `banner`   | display the welcome banner  |
-| `projects` | stuff I've built            |
-| `contact`  | where to find me            |
-| `clear`    | wipes the screen            |
+| Command    | what it does                 |
+| ---------- | ---------------------------- |
+| `help`     | shows everything you can do  |
+| `banner`   | display the welcome banner   |
+| `projects` | stuff I've built             |
+| `contact`  | where to find me             |
+| `clear`    | wipes the screen             |
 | `whoami`   | Idk, you tell me! m9っ`･ω･´) |
 
 <!-- > psst — there might be an easter egg or two hiding in there 🥚 go dig -->
@@ -53,7 +54,8 @@ Here's what you can throw at it (run `help` in the site for the full list):
 
 - **[Deno](https://deno.com/)** - the runtime
 - **[Fresh](https://fresh.deno.dev/)** - web framework, islands gang
-- **[Preact](https://preactjs.com/)** + **[Signals](https://preactjs.com/guide/v10/signals/)** - UI + state
+- **[Preact](https://preactjs.com/)** +
+  **[Signals](https://preactjs.com/guide/v10/signals/)** - UI + state
 - **[Vite](https://vite.dev/)** - build/dev
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - styling
 - **[Spline](https://spline.design/)** - the 3D backdrop
@@ -73,7 +75,8 @@ deno task build
 deno task start
 ```
 
-> Need [Deno](https://deno.com/) installed first. `deno task check` runs lint/fmt/typecheck if you wanna keep it clean.
+> Need [Deno](https://deno.com/) installed first. `deno task check` runs
+> lint/fmt/typecheck if you wanna keep it clean.
 
 ---
 
