@@ -1,7 +1,8 @@
 /*-> FiraCode Variable*/
 @font-face {
 	font-family: "FiraCode";
-	src: url("/fonts/fira_code/FiraCode-VariableFont_wght.ttf") format("truetype");
+	src: url("/fonts/fira_code/FiraCode-VariableFont_wght.woff2") format("woff2"),
+		url("/fonts/fira_code/FiraCode-VariableFont_wght.ttf") format("truetype");
 	font-style: normal;
 	font-display: swap;
 }
@@ -9,7 +10,8 @@
 /*-> Major Mono Display */
 @font-face {
 	font-family: "Major Mono Display";
-	src: url("/fonts/major_mono_display/MajorMonoDisplay-Regular.ttf") format("truetype");
+	src: url("/fonts/major_mono_display/MajorMonoDisplay-Regular.woff2") format("woff2"),
+		url("/fonts/major_mono_display/MajorMonoDisplay-Regular.ttf") format("truetype");
 	font-style: normal;
 	font-display: swap;
 }

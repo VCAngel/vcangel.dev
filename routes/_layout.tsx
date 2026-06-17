@@ -1,4 +1,5 @@
 import { PageProps } from "fresh";
+import { asset } from "fresh/runtime";
 import Preview from "../islands/Preview.tsx";
 import History from "../islands/terminal/History.tsx";
 import { Terminal } from "../islands/terminal/Terminal.tsx";
@@ -36,22 +37,28 @@ export default function Wrapper({ Component }: PageProps) {
             <span>
               <img
                 className="max-h-[3ch] w-auto"
-                src="https://media.tenor.com/9sDktwVuiGUAAAAi/catjam-jam.gif"
+                src={asset(
+                  "https://media.tenor.com/9sDktwVuiGUAAAAj/catjam-jam.gif",
+                )}
                 alt="🎶"
-                width="112"
-                height="112"
+                width="48"
+                height="48"
                 loading="lazy"
+                decoding="async"
               />
             </span>
             <span>Vibing to:</span>
             <span>
               <img
                 className="max-h-[3ch] w-auto -scale-x-100"
-                src="https://media.tenor.com/9sDktwVuiGUAAAAi/catjam-jam.gif"
+                src={asset(
+                  "https://media.tenor.com/9sDktwVuiGUAAAAj/catjam-jam.gif",
+                )}
                 alt="🎶"
-                width="112"
-                height="112"
+                width="48"
+                height="48"
                 loading="lazy"
+                decoding="async"
               />
             </span>
           </p>
@@ -59,9 +66,13 @@ export default function Wrapper({ Component }: PageProps) {
           <div className="flex flex-col justify-center grow">
             <a href="https://open.spotify.com/user/dedoloco321" target="_blank">
               <img
+                className="w-full h-auto"
                 src="https://spotify-github-profile.kittinanx.com/api/view?uid=dedoloco321&cover_image=true&theme=natemoo-re&bar_color=99c1f1&bar_color_cover=true"
                 alt="current song 🎶"
+                width="320"
+                height="84"
                 loading="lazy"
+                decoding="async"
               />
             </a>
           </div>
