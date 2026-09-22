@@ -1,45 +1,17 @@
-import { TypewriterText } from "../../components/TypewriterText.tsx";
-import { readFile } from "../../fs/virtualFS.ts";
 import { CommandExecutor } from "../../models/command.model.ts";
-import { currentDirectory } from "../../state/app.state.ts";
+import { readText } from "../utils/fs.ts";
+import { FAST, textResponse, toLines } from "../utils/output.tsx";
 
 export const catCommand: CommandExecutor = (args, fullCommand) => {
   if (args.length === 0) {
-    return {
-      command: fullCommand,
-      response: () => (
-        <pre>
-          <TypewriterText
-            text="cat: missing file operand"
-            key="cat_missing_file_operand"
-          />
-        </pre>
-      ),
-      route: currentDirectory.value,
-    };
+    return textResponse(fullCommand, ["cat: missing file operand"], "cat");
   }
 
-  const filename = args[0];
-  const content = readFile(`${currentDirectory.value}/${filename}`);
+  // Snapshot contents now: response() re-renders on every new command
+  const lines = args.flatMap((arg) => {
+    const result = readText("cat", arg);
+    return "error" in result ? [result.error] : toLines(result.text);
+  });
 
-  if (!content) {
-    return {
-      command: fullCommand,
-      response: () => (
-        <pre>
-          <TypewriterText
-            text={`cat: ${filename}: No such file or directory`}
-            key="cat_no_such_file_or_directory"
-          />
-        </pre>
-      ),
-      route: currentDirectory.value,
-    };
-  }
-
-  return {
-    command: fullCommand,
-    response: () => <pre>{content}</pre>,
-    route: currentDirectory.value,
-  };
+  return textResponse(fullCommand, lines, "cat", FAST);
 };

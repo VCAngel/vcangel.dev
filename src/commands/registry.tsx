@@ -35,7 +35,7 @@ const linux: Record<string, Command> = {
   echo: {
     execute: echoCommand,
     help: "Display a line of text",
-    usage: "echo [text]",
+    usage: "echo [text] [> file | >> file]",
   },
   history: {
     execute: historyCommand,
@@ -45,7 +45,7 @@ const linux: Record<string, Command> = {
   ls: {
     execute: lsCommand,
     help: "List directory contents",
-    usage: "ls [path]",
+    usage: "ls [-a -l -h] [path ...]",
   },
   pwd: {
     execute: pwdCommand,
