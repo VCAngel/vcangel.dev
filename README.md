@@ -10,7 +10,7 @@ root@vcangel.dev ~ % ./portfolio.sh
 
 A terminal-styled portfolio... In space! :rocket::frog:
 
-> 🍳 **Still cookin'**, stuff *will* change
+> 🍳 **Still cookin'**, stuff _will_ change
 
 [![Live Demo](https://img.shields.io/badge/live-cli.vcangel.dev-99c1f1?style=for-the-badge&logo=deno&logoColor=white)](https://cli.vcangel.dev/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](./LICENSE)
