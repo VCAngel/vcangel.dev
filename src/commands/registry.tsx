@@ -11,7 +11,10 @@ import { projectsCommand } from "./bin/projects.tsx";
 
 import { bannerCommand, helpCommand } from "./bin/custom.tsx";
 
+import { USERS } from "../data/users.ts";
 import { Command, CommandResponse } from "../models/command.model.ts";
+import { currentUser } from "../state/session.state.ts";
+import { tokenize } from "./utils/args.ts";
 
 const linux: Record<string, Command> = {
   cat: {
@@ -95,20 +98,23 @@ export function executeCommand(
   commandString: string,
   currentPath: string,
 ): CommandResponse {
+  // Stamped so the history prompt keeps who typed it, even if the command
+  // switches users (su / exit)
+  const user = currentUser.value;
+
   if (!commandString.trim()) {
-    return { command: "", response: () => null, route: currentPath };
+    return { command: "", response: () => null, route: currentPath, user };
   }
 
-  const parts = commandString.trim().split(/\s+/);
-  const cmd = parts[0];
-  const args = parts.slice(1);
+  const [cmd = "", ...args] = tokenize(commandString, USERS[user].home);
 
   // Check if the command exists in the registry
-  const command = commands[cmd] ||
-    Object.values(commands).find((c) => c.aliases?.includes(cmd));
+  const command = Object.hasOwn(commands, cmd)
+    ? commands[cmd]
+    : Object.values(commands).find((c) => c.aliases?.includes(cmd));
 
   if (command) {
-    return command.execute(args, commandString);
+    return { user, ...command.execute(args, commandString) };
   }
 
   // Default response for unknown commands
@@ -123,5 +129,6 @@ export function executeCommand(
       </pre>
     ),
     route: currentPath,
+    user,
   };
 }
