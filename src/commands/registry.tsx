@@ -12,6 +12,11 @@ import { mkdirCommand } from "./bin/mkdir.tsx";
 import { touchCommand } from "./bin/touch.tsx";
 import { rmCommand, rmdirCommand } from "./bin/rm.tsx";
 import { cpCommand, mvCommand } from "./bin/transfer.tsx";
+import { treeCommand } from "./bin/tree.tsx";
+import { findCommand } from "./bin/find.tsx";
+import { headCommand, tailCommand } from "./bin/headtail.tsx";
+import { wcCommand } from "./bin/wc.tsx";
+import { grepCommand } from "./bin/grep.tsx";
 
 import { bannerCommand, helpCommand } from "./bin/custom.tsx";
 
@@ -45,6 +50,21 @@ const linux: Record<string, Command> = {
     execute: echoCommand,
     help: "Display a line of text",
     usage: "echo [text] [> file | >> file]",
+  },
+  find: {
+    execute: findCommand,
+    help: "Search for files in a directory hierarchy",
+    usage: "find [path ...] [-name glob] [-iname glob] [-type f|d]",
+  },
+  grep: {
+    execute: grepCommand,
+    help: "Print lines that match a pattern",
+    usage: "grep [-i -n -r -v] pattern [file ...]",
+  },
+  head: {
+    execute: headCommand,
+    help: "Output the first part of files",
+    usage: "head [-n lines] file ...",
   },
   history: {
     execute: historyCommand,
@@ -81,10 +101,25 @@ const linux: Record<string, Command> = {
     help: "Remove empty directories",
     usage: "rmdir directory ...",
   },
+  tail: {
+    execute: tailCommand,
+    help: "Output the last part of files",
+    usage: "tail [-n lines] file ...",
+  },
   touch: {
     execute: touchCommand,
     help: "Create empty files or update timestamps",
     usage: "touch file ...",
+  },
+  tree: {
+    execute: treeCommand,
+    help: "List contents of directories in a tree-like format",
+    usage: "tree [-a] [path]",
+  },
+  wc: {
+    execute: wcCommand,
+    help: "Print line, word and byte counts",
+    usage: "wc [-l -w -c] file ...",
   },
   whoami: {
     execute: whoAmICommand,
