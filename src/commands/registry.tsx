@@ -8,6 +8,10 @@ import { pwdCommand } from "./bin/pwd.tsx";
 import { whoAmICommand } from "./bin/whoami.tsx";
 import { contactCommand } from "./bin/contact.tsx";
 import { projectsCommand } from "./bin/projects.tsx";
+import { mkdirCommand } from "./bin/mkdir.tsx";
+import { touchCommand } from "./bin/touch.tsx";
+import { rmCommand, rmdirCommand } from "./bin/rm.tsx";
+import { cpCommand, mvCommand } from "./bin/transfer.tsx";
 
 import { bannerCommand, helpCommand } from "./bin/custom.tsx";
 
@@ -32,6 +36,11 @@ const linux: Record<string, Command> = {
     help: "Clear the terminal screen",
     usage: "clear",
   },
+  cp: {
+    execute: cpCommand,
+    help: "Copy files and directories",
+    usage: "cp [-r] source ... dest",
+  },
   echo: {
     execute: echoCommand,
     help: "Display a line of text",
@@ -47,10 +56,35 @@ const linux: Record<string, Command> = {
     help: "List directory contents",
     usage: "ls [-a -l -h] [path ...]",
   },
+  mkdir: {
+    execute: mkdirCommand,
+    help: "Make directories",
+    usage: "mkdir [-p] directory ...",
+  },
+  mv: {
+    execute: mvCommand,
+    help: "Move (rename) files",
+    usage: "mv source ... dest",
+  },
   pwd: {
     execute: pwdCommand,
     help: "Return working directory name",
     usage: "pwd",
+  },
+  rm: {
+    execute: rmCommand,
+    help: "Remove files or directories",
+    usage: "rm [-r -f] file ...",
+  },
+  rmdir: {
+    execute: rmdirCommand,
+    help: "Remove empty directories",
+    usage: "rmdir directory ...",
+  },
+  touch: {
+    execute: touchCommand,
+    help: "Create empty files or update timestamps",
+    usage: "touch file ...",
   },
   whoami: {
     execute: whoAmICommand,
