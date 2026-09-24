@@ -17,6 +17,13 @@ import { findCommand } from "./bin/find.tsx";
 import { headCommand, tailCommand } from "./bin/headtail.tsx";
 import { wcCommand } from "./bin/wc.tsx";
 import { grepCommand } from "./bin/grep.tsx";
+import {
+  exitCommand,
+  groupsCommand,
+  suCommand,
+  sudoCommand,
+  usersCommand,
+} from "./bin/session.tsx";
 
 import { bannerCommand, helpCommand } from "./bin/custom.tsx";
 
@@ -51,6 +58,12 @@ const linux: Record<string, Command> = {
     help: "Display a line of text",
     usage: "echo [text] [> file | >> file]",
   },
+  exit: {
+    execute: exitCommand,
+    help: "Log out of the current user, or close the terminal",
+    usage: "exit",
+    aliases: ["logout"],
+  },
   find: {
     execute: findCommand,
     help: "Search for files in a directory hierarchy",
@@ -60,6 +73,11 @@ const linux: Record<string, Command> = {
     execute: grepCommand,
     help: "Print lines that match a pattern",
     usage: "grep [-i -n -r -v] pattern [file ...]",
+  },
+  groups: {
+    execute: groupsCommand,
+    help: "Print the groups a user is in",
+    usage: "groups [user ...]",
   },
   head: {
     execute: headCommand,
@@ -101,6 +119,16 @@ const linux: Record<string, Command> = {
     help: "Remove empty directories",
     usage: "rmdir directory ...",
   },
+  su: {
+    execute: suCommand,
+    help: "Switch user",
+    usage: "su [user]",
+  },
+  sudo: {
+    execute: sudoCommand,
+    help: "Execute a command as root",
+    usage: "sudo command",
+  },
   tail: {
     execute: tailCommand,
     help: "Output the last part of files",
@@ -115,6 +143,11 @@ const linux: Record<string, Command> = {
     execute: treeCommand,
     help: "List contents of directories in a tree-like format",
     usage: "tree [-a] [path]",
+  },
+  users: {
+    execute: usersCommand,
+    help: "Print the users logged in",
+    usage: "users",
   },
   wc: {
     execute: wcCommand,

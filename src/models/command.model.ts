@@ -12,6 +12,7 @@ export interface CommandResponse {
   command: string;
   response: () => JSX.Element | null;
   user?: User; // Who ran it, stamped by executeCommand
+  prompt?: string; // Replaces the user@host prompt (e.g. "Password:")
 }
 
 export interface Command {
