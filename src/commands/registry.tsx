@@ -24,6 +24,7 @@ import {
   sudoCommand,
   usersCommand,
 } from "./bin/session.tsx";
+import { fastfetchCommand } from "./bin/fastfetch.tsx";
 
 import { bannerCommand, helpCommand } from "./bin/custom.tsx";
 
@@ -175,6 +176,12 @@ const custom: Record<string, Command> = {
     execute: contactCommand,
     help: "Display contact information",
     usage: "contact",
+  },
+  fastfetch: {
+    execute: fastfetchCommand,
+    help: "Fetch system (and my) information into the profile panel",
+    usage: "fastfetch",
+    aliases: ["neofetch"],
   },
   projects: {
     execute: projectsCommand,

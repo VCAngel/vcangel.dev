@@ -14,6 +14,9 @@ export const terminalInputRef = signal<HTMLInputElement | null>(null);
 export const commandInput = signal<string>("");
 export const caretPosition = signal<number>(0);
 
+// Bumped by `fastfetch` to re-run the Preview panel animation
+export const fastfetchRun = signal<number>(0);
+
 // If the working directory gets removed (rm, mv, restore), fall back to the
 // closest ancestor that still exists
 effect(() => {
