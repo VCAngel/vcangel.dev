@@ -1,6 +1,8 @@
 import { TypewriterText } from "../../components/TypewriterText.tsx";
 import { CommandExecutor } from "../../models/command.model.ts";
+import { User } from "../../models/user.model.ts";
 import { currentDirectory } from "../../state/app.state.ts";
+import { effectiveUser } from "../../state/session.state.ts";
 
 const EASTER_EGGS = [
   "Idk, you tell me! m9っ`･ω･´)",
@@ -15,8 +17,15 @@ const EASTER_EGGS = [
   "Root? No no, just guest (｡•̀ᴗ-)✧",
 ];
 
+const USER_EGGS: Partial<Record<User, string>> = {
+  vcangel: "The one who made all this (◕‿◕)",
+  root: "With great power... (•̀ᴗ•́)و",
+};
+
 export const whoAmICommand: CommandExecutor = (_args, fullCommand) => {
-  const easterEgg = EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)];
+  const user = effectiveUser();
+  const easterEgg = USER_EGGS[user] ??
+    EASTER_EGGS[Math.floor(Math.random() * EASTER_EGGS.length)];
 
   return {
     command: fullCommand,
@@ -26,7 +35,7 @@ export const whoAmICommand: CommandExecutor = (_args, fullCommand) => {
         <ul className="command-wrapper">
           <li>
             <pre>
-              <TypewriterText text="guest" key="whoami_user" />
+              <TypewriterText text={user} key="whoami_user" />
             </pre>
           </li>
           <li>

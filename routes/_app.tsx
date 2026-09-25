@@ -1,5 +1,6 @@
 import { PageProps } from "fresh";
 import SplineBackdrop from "../islands/SplineBackdrop.tsx";
+import SystemFailure from "../islands/SystemFailure.tsx";
 
 export default function App({ Component }: PageProps) {
   return (
@@ -101,6 +102,7 @@ export default function App({ Component }: PageProps) {
 
         <SplineBackdrop />
         <Component />
+        <SystemFailure />
       </body>
     </html>
   );

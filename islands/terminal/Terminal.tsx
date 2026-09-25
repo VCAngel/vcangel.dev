@@ -3,6 +3,8 @@ import { createRef, TargetedEvent } from "preact/compat";
 import { useEffect, useState } from "preact/hooks";
 
 import { executeCommand } from "../../src/commands/registry.tsx";
+import { PromptLabel } from "../../src/components/PromptLabel.tsx";
+import { currentUser, promptLocked } from "../../src/state/session.state.ts";
 import {
   addToHistory,
   caretPosition,
@@ -92,6 +94,9 @@ export function TerminalPrompt() {
     }
   };
 
+  // SecretPrompt / ExitScreen / SystemFailure own the input meanwhile
+  if (promptLocked.value) return null;
+
   return (
     <>
       <input
@@ -116,16 +121,7 @@ export function TerminalPrompt() {
         className="console-pane shrink-0 flex gap-2 items-center justify-start"
         onClick={focusTerminal}
       >
-        <pre className="shrink-0">
-          <span className="text-[#C541F2] selection:bg-[#C541F2]">
-            guest@vcangel.dev
-          </span>{" "}
-          in{" "}
-          <span className="text-[#41F2A9] selection:bg-[#41F2A9]">
-            {currentDirectory.value.replace("/home/guest", "~")}
-          </span>{" "}
-          <span className="text-[#F2BB41] selection:bg-[#F2BB41]">λ</span>
-        </pre>
+        <PromptLabel user={currentUser.value} route={currentDirectory.value} />
         <p
           ref={textRef}
           className="block-caret bg-transparent m-0 p-0 w-full overflow-x-auto whitespace-nowrap max-w-full hide-scrollbar"
