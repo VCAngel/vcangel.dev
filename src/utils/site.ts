@@ -22,3 +22,11 @@ export function resolveSite(host: string): Site {
 
   return Object.hasOwn(SITES, hostname) ? SITES[hostname] : DEFAULT_SITE;
 }
+
+/**
+ * The terminal twin (`cli.` + same host and port) of a URL served as the
+ * SPA, so local dev links to the local terminal instead of production.
+ */
+export function terminalUrl(url: URL): string {
+  return `${url.protocol}//cli.${url.host}/`;
+}
