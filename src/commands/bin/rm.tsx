@@ -1,14 +1,22 @@
 import { canWriteDir } from "../../fs/permissions.ts";
 import {
+  deleteAll,
   deleteItem,
   listChildren,
   splitPath,
   stat,
 } from "../../fs/virtualFS.ts";
 import { CommandExecutor } from "../../models/command.model.ts";
+import { systemNuked } from "../../state/session.state.ts";
 import { parseArgs } from "../utils/args.ts";
 import { resolve } from "../utils/fs.ts";
 import { textResponse } from "../utils/output.tsx";
+
+// The classic. No --no-preserve-root needed here, have fun ( •̀ω•́ )σ
+function nuke() {
+  deleteAll();
+  systemNuked.value = true;
+}
 
 export const rmCommand: CommandExecutor = (args, fullCommand) => {
   const { flags, positional } = parseArgs(args);
@@ -29,6 +37,10 @@ export const rmCommand: CommandExecutor = (args, fullCommand) => {
     const path = resolve(arg);
     const base = arg.replace(/\/+$/, "").split("/").pop();
 
+    if (recursive && (path === "/" || arg === "/*")) {
+      nuke();
+      break;
+    }
     if (base === "." || base === "..") {
       errors.push(
         `rm: refusing to remove '.' or '..' directory: skipping '${arg}'`,

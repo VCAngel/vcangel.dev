@@ -20,11 +20,12 @@ export interface PendingPrompt {
 }
 export const pendingPrompt = signal<PendingPrompt | null>(null);
 
+export const systemNuked = signal<boolean>(false);
 export const sessionExited = signal<boolean>(false);
 
 // The regular prompt hides while something else owns the terminal
 export const promptLocked = computed(() =>
-  pendingPrompt.value !== null || sessionExited.value
+  pendingPrompt.value !== null || sessionExited.value || systemNuked.value
 );
 
 // `sudo` elevates the effective user for a single command

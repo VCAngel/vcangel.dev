@@ -85,7 +85,7 @@ const initialFS: Filesystem = {
 // (pdf, images) are treated as binaries.
 const initialContents: Record<string, string> = {
   "/home/guest/README.md":
-    "# Welcome to VCAngel's Terminal\n\nFeel free to explore using the terminal commands!\n\nType `help` to see available commands.",
+    "# Welcome to VCAngel's Terminal\n\nFeel free to explore using the terminal commands!\n\nType `help` to see available commands.\n\nNote: changes you make to the filesystem are saved in your browser's\nlocalStorage, so they survive a reload. Nothing leaves your browser.",
   "/home/guest/.secrets/.hint":
     "[PLACEHOLDER] A riddle that leads to the passphrase for `su vcangel`",
   "/home/vcangel/notes.txt": "[PLACEHOLDER] vcangel's private notes",
@@ -98,6 +98,11 @@ export const fs = signal<Filesystem>(structuredClone(initialFS));
 export const fileContents = signal<Record<string, string>>({
   ...initialContents,
 });
+
+export function resetFS() {
+  fs.value = structuredClone(initialFS);
+  fileContents.value = { ...initialContents };
+}
 
 // Path helpers
 export function joinPath(dirPath: string, name: string): string {
@@ -231,6 +236,12 @@ export function deleteItem(path: string, name: string): boolean {
   fs.value = nextFS;
   fileContents.value = nextContents;
   return true;
+}
+
+// Wipes everything, `rm -rf /` style
+export function deleteAll() {
+  fs.value = { "/": [] };
+  fileContents.value = {};
 }
 
 // Copies (or moves) `src` and everything under it to the absolute path `dst`

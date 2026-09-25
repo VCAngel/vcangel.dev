@@ -28,6 +28,9 @@ export default function Banner() {
         </code>
         .
       </pre>
+      <pre className="text-gray-400">
+        Filesystem changes are saved in your browser (localStorage).
+      </pre>
     </div>
   );
 }
