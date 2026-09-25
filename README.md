@@ -10,7 +10,7 @@ root@vcangel.dev ~ % ./portfolio.sh
 
 A terminal-styled portfolio... In space! :rocket::frog:
 
-> 🍳 **Still cookin'**, stuff *will* change
+> 🍳 **Still cookin'**, stuff _will_ change
 
 [![Live Demo](https://img.shields.io/badge/live-cli.vcangel.dev-99c1f1?style=for-the-badge&logo=deno&logoColor=white)](https://cli.vcangel.dev/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)](./LICENSE)
@@ -63,24 +63,6 @@ Here's what you can throw at it (run `help` in the site for the full list):
 - **[Vite](https://vite.dev/)** - build/dev
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - styling
 - **[Spline](https://spline.design/)** - the 3D backdrop
-
-## 📦 run it yourself
-
-```bash
-# clone it
-git clone https://github.com/VCAngel/vcangel.dev.git
-cd vcangel.dev
-
-# fire up the dev server
-deno task dev
-
-# or build + serve for prod
-deno task build
-deno task start
-```
-
-> Need [Deno](https://deno.com/) installed first. `deno task check` runs
-> lint/fmt/typecheck if you wanna keep it clean.
 
 ---
 
