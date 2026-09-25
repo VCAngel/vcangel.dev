@@ -26,7 +26,12 @@ import {
 } from "./bin/session.tsx";
 import { fastfetchCommand } from "./bin/fastfetch.tsx";
 
-import { bannerCommand, helpCommand } from "./bin/custom.tsx";
+import {
+  bannerCommand,
+  commandHelpResponse,
+  helpCommand,
+  usesShortHelpFlag,
+} from "./bin/custom.tsx";
 
 import { USERS } from "../data/users.ts";
 import { Command, CommandResponse } from "../models/command.model.ts";
@@ -53,11 +58,16 @@ const linux: Record<string, Command> = {
     execute: cpCommand,
     help: "Copy files and directories",
     usage: "cp [-r] source ... dest",
+    flags: [{ flag: "-r, -R", description: "Copy directories recursively" }],
   },
   echo: {
     execute: echoCommand,
     help: "Display a line of text",
     usage: "echo [text] [> file | >> file]",
+    flags: [
+      { flag: "> file", description: "Write the text to file (overwrites)" },
+      { flag: ">> file", description: "Append the text to file" },
+    ],
   },
   exit: {
     execute: exitCommand,
@@ -69,11 +79,22 @@ const linux: Record<string, Command> = {
     execute: findCommand,
     help: "Search for files in a directory hierarchy",
     usage: "find [path ...] [-name glob] [-iname glob] [-type f|d]",
+    flags: [
+      { flag: "-name GLOB", description: "Match names (* and ? wildcards)" },
+      { flag: "-iname GLOB", description: "Like -name, but case-insensitive" },
+      { flag: "-type f|d", description: "Only files (f) or directories (d)" },
+    ],
   },
   grep: {
     execute: grepCommand,
     help: "Print lines that match a pattern",
     usage: "grep [-i -n -r -v] pattern [file ...]",
+    flags: [
+      { flag: "-i", description: "Ignore case" },
+      { flag: "-n", description: "Prefix each match with its line number" },
+      { flag: "-r, -R", description: "Search directories recursively" },
+      { flag: "-v", description: "Show lines that don't match" },
+    ],
   },
   groups: {
     execute: groupsCommand,
@@ -84,6 +105,7 @@ const linux: Record<string, Command> = {
     execute: headCommand,
     help: "Output the first part of files",
     usage: "head [-n lines] file ...",
+    flags: [{ flag: "-n N", description: "Print the first N lines (10)" }],
   },
   history: {
     execute: historyCommand,
@@ -94,11 +116,19 @@ const linux: Record<string, Command> = {
     execute: lsCommand,
     help: "List directory contents",
     usage: "ls [-a -l -h] [path ...]",
+    flags: [
+      { flag: "-a", description: "Include hidden files, . and .." },
+      { flag: "-l", description: "Long format: perms, owner, size, date" },
+      { flag: "-h", description: "Human-readable sizes (with -l)" },
+    ],
   },
   mkdir: {
     execute: mkdirCommand,
     help: "Make directories",
     usage: "mkdir [-p] directory ...",
+    flags: [
+      { flag: "-p", description: "Create parents as needed, ok if existing" },
+    ],
   },
   mv: {
     execute: mvCommand,
@@ -114,6 +144,13 @@ const linux: Record<string, Command> = {
     execute: rmCommand,
     help: "Remove files or directories",
     usage: "rm [-r -f] file ...",
+    flags: [
+      {
+        flag: "-r, -R, --recursive",
+        description: "Remove directories and their contents",
+      },
+      { flag: "-f, --force", description: "Ignore missing files, no errors" },
+    ],
   },
   rmdir: {
     execute: rmdirCommand,
@@ -128,12 +165,15 @@ const linux: Record<string, Command> = {
   sudo: {
     execute: sudoCommand,
     help: "Execute a command as root",
-    usage: "sudo command",
+    usage: "sudo [-i | -s | command]",
+    flags: [{ flag: "-i, -s", description: "Open a root shell" }],
+    wrapsCommand: true,
   },
   tail: {
     execute: tailCommand,
     help: "Output the last part of files",
     usage: "tail [-n lines] file ...",
+    flags: [{ flag: "-n N", description: "Print the last N lines (10)" }],
   },
   touch: {
     execute: touchCommand,
@@ -144,6 +184,7 @@ const linux: Record<string, Command> = {
     execute: treeCommand,
     help: "List contents of directories in a tree-like format",
     usage: "tree [-a] [path]",
+    flags: [{ flag: "-a", description: "Include hidden files" }],
   },
   users: {
     execute: usersCommand,
@@ -154,6 +195,11 @@ const linux: Record<string, Command> = {
     execute: wcCommand,
     help: "Print line, word and byte counts",
     usage: "wc [-l -w -c] file ...",
+    flags: [
+      { flag: "-l", description: "Count lines" },
+      { flag: "-w", description: "Count words" },
+      { flag: "-c", description: "Count bytes" },
+    ],
   },
   whoami: {
     execute: whoAmICommand,
@@ -203,6 +249,28 @@ export const commands: Record<string, Command> = {
   ...linux,
 };
 
+// Resolves a name or alias to its registry entry (the divider isn't runnable)
+export function lookupCommand(name: string): [string, Command] | undefined {
+  if (name === "divider") return undefined;
+  if (Object.hasOwn(commands, name)) return [name, commands[name]];
+  return Object.entries(commands).find(([, c]) => c.aliases?.includes(name));
+}
+
+// `--help` anywhere before `--`; `-h` too unless the command owns it (ls -h).
+// Wrapper commands only check their first arg: `sudo ls --help` is ls' help.
+function wantsHelp(args: string[], command: Command): boolean {
+  const end = args.indexOf("--");
+  const options = command.wrapsCommand
+    ? args.slice(0, 1)
+    : end === -1
+    ? args
+    : args.slice(0, end);
+  const shortTaken = usesShortHelpFlag(command);
+  return options.some((arg) =>
+    arg === "--help" || (arg === "-h" && !shortTaken)
+  );
+}
+
 export function executeCommand(
   commandString: string,
   currentPath: string,
@@ -218,12 +286,14 @@ export function executeCommand(
   const [cmd = "", ...args] = tokenize(commandString, USERS[user].home);
 
   // Check if the command exists in the registry
-  const command = Object.hasOwn(commands, cmd)
-    ? commands[cmd]
-    : Object.values(commands).find((c) => c.aliases?.includes(cmd));
+  const found = lookupCommand(cmd);
 
-  if (command) {
-    return { user, ...command.execute(args, commandString) };
+  if (found) {
+    const [name, command] = found;
+    const response = wantsHelp(args, command)
+      ? commandHelpResponse(name, command, commandString)
+      : command.execute(args, commandString);
+    return { user, ...response };
   }
 
   // Default response for unknown commands

@@ -15,9 +15,16 @@ export interface CommandResponse {
   prompt?: string; // Replaces the user@host prompt (e.g. "Password:")
 }
 
+export interface CommandFlag {
+  flag: string; // e.g. "-r, -R" or "-n N"
+  description: string;
+}
+
 export interface Command {
   execute: CommandExecutor;
   help: string;
   usage?: string;
   aliases?: string[];
+  flags?: CommandFlag[]; // Listed by `help <cmd>` / `<cmd> --help`
+  wrapsCommand?: true; // Args after the first one belong to another command (sudo)
 }
