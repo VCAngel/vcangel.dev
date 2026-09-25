@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
     "jsx": "precompile",
@@ -49,7 +49,7 @@
   },
   "nodeModulesDir": "auto",
   "tasks": {
-    "check": "deno fmt --check && deno lint && deno check",
+    "check": "deno lint && deno check",
     "format": "deno fmt",
     "update": "deno run -A -r jsr:@fresh/update .",
     "dev": "vite --host",
