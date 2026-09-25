@@ -1,8 +1,12 @@
-name: CI
+name: Validate PR
 
 on:
+  push:
+    branches:
+      - dev
   pull_request:
     branches:
+      - dev
       - master
 
 # Cancel superseded runs on the same PR to save CI minutes
@@ -10,14 +14,53 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-jobs:
-  build:
-    name: Build & Check
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+# Read-only workflow
+permissions:
+  contents: read
 
-    permissions:
-      contents: read # Needed to clone the repository
+jobs:
+  typecheck:
+    name: Typecheck workspace
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+          cache: true
+
+      - name: Install workspace deps
+        run: deno ci
+
+      - name: Typecheck
+        run: deno check
+
+  lint:
+    name: Lint workspace
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+          cache: true
+
+      - name: Install workspace deps
+        run: deno ci
+
+      - name: Lint
+        run: deno lint --permit-no-files
+
+  build:
+    name: Build Fresh app
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Clone repository
@@ -27,13 +70,10 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-          cache: true # Cache deps keyed off the lockfile
+          cache: true
 
       - name: Install fresh deps
-        run: deno install --allow-scripts
-
-      - name: Lint revision
-        run: deno task check
+        run: deno ci
 
       - name: Build step
         run: deno task build --debug -l warn

@@ -70,24 +70,6 @@ still there after a reload.
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - styling
 - **[Spline](https://spline.design/)** - the 3D backdrop
 
-## 📦 run it yourself
-
-```bash
-# clone it
-git clone https://github.com/VCAngel/vcangel.dev.git
-cd vcangel.dev
-
-# fire up the dev server
-deno task dev
-
-# or build + serve for prod
-deno task build
-deno task start
-```
-
-> Need [Deno](https://deno.com/) installed first. `deno task check` runs
-> lint/fmt/typecheck if you wanna keep it clean.
-
 ---
 
 <div align="center">

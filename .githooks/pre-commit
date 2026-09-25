@@ -1,0 +1,32 @@
+#!/bin/bash
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
+echo "> Running pre-commit checks 🦕"
+
+# 0. Check for staged files
+if [ -z "$STAGED_FILES" ]; then
+  echo "?> No staged files to check. Skipping pre-commit checks."
+  exit 0
+fi
+
+XARGED_FILES=$(printf '%s\n' "$STAGED_FILES" | xargs)
+
+# 1. Format the code first
+echo "> Formatting staged files..."
+if ! (deno fmt $XARGED_FILES); then
+  echo "!> 'deno fmt' failed. Aborting commit."
+  exit 1
+fi
+
+# Re-stage ONLY the files that were originally staged
+git add -- $XARGED_FILES
+
+# 2. Run linting and type checks
+echo "> Linting and type checking..."
+if ! deno task check; then
+  echo "!> 'deno task check' failed. Please fix the issues above before committing."
+  exit 1
+fi
+
+echo "✓ All checks passed. Committing!"
+exit 0
