@@ -47,12 +47,12 @@
     "exclude": ["assets/", "static/"],
     "include": ["./**/*.ts", "./**/*.tsx"]
   },
-  "nodeModulesDir": "manual",
+  "nodeModulesDir": "auto",
   "tasks": {
     "check": "deno fmt --check && deno lint && deno check",
     "format": "deno fmt",
     "update": "deno run -A -r jsr:@fresh/update .",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "start": "deno serve -A _fresh/server.js"
   }
