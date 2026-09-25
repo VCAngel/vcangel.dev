@@ -33,7 +33,7 @@ jobs:
           cache: deno
 
       - name: Install workspace deps
-        run: deno ci --allow-scripts
+        run: deno ci
 
       - name: Typecheck
         run: deno check
@@ -52,7 +52,7 @@ jobs:
           cache: deno
 
       - name: Install workspace deps
-        run: deno ci --allow-scripts
+        run: deno ci
 
       - name: Lint
         run: deno lint --permit-no-files
@@ -73,7 +73,7 @@ jobs:
           cache: deno
 
       - name: Install fresh deps
-        run: deno ci --allow-scripts
+        run: deno ci
 
       - name: Build step
         run: deno task build --debug -l warn
