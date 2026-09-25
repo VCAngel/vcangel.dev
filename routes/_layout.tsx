@@ -3,8 +3,14 @@ import { asset } from "fresh/runtime";
 import Preview from "../islands/Preview.tsx";
 import History from "../islands/terminal/History.tsx";
 import { Terminal } from "../islands/terminal/Terminal.tsx";
+import { State } from "../src/models/site.model.ts";
 
-export default function Wrapper({ Component }: PageProps) {
+export default function Wrapper(
+  { Component, state }: PageProps<unknown, State>,
+) {
+  // The SPA page brings its own layout
+  if (state.site === "spa") return <Component />;
+
   return (
     <div className="relative z-10 max-h-full min-h-screen grid grid-cols-1 grid-rows-[minmax(5ch,auto)_minmax(0,1fr)] lg:grid-cols-4 lg:grid-rows-4 p-3 gap-3">
       <Terminal className="console-pane-wrapper col-start-1 row-start-2 lg:col-span-3 lg:row-span-full">

@@ -1,5 +1,5 @@
 import { TypewriterText } from "../../components/TypewriterText.tsx";
-import { projects } from "../../data/projects.ts";
+import { projects } from "../../data/profile.ts";
 import { CommandExecutor } from "../../models/command.model.ts";
 import { currentDirectory } from "../../state/app.state.ts";
 

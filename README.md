@@ -70,6 +70,28 @@ still there after a reload.
 - **[Tailwind CSS v4](https://tailwindcss.com/)** - styling
 - **[Spline](https://spline.design/)** - the 3D backdrop
 
+## 🧪 local dev
+
+One app, two sites: the `Host` header picks which one renders
+(`routes/_middleware.ts`).
+
+| Host              | renders                            |
+| ----------------- | ---------------------------------- |
+| `cli.vcangel.dev` | the terminal                       |
+| `vcangel.dev`     | the plain SPA (no commands needed) |
+| anything else     | the terminal                       |
+
+No DNS or `/etc/hosts` tweaks needed locally: browsers and curl resolve
+`*.localhost` to your machine, and the `.localhost` suffix gets ignored.
+
+```sh
+deno task dev
+# http://cli.vcangel.dev.localhost:5173 → terminal
+# http://vcangel.dev.localhost:5173     → SPA
+```
+
+Same URLs on port `8000` after `deno task build && deno task start`.
+
 ---
 
 <div align="center">
