@@ -1,0 +1,18 @@
+services:
+  web:
+    image: denoland/deno:ubuntu
+    init: true
+    working_dir: /home/portfolio
+    container_name: cli.vcangel.dev
+    command: sh -c "deno i --allow-scripts && deno task dev"
+    ports:
+      - 5173:5173
+    networks:
+      - intranet
+    volumes:
+      - .:/home/portfolio
+    restart: unless-stopped
+
+networks:
+  intranet:
+    driver: bridge
