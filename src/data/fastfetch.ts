@@ -1,4 +1,5 @@
 // Profile panel content (islands/Preview.tsx), i.e. the `fastfetch` output
+import { profile } from "./profile.ts";
 
 export interface FetchField {
   id: string;
@@ -8,8 +9,7 @@ export interface FetchField {
   desktopOnly?: boolean;
 }
 
-export const FASTFETCH_AVATAR =
-  "https://avatars.githubusercontent.com/u/42756104?v=4";
+export const FASTFETCH_AVATAR = profile.avatar;
 
 export const FASTFETCH_HANDLE = {
   text: "VCAngel@github",
@@ -20,21 +20,19 @@ export const FASTFETCH_FIELDS: FetchField[] = [
   {
     id: "location",
     label: "Location:",
-    value: "Chihuahua, Mexico",
-    href:
-      "https://www.google.com.mx/maps/place/Chihuahua,+Chih./@28.677362,-106.22181,11z/data=!3m1!4b1!4m6!3m5!1s0x86ea449d5d484033:0xb7f1a7a706dd1d7b!8m2!3d28.6433753!4d-106.0587908!16zL20vMDFmdnpo?entry=ttu",
+    value: profile.location.text,
+    href: profile.location.href,
   },
   { id: "os", label: "OS:", value: "Arch Linux (btw)" },
   {
     id: "skills",
     label: "Skills:",
-    value:
-      "[Javascript, Typescript, Python, Java, HTML5, CSS3, Angular, React, AWS, Node.js, Deno, TailwindCSS]",
+    value: `[${profile.skills.join(", ")}]`,
   },
   {
     id: "interests",
     label: "Interests:",
-    value: "[GNU/Linux, Rock/Metal, Gaming, Phrogs, Space]",
+    value: `[${profile.interests.join(", ")}]`,
   },
   {
     id: "status",
