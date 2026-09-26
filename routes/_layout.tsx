@@ -38,7 +38,7 @@ export default function Wrapper({ Component }: PageProps) {
               <img
                 className="max-h-[3ch] w-auto"
                 src={asset(
-                  "https://media.tenor.com/9sDktwVuiGUAAAAj/catjam-jam.gif",
+                  "https://media1.tenor.com/m/hCzgHriB1MYAAAAd/frog-funny.gif",
                 )}
                 alt="🎶"
                 width="48"
@@ -52,7 +52,7 @@ export default function Wrapper({ Component }: PageProps) {
               <img
                 className="max-h-[3ch] w-auto -scale-x-100"
                 src={asset(
-                  "https://media.tenor.com/9sDktwVuiGUAAAAj/catjam-jam.gif",
+                  "https://media1.tenor.com/m/hCzgHriB1MYAAAAd/frog-funny.gif",
                 )}
                 alt="🎶"
                 width="48"
