@@ -120,36 +120,164 @@ p.block-caret > span > div {
   /* For Internet Explorer and Edge */
 }
 
-/* CRT Effect */
+/* CRT Effect
+   Based on https://codepen.io/vcangel/pen/azJwKOZ
+   `.crt-effect` is the static glass overlay: scanlines + RGB mask on
+   `::before`, a flickering tint on `::after`. `.crt-screen` goes on the
+   page content (not the overlay) and plays the tube turn-on once on load. */
 .crt-effect {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background:
-    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%),
-    linear-gradient(
-      90deg,
-      rgba(255, 0, 0, 0.05),
-      rgba(0, 255, 0, 0.02),
-      rgba(0, 0, 255, 0.05)
-    );
-  background-size:
-    100% 6px,
-    8px 100%;
   pointer-events: none;
   z-index: 100;
-  animation: flicker 0.25s infinite;
+}
+
+.crt-effect::before,
+.crt-effect::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.crt-effect::before {
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 0.06),
+      rgba(0, 255, 0, 0.02),
+      rgba(0, 0, 255, 0.06)
+    );
+  background-size:
+    100% 2px,
+    3px 100%;
+}
+
+/* Tint alpha sets the flicker strength (pen uses 0.1, too busy on the dark
+   theme). Keep the speed: slowing it turns the noise into visible pulses. */
+.crt-effect::after {
+  background: rgba(18, 16, 16, 0.05);
+  opacity: 0;
+  animation: flicker 0.15s infinite;
 }
 
 @keyframes flicker {
-  0%,
-  100% {
-    opacity: 0.85;
+  0% {
+    opacity: 0.54665;
+  }
+  5% {
+    opacity: 0.19782;
+  }
+  10% {
+    opacity: 0.00141;
+  }
+  15% {
+    opacity: 0.70913;
+  }
+  20% {
+    opacity: 0.59877;
+  }
+  25% {
+    opacity: 0.9733;
+  }
+  30% {
+    opacity: 0.28853;
+  }
+  35% {
+    opacity: 0.63276;
+  }
+  40% {
+    opacity: 0.22172;
+  }
+  45% {
+    opacity: 0.22551;
   }
   50% {
+    opacity: 0.42869;
+  }
+  55% {
+    opacity: 0.03702;
+  }
+  60% {
+    opacity: 0.19424;
+  }
+  65% {
+    opacity: 0.46008;
+  }
+  70% {
+    opacity: 0.00022;
+  }
+  75% {
+    opacity: 0.45458;
+  }
+  80% {
+    opacity: 0.20056;
+  }
+  85% {
+    opacity: 0.98695;
+  }
+  90% {
+    opacity: 0.1476;
+  }
+  95% {
+    opacity: 0.10233;
+  }
+  100% {
+    opacity: 0.29373;
+  }
+}
+
+/* No fill-mode on purpose: the last keyframe is the identity, so once the
+   animation ends no transform/filter stays applied over the Spline canvas.
+   Shorter than the pen's 4s: the flash keeps the pen's timing (~440ms) and
+   the fade-in from black is cut to ~1.2s and eased out so it doesn't stall. */
+.crt-screen {
+  animation: turn-on 1.6s linear;
+}
+
+@keyframes turn-on {
+  0% {
+    transform: scale(1, 0.8) translate3d(0, 0, 0);
+    filter: brightness(30);
     opacity: 1;
+  }
+  8.75% {
+    transform: scale(1, 0.8) translate3d(0, 100%, 0);
+  }
+  9% {
+    transform: scale(1, 0.8) translate3d(0, -100%, 0);
+    opacity: 1;
+  }
+  22.5% {
+    transform: scale(1.3, 0.6) translate3d(0, 100%, 0);
+    filter: brightness(30);
+    opacity: 0;
+  }
+  27.5% {
+    transform: scale(1, 1) translate3d(0, 0, 0);
+    filter: contrast(0) brightness(0);
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: scale(1, 1) translate3d(0, 0, 0);
+    filter: contrast(1) brightness(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt-screen,
+  .crt-effect::after {
+    animation: none;
   }
 }
 

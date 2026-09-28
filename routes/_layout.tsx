@@ -6,7 +6,7 @@ import { Terminal } from "../islands/terminal/Terminal.tsx";
 
 export default function Wrapper({ Component }: PageProps) {
   return (
-    <div className="relative z-10 max-h-full min-h-screen grid grid-cols-1 grid-rows-[minmax(5ch,auto)_minmax(0,1fr)] lg:grid-cols-4 lg:grid-rows-4 p-3 gap-3">
+    <div className="crt-screen relative z-10 max-h-full min-h-screen grid grid-cols-1 grid-rows-[minmax(5ch,auto)_minmax(0,1fr)] lg:grid-cols-4 lg:grid-rows-4 p-3 gap-3">
       <Terminal className="console-pane-wrapper col-start-1 row-start-2 lg:col-span-3 lg:row-span-full">
         <History />
         <div className="grow flex flex-col overflow-hidden max-h-full pb-[6ch]">
