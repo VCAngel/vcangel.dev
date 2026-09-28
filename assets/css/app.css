@@ -4,8 +4,8 @@
   /* Fallbacks are monospace so the pre-swap metrics match the webfont:
      the whole layout is sized in `ch`, so a proportional fallback would
      reflow everything (huge CLS) the moment the webfont loads. */
-  --font-firaCode: "FiraCode", ui-monospace, "Cascadia Code", Menlo, Consolas,
-    monospace;
+  --font-firaCode:
+    "FiraCode", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
   --font-majorMonoDisplay: "Major Mono Display", ui-monospace, monospace;
 }
 
@@ -35,8 +35,8 @@
   }
 
   body {
-    font-family: "FiraCode", ui-monospace, "Cascadia Code", Menlo, Consolas,
-      monospace;
+    font-family:
+      "FiraCode", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
   }
 
   img {
@@ -124,7 +124,7 @@ p.block-caret > span > div {
    Based on https://codepen.io/vcangel/pen/azJwKOZ
    `.crt-effect` is the static glass overlay: scanlines + RGB mask on
    `::before`, a flickering tint on `::after`. `.crt-screen` goes on the
-   page content (not the overlay) and plays the tube turn-on once on load. */
+   page content (not the overlay) and plays the tube turn-on once on load */
 .crt-effect {
   position: absolute;
   top: 0;
@@ -161,8 +161,7 @@ p.block-caret > span > div {
     3px 100%;
 }
 
-/* Tint alpha sets the flicker strength (pen uses 0.1, too busy on the dark
-   theme). Keep the speed: slowing it turns the noise into visible pulses. */
+/* Tint alpha sets the flicker strength */
 .crt-effect::after {
   background: rgba(18, 16, 16, 0.05);
   opacity: 0;
@@ -238,7 +237,7 @@ p.block-caret > span > div {
 /* No fill-mode on purpose: the last keyframe is the identity, so once the
    animation ends no transform/filter stays applied over the Spline canvas.
    Shorter than the pen's 4s: the flash keeps the pen's timing (~440ms) and
-   the fade-in from black is cut to ~1.2s and eased out so it doesn't stall. */
+   the fade-in from black is cut to ~1.2s and eased out so it doesn't stall */
 .crt-screen {
   animation: turn-on 1.6s linear;
 }
@@ -282,7 +281,7 @@ p.block-caret > span > div {
 }
 
 .appear {
-  animation: appear 1s ease-in-out forwards;
+  animation: appear 0.2s ease-in-out forwards;
 }
 
 @keyframes appear {
