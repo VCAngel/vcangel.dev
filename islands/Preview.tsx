@@ -27,8 +27,16 @@ export default function Preview({ className }: { className?: string }) {
 
   useEffect(() => {
     const pfpInterval = setInterval(() => {
-      // Only kick off a switch if the previous one finished→
-      if (phase.value === "idle") phase.value = "out";
+      // Only kick off a switch if the previous one finished
+      if (phase.value === "idle") {
+        // NOTE: If the user prefers reduced motion, skip the animation and just switch the avatar
+        if (
+          globalThis.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+        ) {
+          avatarIndex.value = (avatarIndex.value + 1) %
+            FASTFETCH_AVATAR_LIST.length;
+        }
+      } else phase.value = "out";
     }, 10_000);
     return () => clearInterval(pfpInterval);
   }, []);
@@ -48,6 +56,7 @@ export default function Preview({ className }: { className?: string }) {
     <section className={className}>
       <img
         src={asset(FASTFETCH_AVATAR_LIST[avatarIndex.value])}
+        alt="Profile picture"
         onAnimationEnd={handleAnimationEnd}
         className={`rounded-[0.250rem] object-contain w-auto h-[24ch] lg:h-auto lg:w-full lg:shrink-0 ${
           phase.value === "out"
