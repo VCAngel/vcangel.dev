@@ -123,8 +123,8 @@ p.block-caret > span > div {
 /* CRT Effect
    Based on https://codepen.io/vcangel/pen/azJwKOZ
    `.crt-effect` is the static glass overlay: scanlines + RGB mask on
-   `::before`, a flickering tint on `::after`. `.crt-screen` goes on the
-   page content (not the overlay) and plays the tube turn-on once on load */
+   `::before`. `.crt-screen` goes on the page content (not the overlay)
+    and plays the tube turn-on once on load */
 .crt-effect {
   position: absolute;
   top: 0;
@@ -161,85 +161,12 @@ p.block-caret > span > div {
     3px 100%;
 }
 
-/* Tint alpha sets the flicker strength */
-.crt-effect::after {
-  background: rgba(18, 16, 16, 0.05);
-  opacity: 0;
-  animation: flicker 0.15s infinite;
-}
-
-@keyframes flicker {
-  0% {
-    opacity: 0.54665;
-  }
-  5% {
-    opacity: 0.19782;
-  }
-  10% {
-    opacity: 0.00141;
-  }
-  15% {
-    opacity: 0.70913;
-  }
-  20% {
-    opacity: 0.59877;
-  }
-  25% {
-    opacity: 0.9733;
-  }
-  30% {
-    opacity: 0.28853;
-  }
-  35% {
-    opacity: 0.63276;
-  }
-  40% {
-    opacity: 0.22172;
-  }
-  45% {
-    opacity: 0.22551;
-  }
-  50% {
-    opacity: 0.42869;
-  }
-  55% {
-    opacity: 0.03702;
-  }
-  60% {
-    opacity: 0.19424;
-  }
-  65% {
-    opacity: 0.46008;
-  }
-  70% {
-    opacity: 0.00022;
-  }
-  75% {
-    opacity: 0.45458;
-  }
-  80% {
-    opacity: 0.20056;
-  }
-  85% {
-    opacity: 0.98695;
-  }
-  90% {
-    opacity: 0.1476;
-  }
-  95% {
-    opacity: 0.10233;
-  }
-  100% {
-    opacity: 0.29373;
-  }
-}
-
 /* No fill-mode on purpose: the last keyframe is the identity, so once the
    animation ends no transform/filter stays applied over the Spline canvas.
    Shorter than the pen's 4s: the flash keeps the pen's timing (~440ms) and
    the fade-in from black is cut to ~1.2s and eased out so it doesn't stall */
 .crt-screen {
-  animation: turn-on 1.6s linear;
+  animation: turn-on 1.4s linear;
 }
 
 @keyframes turn-on {
@@ -270,6 +197,49 @@ p.block-caret > span > div {
     transform: scale(1, 1) translate3d(0, 0, 0);
     filter: contrast(1) brightness(1);
     opacity: 1;
+  }
+}
+
+.crt-screen.pfp-switch {
+  animation: switch-channel 1s linear;
+}
+
+@keyframes switch-channel {
+  0% {
+    transform: scale(1, 1.1);
+    filter: brightness(5);
+    opacity: 1;
+  }
+  4% {
+    transform: scale(1, 0.2);
+    filter: brightness(30);
+  }
+  8% {
+    transform: scale(1, 0.01);
+  }
+  12% {
+    transform: scale(0.6, 0.01);
+  }
+  20% {
+    transform: scale(0, 0.01);
+  }
+  50% {
+    transform: scale(0, 0.01);
+  }
+  57.5% {
+    transform: scale(1, 0.01);
+    filter: brightness(10);
+  }
+  60% {
+    transform: scale(1, 0.8);
+    filter: brightness(1);
+  }
+  62% {
+    transform: scale(1, 1);
+    filter: brightness(1);
+  }
+  100% {
+    transform: scale(1, 1);
   }
 }
 

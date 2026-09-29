@@ -1,12 +1,14 @@
 import { TypewriterText } from "@/src/components/TypewriterText.tsx";
 import {
-  FASTFETCH_AVATAR,
+  FASTFETCH_AVATAR_LIST,
   FASTFETCH_FIELDS,
   FASTFETCH_HANDLE,
   FetchField,
 } from "@/src/data/fastfetch.ts";
 import { fastfetchRun } from "@/src/state/app.state.ts";
+import { useSignal } from "@preact/signals";
 import { asset } from "fresh/runtime";
+import { useEffect, useRef } from "preact/hooks";
 
 const LINK_CLASSES =
   "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black";
@@ -19,12 +21,38 @@ const LINK_CLASSES =
  */
 export default function Preview({ className }: { className?: string }) {
   const run = fastfetchRun.value;
+  const currentAvatar = useSignal(FASTFETCH_AVATAR_LIST[0]);
+  const changeAvatarCountSignal = useSignal(0);
+
+  const pfpRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const pfpInterval = setInterval(() => {
+      currentAvatar.value = FASTFETCH_AVATAR_LIST[
+        changeAvatarCountSignal.value % FASTFETCH_AVATAR_LIST.length
+      ];
+      changeAvatarCountSignal.value++;
+    }, 10_000);
+    return () => clearInterval(pfpInterval);
+  }, []);
+
+  useEffect(() => {
+    // Don't apply the CRT effect on the first render (initial avatar load)
+    if (pfpRef.current && changeAvatarCountSignal.value != 0) {
+      pfpRef.current.classList.add("crt-screen", "pfp-switch");
+      // Wait for 3 seconds before removing the class to simulate a CRT screen effect
+      setTimeout(() => {
+        pfpRef.current?.classList.remove("crt-screen", "pfp-switch");
+      }, 3_000);
+    }
+  }, [currentAvatar.value]);
 
   return (
     <section className={className}>
       <img
-        src={asset(FASTFETCH_AVATAR)}
-        className="rounded-[0.125rem] object-contain w-auto h-[24ch] lg:h-auto lg:w-full lg:shrink-0 "
+        ref={pfpRef}
+        src={asset(currentAvatar.value)}
+        className="rounded-[0.250rem] object-contain w-auto h-[24ch] lg:h-auto lg:w-full lg:shrink-0 "
       />
       <span className="border-l lg:border-b lg:border-l-0 border-slate-300 h-full lg:h-auto lg:w-full" />
       <ul
