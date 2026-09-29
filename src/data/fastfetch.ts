@@ -12,8 +12,12 @@ export interface FetchField {
 
 const BIRTHDAY = new Date("2000-11-15T11:00:00Z");
 
-export const FASTFETCH_AVATAR =
-  "https://avatars.githubusercontent.com/u/42756104?v=4";
+export const FASTFETCH_AVATAR_LIST = [
+  "img/pfp_1.JPG",
+  "img/pfp_3.JPG",
+  "img/pfp_2.jpg",
+  "img/phrog.gif",
+];
 
 export const FASTFETCH_HANDLE = {
   text: "VCAngel@github",

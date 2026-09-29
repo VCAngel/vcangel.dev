@@ -1,12 +1,14 @@
 import { TypewriterText } from "@/src/components/TypewriterText.tsx";
 import {
-  FASTFETCH_AVATAR,
+  FASTFETCH_AVATAR_LIST,
   FASTFETCH_FIELDS,
   FASTFETCH_HANDLE,
   FetchField,
 } from "@/src/data/fastfetch.ts";
 import { fastfetchRun } from "@/src/state/app.state.ts";
+import { useSignal } from "@preact/signals";
 import { asset } from "fresh/runtime";
+import { useEffect } from "preact/hooks";
 
 const LINK_CLASSES =
   "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black";
@@ -19,12 +21,41 @@ const LINK_CLASSES =
  */
 export default function Preview({ className }: { className?: string }) {
   const run = fastfetchRun.value;
+  const avatarIndex = useSignal(0);
+  /** `idle` -> nothing playing, `out` -> collapsing, `in` -> expanding. */
+  const phase = useSignal<"idle" | "out" | "in">("idle");
+
+  useEffect(() => {
+    const pfpInterval = setInterval(() => {
+      // Only kick off a switch if the previous one finished→
+      if (phase.value === "idle") phase.value = "out";
+    }, 10_000);
+    return () => clearInterval(pfpInterval);
+  }, []);
+
+  // Chane animation phase when the avatar image finishes its transition
+  const handleAnimationEnd = () => {
+    if (phase.value === "out") {
+      avatarIndex.value = (avatarIndex.value + 1) %
+        FASTFETCH_AVATAR_LIST.length;
+      phase.value = "in";
+    } else if (phase.value === "in") {
+      phase.value = "idle";
+    }
+  };
 
   return (
     <section className={className}>
       <img
-        src={asset(FASTFETCH_AVATAR)}
-        className="rounded-[0.125rem] object-contain w-auto h-[24ch] lg:h-auto lg:w-full lg:shrink-0 "
+        src={asset(FASTFETCH_AVATAR_LIST[avatarIndex.value])}
+        onAnimationEnd={handleAnimationEnd}
+        className={`rounded-[0.250rem] object-contain w-auto h-[24ch] lg:h-auto lg:w-full lg:shrink-0 ${
+          phase.value === "out"
+            ? "crt-screen pfp-switch-out"
+            : phase.value === "in"
+            ? "crt-screen pfp-switch-in"
+            : ""
+        }`}
       />
       <span className="border-l lg:border-b lg:border-l-0 border-slate-300 h-full lg:h-auto lg:w-full" />
       <ul
