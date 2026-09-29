@@ -277,6 +277,8 @@ function transferPath(src: string, dst: string, keepSource: boolean) {
 
   const nextContents: Record<string, string> = {};
   for (const [key, content] of Object.entries(fileContents.value)) {
+    // WARN: Skip the destination subtree before copying source entries so the source content wins
+    if (isWithin(key, src)) continue;
     const inside = isWithin(key, src);
     if (!inside || keepSource) nextContents[key] = content;
     if (inside) nextContents[rekey(key)] = content;
