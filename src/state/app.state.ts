@@ -1,6 +1,6 @@
-import { computed, signal } from "@preact/signals";
+import { computed, effect, signal } from "@preact/signals";
 
-import { fs } from "../fs/virtualFS.ts";
+import { fs, splitPath } from "../fs/virtualFS.ts";
 import { CommandResponse } from "../models/command.model.ts";
 
 // Terminal States
@@ -13,6 +13,17 @@ export const currentDirectory = signal<string>("/home/guest");
 export const terminalInputRef = signal<HTMLInputElement | null>(null);
 export const commandInput = signal<string>("");
 export const caretPosition = signal<number>(0);
+
+// Bumped by `fastfetch` to re-run the Preview panel animation
+export const fastfetchRun = signal<number>(0);
+
+// If the working directory gets removed (rm, mv, restore), fall back to the
+// closest ancestor that still exists
+effect(() => {
+  let path = currentDirectory.value;
+  while (!fs.value[path] && path !== "/") path = splitPath(path)[0];
+  if (path !== currentDirectory.value) currentDirectory.value = path;
+});
 
 // Computed states
 export const currentDirectoryContents = computed(() => {

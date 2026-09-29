@@ -96,7 +96,7 @@ async function loadSplineApp(): Promise<Application | null> {
 
 export default function SplineBackdrop() {
   return (
-    <section className=" absolute top-0 right-0 bottom-0 left-0">
+    <section className="crt-screen absolute top-0 right-0 bottom-0 left-0">
       <SplineModel />
     </section>
   );

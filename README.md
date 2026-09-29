@@ -41,14 +41,20 @@ scene 'cause space is nice. 🌌
 
 Here's what you can throw at it (run `help` in the site for the full list):
 
-| Command    | what it does                 |
-| ---------- | ---------------------------- |
-| `help`     | shows everything you can do  |
-| `banner`   | display the welcome banner   |
-| `projects` | stuff I've built             |
-| `contact`  | where to find me             |
-| `clear`    | wipes the screen             |
-| `whoami`   | Idk, you tell me! m9っ`･ω･´) |
+| Command     | what it does                        |
+| ----------- | ----------------------------------- |
+| `help`      | shows everything you can do         |
+| `banner`    | display the welcome banner          |
+| `fastfetch` | refetch my info into the side panel |
+| `projects`  | stuff I've built                    |
+| `contact`   | where to find me                    |
+| `clear`     | wipes the screen                    |
+| `whoami`    | Idk, you tell me! m9っ`･ω･´)        |
+
+Plus a pretend Linux box to poke at: `ls`, `cd`, `cat`, `tree`, `find`, `grep`,
+`head`/`tail`, `wc`, `mkdir`, `touch`, `cp`, `mv`, `rm`, `su`, `sudo`... Your
+changes to the filesystem are kept in your browser's localStorage, so they're
+still there after a reload.
 
 <!-- > psst — there might be an easter egg or two hiding in there 🥚 go dig -->
 

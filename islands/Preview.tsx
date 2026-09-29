@@ -1,98 +1,147 @@
+import { TypewriterText } from "@/src/components/TypewriterText.tsx";
+import {
+  FASTFETCH_AVATAR_LIST,
+  FASTFETCH_FIELDS,
+  FASTFETCH_HANDLE,
+  FetchField,
+} from "@/src/data/fastfetch.ts";
+import { fastfetchRun } from "@/src/state/app.state.ts";
+import { useSignal } from "@preact/signals";
 import { asset } from "fresh/runtime";
-import { TypewriterText } from "../src/components/TypewriterText.tsx";
-import usePixelate from "../src/hooks/Pixelate.tsx";
+import { useEffect } from "preact/hooks";
 
+const LINK_CLASSES =
+  "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black";
+
+/**
+ * Profile panel, a.k.a. `fastfetch` output.
+ *
+ * Page load counts as the first run; each `fastfetch` bumps `fastfetchRun`,
+ * re-keying the list so the typewriter animation plays again.
+ */
 export default function Preview({ className }: { className?: string }) {
+  const run = fastfetchRun.value;
+  const avatarIndex = useSignal(0);
+  /** `idle` -> nothing playing, `out` -> collapsing, `in` -> expanding. */
+  const phase = useSignal<"idle" | "out" | "in">("idle");
+
+  useEffect(() => {
+    const pfpInterval = setInterval(() => {
+      // Only kick off a switch if the previous one finished
+      if (phase.value === "idle") {
+        // NOTE: If the user prefers reduced motion, skip the animation and just switch the avatar
+        if (
+          globalThis.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+        ) {
+          avatarIndex.value = (avatarIndex.value + 1) %
+            FASTFETCH_AVATAR_LIST.length;
+        }
+      } else phase.value = "out";
+    }, 10_000);
+    return () => clearInterval(pfpInterval);
+  }, []);
+
+  // Chane animation phase when the avatar image finishes its transition
+  const handleAnimationEnd = () => {
+    if (phase.value === "out") {
+      avatarIndex.value = (avatarIndex.value + 1) %
+        FASTFETCH_AVATAR_LIST.length;
+      phase.value = "in";
+    } else if (phase.value === "in") {
+      phase.value = "idle";
+    }
+  };
+
   return (
     <section className={className}>
-      {usePixelate(
-        asset("https://avatars.githubusercontent.com/u/42756104?v=4"),
-        0.0005,
-        {
-          canvasClassName:
-            "object-contain w-auto h-[16ch] lg:h-32 lg:w-full 2xl:h-48 shrink-0",
-          maxPercentage: 0.25,
-        },
-      )}
-
-      <div className="border-l lg:border-b lg:border-l-0 border-slate-300 h-full lg:h-auto lg:w-full">
-      </div>
-      <ul class="flex flex-col overflow-y-auto hide-scrollbar max-h-[16ch] lg:max-h-full">
+      <img
+        src={asset(FASTFETCH_AVATAR_LIST[avatarIndex.value])}
+        alt="Profile picture"
+        onAnimationEnd={handleAnimationEnd}
+        className={`rounded-[0.250rem] object-contain w-auto h-[24ch] lg:h-auto lg:w-full lg:shrink-0 ${
+          phase.value === "out"
+            ? "crt-screen pfp-switch-out"
+            : phase.value === "in"
+            ? "crt-screen pfp-switch-in"
+            : ""
+        }`}
+      />
+      <span className="border-l lg:border-b lg:border-l-0 border-slate-300 h-full lg:h-auto lg:w-full" />
+      <ul
+        key={`fastfetch-${run}`}
+        class="flex flex-col overflow-y-auto hide-scrollbar max-h-[24ch] lg:max-h-full"
+      >
         <li className="text-indigo-400 selection:bg-indigo-400">
           <a
             target="_blank"
-            href="https://github.com/VCAngel"
-            className="hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black"
+            href={FASTFETCH_HANDLE.href}
+            className={LINK_CLASSES}
           >
-            <TypewriterText text="VCAngel@github" key="preview_vcangel" />
+            <TypewriterText
+              text={FASTFETCH_HANDLE.text}
+              key="preview_vcangel"
+            />
           </a>
         </li>
         <li className="hidden lg:block">
           <TypewriterText text="- - - - - - - -" key="preview_division" />
         </li>
-        <li className="inline-flex gap-[1ch] items-center">
-          <span className="text-indigo-400 selection:bg-indigo-400">
-            <TypewriterText text="Location:" key="preview_location" />
-          </span>
-          <a
-            target="_blank"
-            href="https://www.google.com.mx/maps/place/Chihuahua,+Chih./@28.677362,-106.22181,11z/data=!3m1!4b1!4m6!3m5!1s0x86ea449d5d484033:0xb7f1a7a706dd1d7b!8m2!3d28.6433753!4d-106.0587908!16zL20vMDFmdnpo?entry=ttu"
-            className="hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black"
-          >
-            <TypewriterText
-              text="Chihuahua, Mexico"
-              key="preview_location_val"
-            />
-          </a>
-        </li>
-        <li className="inline-flex gap-[1ch] items-start">
-          <span className="text-indigo-400 selection:bg-indigo-400">
-            <TypewriterText text="OS:" key="preview_os" />
-          </span>
-          <span>
-            <TypewriterText text="Arch Linux (btw)" key="preview_os_value" />
-          </span>
-        </li>
-        <li className="inline-flex gap-[1ch] items-start">
-          <span className="text-indigo-400 selection:bg-indigo-400">
-            <TypewriterText text="Skills:" key="preview_skills" />
-          </span>
-          <span>
-            <TypewriterText
-              text="[Javascript, Typescript, Python, Java, HTML5, CSS3, Angular, React, AWS, Node.js, Deno, TailwindCSS]"
-              key="preview_skills_val"
-            />
-          </span>
-        </li>
-        <li className="inline-flex gap-[1ch] items-start">
-          <span className="text-indigo-400 selection:bg-indigo-400">
-            <TypewriterText text="Interests:" key="preview_interests" />
-          </span>
-          <span>
-            <TypewriterText
-              text="[GNU/Linux, Rock/Metal, Gaming, Phrogs, Space]"
-              key="preview_interests_val"
-            />
-          </span>
-        </li>
-        <li className="hidden lg:inline-flex gap-[1ch] items-start">
-          <span className="text-indigo-400 selection:bg-indigo-400">
-            <TypewriterText text="Status:" key="preview_status" />
-          </span>
-          <span>
-            <a
-              target="_blank"
-              href="https://drive.google.com/file/d/150I8lteRmwdnYZAd-a6OPKhtFF2thAms/view?usp=sharing"
-              className="hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black"
-            >
-              <TypewriterText
-                text="𝕔𝕠𝕗𝕗𝕖𝕖 𝕥𝕚𝕞𝕖 𝕨𝕠𝕒𝕙! ☕"
-                key="preview_status_val"
-              />
-            </a>
-          </span>
-        </li>
+        {FASTFETCH_FIELDS.map((field) => (
+          <FetchFieldItem
+            key={`preview_${field.id}`}
+            field={field}
+            keyPrefix="preview"
+          />
+        ))}
       </ul>
     </section>
+  );
+}
+
+/** Renders a single `fastfetch` field, recursing into nested fields. */
+function FetchFieldItem({
+  field,
+  keyPrefix,
+}: {
+  field: FetchField;
+  keyPrefix: string;
+}) {
+  const id = `${keyPrefix}_${field.id}`;
+  const isGroup = Array.isArray(field.value);
+
+  return (
+    <li
+      key={id}
+      className={`${
+        field.desktopOnly ? "hidden lg:inline-flex" : "inline-flex"
+      } ${isGroup ? "flex-col items-start" : "gap-[1ch] items-start"}`}
+    >
+      <span className="text-indigo-400 selection:bg-indigo-400">
+        <TypewriterText text={field.label} key={`${id}_label`} />
+      </span>
+      {isGroup
+        ? (
+          <ul className="flex flex-col pl-[2ch]">
+            {(field.value as FetchField[]).map((child) => (
+              <FetchFieldItem
+                key={`${id}_${child.id}`}
+                field={child}
+                keyPrefix={id}
+              />
+            ))}
+          </ul>
+        )
+        : field.href
+        ? (
+          <a target="_blank" href={field.href} className={LINK_CLASSES}>
+            <TypewriterText text={field.value as string} key={`${id}_val`} />
+          </a>
+        )
+        : (
+          <span>
+            <TypewriterText text={field.value as string} key={`${id}_val`} />
+          </span>
+        )}
+    </li>
   );
 }

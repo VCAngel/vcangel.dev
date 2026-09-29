@@ -1,20 +1,22 @@
 import { TypewriterText } from "../../components/TypewriterText.tsx";
-import { getContents, resolvePath } from "../../fs/virtualFS.ts";
+import { USERS } from "../../data/users.ts";
+import { canTraverse, EXEC, hasPerm } from "../../fs/permissions.ts";
+import { resolvePath, stat } from "../../fs/virtualFS.ts";
 import { CommandExecutor } from "../../models/command.model.ts";
 import { changeDirectory, currentDirectory } from "../../state/app.state.ts";
+import { currentUser } from "../../state/session.state.ts";
 
 export const cdCommand: CommandExecutor = (args, fullCommand) => {
   const initialRoute = currentDirectory.value; // NOTE: Store the initial route before any changes
 
   // Redirect to user's home
   if (!args.length) {
-    changeDirectory("/home/guest");
+    changeDirectory(USERS[currentUser.value].home);
 
     return {
       command: fullCommand,
       route: initialRoute,
-      // deno-lint-ignore jsx-no-useless-fragment
-      response: () => <></>,
+      response: () => null,
     };
   }
 
@@ -36,20 +38,23 @@ export const cdCommand: CommandExecutor = (args, fullCommand) => {
 
   // NOTE: Resolve the target path
   const targetPath = resolvePath(args[0], currentDirectory.value);
+  const target = stat(targetPath);
 
-  // NOTE: Get contents from fs to check existence
-  const contents = getContents(targetPath);
+  const error = !target
+    ? `cd: No such file or directory: ${args[0]}`
+    : target.type !== "dir"
+    ? `cd: Not a directory: ${args[0]}`
+    : !canTraverse(targetPath) || !hasPerm(target, EXEC)
+    ? `cd: Permission denied: ${args[0]}`
+    : null;
 
-  if (!contents) {
+  if (error) {
     return {
       command: fullCommand,
       route: initialRoute,
       response: () => (
         <pre>
-          <TypewriterText
-            text={`cd: No such file or directory: ${args[0]}`}
-            key="cd_no_such_file"
-          />
+          <TypewriterText text={error} key="cd_error" />
         </pre>
       ),
     };
@@ -61,7 +66,6 @@ export const cdCommand: CommandExecutor = (args, fullCommand) => {
   return {
     command: fullCommand,
     route: initialRoute,
-    // deno-lint-ignore jsx-no-useless-fragment
-    response: () => <></>,
+    response: () => null,
   };
 };
