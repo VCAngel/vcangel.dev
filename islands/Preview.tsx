@@ -8,7 +8,7 @@ import {
 import { fastfetchRun } from "@/src/state/app.state.ts";
 import { useSignal } from "@preact/signals";
 import { asset } from "fresh/runtime";
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect } from "preact/hooks";
 
 const LINK_CLASSES =
   "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black";
@@ -21,38 +21,41 @@ const LINK_CLASSES =
  */
 export default function Preview({ className }: { className?: string }) {
   const run = fastfetchRun.value;
-  const currentAvatar = useSignal(FASTFETCH_AVATAR_LIST[0]);
-  const changeAvatarCountSignal = useSignal(0);
-
-  const pfpRef = useRef<HTMLImageElement>(null);
+  const avatarIndex = useSignal(0);
+  /** `idle` -> nothing playing, `out` -> collapsing, `in` -> expanding. */
+  const phase = useSignal<"idle" | "out" | "in">("idle");
 
   useEffect(() => {
     const pfpInterval = setInterval(() => {
-      currentAvatar.value = FASTFETCH_AVATAR_LIST[
-        changeAvatarCountSignal.value % FASTFETCH_AVATAR_LIST.length
-      ];
-      changeAvatarCountSignal.value++;
+      // Only kick off a switch if the previous one finished→
+      if (phase.value === "idle") phase.value = "out";
     }, 10_000);
     return () => clearInterval(pfpInterval);
   }, []);
 
-  useEffect(() => {
-    // Don't apply the CRT effect on the first render (initial avatar load)
-    if (pfpRef.current && changeAvatarCountSignal.value != 0) {
-      pfpRef.current.classList.add("crt-screen", "pfp-switch");
-      // Wait for 3 seconds before removing the class to simulate a CRT screen effect
-      setTimeout(() => {
-        pfpRef.current?.classList.remove("crt-screen", "pfp-switch");
-      }, 3_000);
+  // Chane animation phase when the avatar image finishes its transition
+  const handleAnimationEnd = () => {
+    if (phase.value === "out") {
+      avatarIndex.value = (avatarIndex.value + 1) %
+        FASTFETCH_AVATAR_LIST.length;
+      phase.value = "in";
+    } else if (phase.value === "in") {
+      phase.value = "idle";
     }
-  }, [currentAvatar.value]);
+  };
 
   return (
     <section className={className}>
       <img
-        ref={pfpRef}
-        src={asset(currentAvatar.value)}
-        className="rounded-[0.250rem] object-contain w-auto h-[24ch] lg:h-auto lg:w-full lg:shrink-0 "
+        src={asset(FASTFETCH_AVATAR_LIST[avatarIndex.value])}
+        onAnimationEnd={handleAnimationEnd}
+        className={`rounded-[0.250rem] object-contain w-auto h-[24ch] lg:h-auto lg:w-full lg:shrink-0 ${
+          phase.value === "out"
+            ? "crt-screen pfp-switch-out"
+            : phase.value === "in"
+            ? "crt-screen pfp-switch-in"
+            : ""
+        }`}
       />
       <span className="border-l lg:border-b lg:border-l-0 border-slate-300 h-full lg:h-auto lg:w-full" />
       <ul

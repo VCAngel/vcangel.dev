@@ -200,43 +200,50 @@ p.block-caret > span > div {
   }
 }
 
-.crt-screen.pfp-switch {
-  animation: switch-channel 1s linear;
+/* Channel switch, split in two halves so the collapse plays on the outgoing
+   image and the expansion on the incoming one */
+.pfp-switch-out {
+  animation: channel-off 0.45s linear forwards;
 }
 
-@keyframes switch-channel {
+@keyframes channel-off {
   0% {
     transform: scale(1, 1.1);
     filter: brightness(5);
-    opacity: 1;
   }
-  4% {
+  15% {
     transform: scale(1, 0.2);
     filter: brightness(30);
   }
-  8% {
+  35% {
     transform: scale(1, 0.01);
   }
-  12% {
+  60% {
     transform: scale(0.6, 0.01);
   }
+  100% {
+    transform: scale(0, 0.01);
+  }
+}
+
+.pfp-switch-in {
+  animation: channel-on 0.55s linear;
+}
+
+@keyframes channel-on {
+  0% {
+    transform: scale(0, 0.01);
+  }
   20% {
-    transform: scale(0, 0.01);
-  }
-  50% {
-    transform: scale(0, 0.01);
-  }
-  57.5% {
     transform: scale(1, 0.01);
     filter: brightness(10);
   }
-  60% {
+  55% {
     transform: scale(1, 0.8);
     filter: brightness(1);
   }
-  62% {
+  60% {
     transform: scale(1, 1);
-    filter: brightness(1);
   }
   100% {
     transform: scale(1, 1);
@@ -245,6 +252,8 @@ p.block-caret > span > div {
 
 @media (prefers-reduced-motion: reduce) {
   .crt-screen,
+  .pfp-switch-out,
+  .pfp-switch-in,
   .crt-effect::after {
     animation: none;
   }
