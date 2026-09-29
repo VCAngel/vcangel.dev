@@ -97,6 +97,7 @@ export default function SystemFailure() {
         <button
           type="button"
           autoFocus
+          disabled={isRestoring.value}
           onClick={restore}
           className="self-start border border-[#41F2A9] px-[2ch] py-[0.5ch] text-[#41F2A9] hover:bg-[#41F2A9] hover:text-black focus:bg-[#41F2A9] focus:text-black"
         >
