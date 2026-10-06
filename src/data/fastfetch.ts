@@ -87,6 +87,6 @@ export const FASTFETCH_FIELDS: FetchField[] = [
     label: profile.status.label,
     value: profile.status.value,
     href: profile.status.href,
-    desktopOnly: true,
+    desktopOnly: profile.status.desktopOnly,
   },
 ];
