@@ -19,7 +19,10 @@ export const profile: Profile = {
   },
   bio: {
     label: "Bio:",
-    value: "[PLACEHOLDER] A short bio for the Who Am I section",
+    value:
+      `Full-Stack SWE with 3+ years of experience delivering production software that solves real operational problems. Learning is my passion, so I always strive to improve my skills and stay up-to-date with the latest technologies.
+
+Open Source enthusiast, gamer, and music lover. Feel free to reach out for collaboration or just to say hi!`,
   },
   avatar: { label: "Avatar:", value: "img/pfp_1.JPG" },
   location: {
