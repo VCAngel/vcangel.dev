@@ -25,7 +25,7 @@ export default function WhoAmI() {
             {profile.location.value}
           </a>
         </dd>
-        <dt className="text-indigo-400">Interests:</dt>
+        <dt className="text-indigo-400">{profile.interestsSPA.label}</dt>
         <dd>
           {isStringArray(profile.interestsSPA.value)
             ? profile.interestsSPA.value.join(", ")
