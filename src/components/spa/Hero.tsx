@@ -4,18 +4,18 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="flex flex-col sm:flex-row items-center gap-[3ch]"
+      className="flex flex-col sm:flex-row items-end gap-[3ch]"
     >
       <img
-        src={profile.avatar}
-        alt={profile.name}
+        src={profile.avatar.value}
+        alt={profile.name.value}
         width="128"
         height="128"
-        className="size-32 rounded-full border border-[#cecae0]"
+        className="size-32 rounded-lg border border-[#cecae0]"
       />
       <div className="flex flex-col gap-[1ch] text-center sm:text-left">
-        <h1 className="font-majorMonoDisplay text-4xl">{profile.name}</h1>
-        <p className="text-gray-400">{profile.tagline}</p>
+        <h1 className="font-majorMonoDisplay text-4xl">{profile.name.value}</h1>
+        <p className="text-gray-400 text-lg">{profile.tagline.value}</p>
       </div>
     </section>
   );

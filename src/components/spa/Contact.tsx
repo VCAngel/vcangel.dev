@@ -7,7 +7,7 @@ const LINK_CLASSES =
 export default function Contact() {
   return (
     <section id="contact" className="flex flex-col gap-[2ch]">
-      <h2 className="font-majorMonoDisplay text-2xl">Contact</h2>
+      <h2 className="font-majorMonoDisplay text-2xl">{">"} contact</h2>
       <ul className="flex flex-col gap-[1ch]">
         {contacts.map((channel) => (
           <li key={channel.id} className="grid grid-cols-[10ch_1fr]">

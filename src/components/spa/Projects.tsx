@@ -6,7 +6,7 @@ const LINK_CLASSES =
 export default function Projects() {
   return (
     <section id="projects" className="flex flex-col gap-[2ch]">
-      <h2 className="font-majorMonoDisplay text-2xl">Projects</h2>
+      <h2 className="font-majorMonoDisplay text-2xl">{">"} projects</h2>
       <ul className="flex flex-col gap-[2ch]">
         {projects.map((project) => (
           <li

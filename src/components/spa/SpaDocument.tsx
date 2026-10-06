@@ -14,8 +14,8 @@ export default function SpaDocument(
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content={profile.tagline} />
-        <title>{profile.name}</title>
+        <meta name="description" content={profile.tagline.value} />
+        <title>{profile.name.value}</title>
       </head>
       <body className="text-sm text-gray-100 bg-black min-h-screen">
         <Component />

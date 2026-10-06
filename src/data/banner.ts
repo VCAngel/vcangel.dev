@@ -9,7 +9,7 @@ const BANNER_TEXT = `
   new Date().getFullYear()
 }      .     +             .                 .                    +   .
          .           *  .         .       .                       .              *                     .
-    ✦  ${profile.tagline}  (ง•\`ω\´•)ว__/  ✦    .    .    *             .      +       *         .
+    ✦  ${profile.tagline.value}  (ง•\`ω\´•)ว__/  ✦    .    .    *             .      +       *         .
   .       *            .           *     .  .   .  +        .          . +                    ✦  .                .
      +        +     .               .      ✦  .               .                             .                .
 
