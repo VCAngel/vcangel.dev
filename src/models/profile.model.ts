@@ -10,7 +10,7 @@ export type SPAProfileData = Omit<ProfileData, "id" | "value"> & {
   value: string | string[];
 };
 export type CLIProfileData = Omit<ProfileData, "value"> & {
-  value: string | string[] | CLIProfileData[];
+  value: string | CLIProfileData[];
 };
 
 export interface Profile extends SPAProfile, CLIProfile {
