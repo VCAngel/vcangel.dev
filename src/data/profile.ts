@@ -53,8 +53,8 @@ Open Source enthusiast, gamer, and music lover. Feel free to reach out for colla
   skillsSPA: {
     label: "Skills:",
     value: [
-      "Javascript",
-      "Typescript",
+      "JavaScript",
+      "TypeScript",
       "Python",
       "Java",
       "HTML5",
