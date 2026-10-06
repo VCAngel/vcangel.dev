@@ -1,8 +1,12 @@
 import { PageProps } from "fresh";
 import SplineBackdrop from "../islands/SplineBackdrop.tsx";
 import SystemFailure from "../islands/SystemFailure.tsx";
+import SpaDocument from "../src/components/spa/SpaDocument.tsx";
+import { State } from "../src/models/site.model.ts";
 
-export default function App({ Component }: PageProps) {
+export default function App({ Component, state }: PageProps<unknown, State>) {
+  if (state.site === "spa") return <SpaDocument Component={Component} />;
+
   return (
     <html lang="en">
       <head>

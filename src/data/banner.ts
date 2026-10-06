@@ -1,3 +1,5 @@
+import { profile } from "./profile.ts";
+
 const BANNER_TEXT = `
    ✦      .   .       *           .         .       ✦    .    .        .      .             .      .             .  +
  .              +   .                .     .    .     .   .        ✦         +      .  .      ✦           *    ✦   .
@@ -7,7 +9,7 @@ const BANNER_TEXT = `
   new Date().getFullYear()
 }      .     +             .                 .                    +   .
          .           *  .         .       .                       .              *                     .
-    ✦  The only limit is your imagination!  (ง•\`ω\´•)ว__/  ✦    .    .    *             .      +       *         .
+    ✦  ${profile.tagline.value}  (ง•\`ω\´•)ว__/  ✦    .    .    *             .      +       *         .
   .       *            .           *     .  .   .  +        .          . +                    ✦  .                .
      +        +     .               .      ✦  .               .                             .                .
 
