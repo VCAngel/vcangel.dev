@@ -3,31 +3,94 @@
 import { ContactChannel, Profile } from "../models/profile.model.ts";
 import { Project } from "../models/project.model.ts";
 
+// TODO: Fetch 'fastfetch' data from a backend API instead of hardcoding it here
+
+const BIRTHDAY = new Date("2000-11-15T11:00:00Z");
+
 export const profile: Profile = {
-  name: "VCAngel",
-  tagline: "The only limit is your imagination!",
-  bio: "[PLACEHOLDER] A short bio for the Who Am I section",
-  avatar: "https://avatars.githubusercontent.com/u/42756104?v=4",
+  // NOTE: General
+  name: {
+    label: "Name:",
+    value: "Ángel Vargas",
+  },
+  tagline: {
+    label: "Tagline:",
+    value: "The only limit is your imagination!",
+  },
+  bio: {
+    label: "Bio:",
+    value: "[PLACEHOLDER] A short bio for the Who Am I section",
+  },
+  avatar: { label: "Avatar:", value: "img/pfp_1.JPG" },
   location: {
-    text: "Chihuahua, Mexico",
+    label: "Location:",
+    value: "Chihuahua, Mexico",
     href:
       "https://www.google.com.mx/maps/place/Chihuahua,+Chih./@28.677362,-106.22181,11z/data=!3m1!4b1!4m6!3m5!1s0x86ea449d5d484033:0xb7f1a7a706dd1d7b!8m2!3d28.6433753!4d-106.0587908!16zL20vMDFmdnpo?entry=ttu",
   },
-  skills: [
-    "Javascript",
-    "Typescript",
-    "Python",
-    "Java",
-    "HTML5",
-    "CSS3",
-    "Angular",
-    "React",
-    "AWS",
-    "Node.js",
-    "Deno",
-    "TailwindCSS",
-  ],
-  interests: ["GNU/Linux", "Rock/Metal", "Gaming", "Phrogs", "Space"],
+  uptime: {
+    label: "Uptime:",
+    value: (() => {
+      // return the time in years, days, hours since my birthday (2000-11-15)
+      const now = new Date();
+      const diff = now.getTime() - BIRTHDAY.getTime();
+      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+      return `${years} years`;
+    })(),
+  },
+  os: { label: "OS:", value: "Arch Linux (btw)" },
+  status: {
+    label: "Status:",
+    value: "I do my best ( ˙꒳​˙ )",
+    href: "https://youtube.com/shorts/zgRRBK1LG5A?si=7d3rqLndY9-dL9h6",
+    desktopOnly: true,
+  },
+
+  // NOTE: SPA fields
+  skillsSPA: {
+    label: "Skills:",
+    value: [
+      "Javascript",
+      "Typescript",
+      "Python",
+      "Java",
+      "HTML5",
+      "CSS3",
+      "Angular",
+      "React",
+      "AWS",
+      "Node.js",
+      "Deno",
+      "TailwindCSS",
+    ],
+  },
+  interestsSPA: {
+    label: "Interests:",
+    value: ["GNU/Linux", "Rock/Metal", "Gaming", "Phrogs", "Space"],
+  },
+  learningSPA: {
+    label: "Learning:",
+    value: ["Rust", "Lua"],
+  },
+  localesSPA: { label: "Locales:", value: ["en_US", "es_MX", "none_Sense"] },
+
+  // NOTE: CLI fields
+  languagesCLI: { label: "Languages:", value: "[Typescript, Python, Java]" },
+  frontendCLI: {
+    label: "Frontend:",
+    value: "[Next.js, React, Angular, HTML5, CSS3, TailwindCSS, SASS]",
+  },
+  backendCLI: {
+    label: "Backend:",
+    value: "[Node.js, Deno, AWS, Express.js, Hono]",
+  },
+  toolsCLI: { label: "Tools:", value: "[Linux, Nvim, Git, Docker, CI/CD]" },
+  learningCLI: { label: "Learning:", value: "[Rust, Lua]" },
+  interestsCLI: {
+    label: "Interests:",
+    value: "[Open Source, Rock/Metal, Gaming, Phrogs, Space]",
+  },
+  localesCLI: { label: "Locales:", value: "[en_US, es_MX, none_Sense]" },
 };
 
 export const projects: Project[] = [
