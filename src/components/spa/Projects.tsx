@@ -11,7 +11,7 @@ export default function Projects() {
         {projects.map((project) => (
           <li
             key={project.name}
-            className="flex flex-col gap-[1ch] p-[2ch] border border-[#cecae0] rounded-sm"
+            className="flex flex-col gap-[1ch] p-[2ch] border border-[#cecae0] rounded-[0.250rem]"
           >
             <h3 className="whitespace-pre-wrap">
               <span className="text-indigo-400">{project.name}</span>
@@ -35,6 +35,15 @@ export default function Projects() {
                 </a>
               ))}
             </p>
+            <div className="flex items-center gap-[2ch] max-h-full overflow-x-auto">
+              {project.imgLinks?.map((src, index) => (
+                <img
+                  key={`projects_${project.name}-image_${index}`}
+                  src={src}
+                  className="h-[12ch] rounded-[0.125rem]"
+                />
+              ))}
+            </div>
           </li>
         ))}
       </ul>
