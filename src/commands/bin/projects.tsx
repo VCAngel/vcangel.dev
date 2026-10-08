@@ -23,6 +23,16 @@ export const projectsCommand: CommandExecutor = (_args, fullCommand) => {
                     speed={16}
                   />
                 </span>
+                {" | "}
+                <span className="text-gray-400">
+                  <TypewriterText
+                    text={
+                      project.kind + (project.role ? ` · ${project.role}` : "")
+                    }
+                    key={`projects_${index}-meta`}
+                    speed={16}
+                  />
+                </span>
               </pre>
               <pre>
                 <TypewriterText

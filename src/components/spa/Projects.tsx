@@ -13,7 +13,14 @@ export default function Projects() {
             key={project.name}
             className="flex flex-col gap-[1ch] p-[2ch] border border-[#cecae0] rounded-sm"
           >
-            <h3 className="text-indigo-400">{project.name}</h3>
+            <h3 className="whitespace-pre-wrap">
+              <span className="text-indigo-400">{project.name}</span>
+              {" | "}
+              <span className="text-gray-400">
+                {project.kind}
+                {project.role ? ` · ${project.role}` : ""}
+              </span>
+            </h3>
             <p>{project.description}</p>
             <p className="text-gray-400">{project.stack.join(" · ")}</p>
             <p className="flex flex-wrap gap-[2ch]">
