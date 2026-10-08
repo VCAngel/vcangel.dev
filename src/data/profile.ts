@@ -111,6 +111,11 @@ export const projects: Project[] = [
         url: "https://app.ezsort.tech",
       },
     ],
+    imgLinks: [
+      "img/ez_1.png",
+      "img/ez_2.png",
+      "img/ez_3.png",
+    ],
   },
   {
     name: "Portfolio Website",
@@ -123,6 +128,10 @@ export const projects: Project[] = [
         label: "GitHub",
         url: "https://github.com/VCAngel/vcangel.dev",
       },
+    ],
+    imgLinks: [
+      "img/portfolio_1.png",
+      "img/portfolio_2.png",
     ],
   },
   {

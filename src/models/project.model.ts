@@ -17,4 +17,5 @@ export interface Project {
   links: ProjectLink[];
   kind: ProjectKind;
   role?: string;
+  imgLinks?: string[];
 }
