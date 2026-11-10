@@ -51,6 +51,7 @@
   "tasks": {
     "check": "deno lint && deno check",
     "format": "deno fmt",
+    "images": "deno run --allow-read=assets/images,static/img/projects --allow-write=static/img/projects --allow-run=cwebp scripts/images.ts",
     "update": "deno run -A -r jsr:@fresh/update .",
     "dev": "vite --host",
     "build": "vite build",
