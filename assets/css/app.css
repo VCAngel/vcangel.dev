@@ -269,10 +269,11 @@ p.block-caret > span > div {
   }
 }
 
-/* SPA project screenshot lightbox (native popover, see ProjectGallery.tsx)
+/* Screenshot lightbox, shared by the SPA (native popover, ProjectGallery.tsx)
+   and the terminal (modal <dialog>, ImageViewer.tsx)
    NOTE: Unlayered, so keep Tailwind utilities off this element: these rules win
 */
-.project-lightbox {
+.lightbox {
   max-width: 85vw;
   max-height: 85vh;
   padding: 1ch;
@@ -284,19 +285,19 @@ p.block-caret > span > div {
   border-radius: 0.25rem;
 }
 
-.project-lightbox img {
+.lightbox img {
   display: block;
   max-height: calc(80vh - 5ch);
   object-fit: contain;
 }
 
-.project-lightbox::backdrop {
+.lightbox::backdrop {
   background-color: rgb(0 0 0 / 0.85);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .project-lightbox,
-  .project-lightbox::backdrop {
+  .lightbox,
+  .lightbox::backdrop {
     opacity: 0;
     transition:
       opacity 0.2s ease-out,
@@ -305,23 +306,23 @@ p.block-caret > span > div {
       display 0.2s allow-discrete;
   }
 
-  .project-lightbox {
+  .lightbox {
     transform: scale(0.96);
   }
 
-  .project-lightbox:popover-open,
-  .project-lightbox:popover-open::backdrop {
+  .lightbox:is(:popover-open, [open]),
+  .lightbox:is(:popover-open, [open])::backdrop {
     opacity: 1;
     transform: none;
   }
 
   @starting-style {
-    .project-lightbox:popover-open,
-    .project-lightbox:popover-open::backdrop {
+    .lightbox:is(:popover-open, [open]),
+    .lightbox:is(:popover-open, [open])::backdrop {
       opacity: 0;
     }
 
-    .project-lightbox:popover-open {
+    .lightbox:is(:popover-open, [open]) {
       transform: scale(0.96);
     }
   }

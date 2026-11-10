@@ -41,7 +41,7 @@ export default function ProjectGallery({
               id={id}
               popover="auto"
               aria-label={`${projectName} screenshot ${position}`}
-              className="project-lightbox"
+              className="lightbox"
             >
               <img src={full} alt={image.alt} loading="lazy" decoding="async" />
               <p className="flex items-center gap-[2ch] pt-[1ch]">
