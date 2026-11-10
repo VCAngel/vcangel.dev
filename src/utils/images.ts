@@ -10,3 +10,8 @@ export function projectImage(name: string): { thumb: string; full: string } {
     full: asset(`/img/projects/${name}.webp`),
   };
 }
+
+/** File name a screenshot gets in the terminal's virtual filesystem */
+export function projectImageFileName(name: string): string {
+  return `${name}.webp`;
+}

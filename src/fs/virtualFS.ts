@@ -3,7 +3,9 @@ import { signal } from "@preact/signals";
 import { projects } from "../data/profile.ts";
 import { USERS } from "../data/users.ts";
 import { DirectoryItem, Filesystem } from "../models/fs.model.ts";
+import { ProjectImage } from "../models/project.model.ts";
 import { User } from "../models/user.model.ts";
+import { projectImageFileName } from "../utils/images.ts";
 import { currentUser, effectiveUser } from "../state/session.state.ts";
 
 // NOTE: Initial FS structure
@@ -65,14 +67,31 @@ const projectMarkdown = (project: (typeof projects)[number]) =>
     ...(project.links.length
       ? ["", ...project.links.map((l) => `${l.label} -> ${l.url}`)]
       : []),
+    ...(project.images?.length
+      ? [
+        "",
+        `Screenshots (open <file>): ${
+          project.images
+            .map(
+              (image) =>
+                `${slugify(project.name)}/${projectImageFileName(image.name)}`,
+            )
+            .join(", ")
+        }`,
+      ]
+      : []),
   ].join("\n");
 
+// Screenshots live as binary files in a `<slug>/` dir next to the .md
 const projectFiles = (kind: keyof typeof KIND_DIRS) =>
   projects
     .filter((project) => project.kind === kind)
     .map((project) => ({
       path: `/home/guest/${KIND_DIRS[kind]}/${slugify(project.name)}.md`,
       name: `${slugify(project.name)}.md`,
+      imageDir: project.images?.length
+        ? `/home/guest/${KIND_DIRS[kind]}/${slugify(project.name)}`
+        : null,
       project,
     }));
 
@@ -105,9 +124,29 @@ const initialFS: Filesystem = {
       `/home/guest/${KIND_DIRS[kind]}`,
       [
         ...parentRoutes,
-        ...projectFiles(kind).map(({ name }) => file(name, "guest")),
+        ...projectFiles(kind).flatMap(({ name, imageDir, project }) => [
+          file(name, "guest"),
+          ...(imageDir ? [dir(slugify(project.name), "guest")] : []),
+        ]),
       ],
     ]),
+  ),
+  ...Object.fromEntries(
+    allProjectFiles.flatMap(({ imageDir, project }) =>
+      imageDir
+        ? [
+          [
+            imageDir,
+            [
+              ...parentRoutes,
+              ...(project.images ?? []).map((image) =>
+                file(projectImageFileName(image.name), "guest")
+              ),
+            ],
+          ],
+        ]
+        : []
+    ),
   ),
   "/home/guest/.secrets": [...parentRoutes, file(".hint")],
   "/home/guest/Documents": [
@@ -254,6 +293,21 @@ export function touchItem(path: string) {
 
 export function readFile(path: string): string | null {
   return fileContents.value[path] ?? null;
+}
+
+/** WARN: Project screenshot behind a VFS file, matched by name so it still opens
+ * after `mv`/`cp` (screenshot names are unique across projects)
+ */
+export function findProjectImage(
+  fileName: string,
+): { images: ProjectImage[]; index: number } | null {
+  for (const { images = [] } of projects) {
+    const index = images.findIndex(
+      (image) => projectImageFileName(image.name) === fileName,
+    );
+    if (index !== -1) return { images, index };
+  }
+  return null;
 }
 
 export function deleteItem(path: string, name: string): boolean {
