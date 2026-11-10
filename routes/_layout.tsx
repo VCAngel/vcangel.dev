@@ -2,6 +2,7 @@ import { PageProps } from "fresh";
 import { asset } from "fresh/runtime";
 import Preview from "../islands/Preview.tsx";
 import History from "../islands/terminal/History.tsx";
+import ImageViewer from "../islands/terminal/ImageViewer.tsx";
 import { Terminal } from "../islands/terminal/Terminal.tsx";
 import { State } from "../src/models/site.model.ts";
 
@@ -19,6 +20,9 @@ export default function Wrapper(
           <Component />
         </div>
       </Terminal>
+
+      {/* Modal (top layer), kept outside <Terminal> and its focus-on-click */}
+      <ImageViewer />
 
       <Preview className="console-pane-wrapper flex-row! lg:flex-col! gap-[2ch] p-[2ch] py-[1ch] col-span-1 lg:row-span-3 lg:row-start-1 lg:col-start-4 2xl:col-start-5" />
 
