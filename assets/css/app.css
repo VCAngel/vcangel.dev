@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Fallbacks are monospace so the pre-swap metrics match the webfont:
-     the whole layout is sized in `ch`, so a proportional fallback would
-     reflow everything (huge CLS) the moment the webfont loads. */
   --font-firaCode:
     "FiraCode", ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
   --font-majorMonoDisplay: "Major Mono Display", ui-monospace, monospace;
@@ -269,5 +266,63 @@ p.block-caret > span > div {
   }
   100% {
     opacity: 1;
+  }
+}
+
+/* SPA project screenshot lightbox (native popover, see ProjectGallery.tsx)
+   NOTE: Unlayered, so keep Tailwind utilities off this element: these rules win
+*/
+.project-lightbox {
+  max-width: 85vw;
+  max-height: 85vh;
+  padding: 1ch;
+  margin: auto;
+  overflow: hidden;
+  color: inherit;
+  background-color: #000;
+  border: 1px solid #cecae0;
+  border-radius: 0.25rem;
+}
+
+.project-lightbox img {
+  display: block;
+  max-height: calc(80vh - 5ch);
+  object-fit: contain;
+}
+
+.project-lightbox::backdrop {
+  background-color: rgb(0 0 0 / 0.85);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .project-lightbox,
+  .project-lightbox::backdrop {
+    opacity: 0;
+    transition:
+      opacity 0.2s ease-out,
+      transform 0.2s ease-out,
+      overlay 0.2s allow-discrete,
+      display 0.2s allow-discrete;
+  }
+
+  .project-lightbox {
+    transform: scale(0.96);
+  }
+
+  .project-lightbox:popover-open,
+  .project-lightbox:popover-open::backdrop {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    .project-lightbox:popover-open,
+    .project-lightbox:popover-open::backdrop {
+      opacity: 0;
+    }
+
+    .project-lightbox:popover-open {
+      transform: scale(0.96);
+    }
   }
 }

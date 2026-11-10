@@ -111,10 +111,16 @@ export const projects: Project[] = [
         url: "https://app.ezsort.tech",
       },
     ],
-    imgLinks: [
-      "img/ez_1.png",
-      "img/ez_2.png",
-      "img/ez_3.png",
+    images: [
+      { name: "ez_1", alt: "EZ-Sort login screen" },
+      {
+        name: "ez_2",
+        alt: "Service request detail with inspection conditions",
+      },
+      {
+        name: "ez_3",
+        alt: "Service balance dashboard with pending invoices",
+      },
     ],
   },
   {
@@ -129,9 +135,12 @@ export const projects: Project[] = [
         url: "https://github.com/VCAngel/vcangel.dev",
       },
     ],
-    imgLinks: [
-      "img/portfolio_1.png",
-      "img/portfolio_2.png",
+    images: [
+      { name: "portfolio_1", alt: "SPA version of this site" },
+      {
+        name: "portfolio_2",
+        alt: "Terminal version running the help command",
+      },
     ],
   },
   {

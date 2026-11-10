@@ -1,4 +1,5 @@
 import { projects } from "../../data/profile.ts";
+import ProjectGallery from "./ProjectGallery.tsx";
 
 const LINK_CLASSES =
   "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black";
@@ -8,7 +9,7 @@ export default function Projects() {
     <section id="projects" className="flex flex-col gap-[2ch]">
       <h2 className="font-majorMonoDisplay text-2xl">{">"} projects</h2>
       <ul className="flex flex-col gap-[2ch]">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <li
             key={project.name}
             className="flex flex-col gap-[1ch] p-[2ch] border border-[#cecae0] rounded-[0.250rem]"
@@ -35,15 +36,15 @@ export default function Projects() {
                 </a>
               ))}
             </p>
-            <div className="flex items-center gap-[2ch] max-h-full overflow-x-auto">
-              {project.imgLinks?.map((src, index) => (
-                <img
-                  key={`projects_${project.name}-image_${index}`}
-                  src={src}
-                  className="h-[12ch] rounded-[0.125rem]"
+            {project.images?.length
+              ? (
+                <ProjectGallery
+                  images={project.images}
+                  projectName={project.name}
+                  idPrefix={`project-${index}`}
                 />
-              ))}
-            </div>
+              )
+              : null}
           </li>
         ))}
       </ul>
