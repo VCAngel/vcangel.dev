@@ -1,5 +1,6 @@
 import { signal } from "@preact/signals";
 
+import { projects } from "../data/profile.ts";
 import { USERS } from "../data/users.ts";
 import { DirectoryItem, Filesystem } from "../models/fs.model.ts";
 import { User } from "../models/user.model.ts";
@@ -45,6 +46,40 @@ const file = (
   size,
 });
 
+// One markdown file per project, grouped by kind (work/ personal/ lab/).
+// Generated from profile.ts so the terminal, the SPA and `cat` never drift.
+const KIND_DIRS = { work: "work", personal: "projects", lab: "lab" } as const;
+
+const slugify = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const projectMarkdown = (project: (typeof projects)[number]) =>
+  [
+    `# ${project.name}`,
+    `${project.kind}${project.role ? ` · ${project.role}` : ""}`,
+    "",
+    `Stack: ${project.stack.join(", ")}`,
+    ...(project.links.length
+      ? ["", ...project.links.map((l) => `${l.label} -> ${l.url}`)]
+      : []),
+  ].join("\n");
+
+const projectFiles = (kind: keyof typeof KIND_DIRS) =>
+  projects
+    .filter((project) => project.kind === kind)
+    .map((project) => ({
+      path: `/home/guest/${KIND_DIRS[kind]}/${slugify(project.name)}.md`,
+      name: `${slugify(project.name)}.md`,
+      project,
+    }));
+
+const allProjectFiles = (
+  Object.keys(KIND_DIRS) as (keyof typeof KIND_DIRS)[]
+).flatMap(projectFiles);
+
 // Stands in for "/" itself, which has no parent listing
 const ROOT_ITEM: DirectoryItem = dir("/");
 
@@ -62,8 +97,18 @@ const initialFS: Filesystem = {
     dir(".secrets", "guest"),
     dir("Documents", "guest"),
     dir("Images", "guest"),
+    ...Object.values(KIND_DIRS).map((name) => dir(name, "guest")),
     file("README.md"),
   ],
+  ...Object.fromEntries(
+    (Object.keys(KIND_DIRS) as (keyof typeof KIND_DIRS)[]).map((kind) => [
+      `/home/guest/${KIND_DIRS[kind]}`,
+      [
+        ...parentRoutes,
+        ...projectFiles(kind).map(({ name }) => file(name, "guest")),
+      ],
+    ]),
+  ),
   "/home/guest/.secrets": [...parentRoutes, file(".hint")],
   "/home/guest/Documents": [
     ...parentRoutes,
@@ -75,15 +120,18 @@ const initialFS: Filesystem = {
     file("phrog.gif", "guest", 0o644, 230144),
     file("le_meme.png", "guest", 0o644, 97310),
   ],
-  "/home/vcangel": [
-    ...parentRoutes,
-    file("notes.txt", "vcangel", 0o600),
-  ],
+  "/home/vcangel": [...parentRoutes, file("notes.txt", "vcangel", 0o600)],
 };
 
 // File content storage, keyed by absolute path. Files without an entry
 // (pdf, images) are treated as binaries.
 const initialContents: Record<string, string> = {
+  ...Object.fromEntries(
+    allProjectFiles.map(({ path, project }) => [
+      path,
+      projectMarkdown(project),
+    ]),
+  ),
   "/home/guest/README.md":
     "# Welcome to VCAngel's Terminal\n\nFeel free to explore using the terminal commands!\n\nType `help` to see available commands.\n\nNote: changes you make to the filesystem are saved in your browser's\nlocalStorage, so they survive a reload. Nothing leaves your browser.",
   "/home/guest/.secrets/.hint":
@@ -142,10 +190,7 @@ export function isDir(path: string): boolean {
 function upsertItem(dirPath: string, item: DirectoryItem): Filesystem {
   return {
     ...fs.value,
-    [dirPath]: [
-      ...fs.value[dirPath].filter((i) => i.name !== item.name),
-      item,
-    ],
+    [dirPath]: [...fs.value[dirPath].filter((i) => i.name !== item.name), item],
   };
 }
 
@@ -300,9 +345,7 @@ export function copyPath(src: string, dst: string): boolean {
 // Path utilities
 export function resolvePath(relativePath: string, currentPath: string): string {
   if (relativePath === "~" || relativePath.startsWith("~/")) {
-    return normalizePath(
-      USERS[currentUser.value].home + relativePath.slice(1),
-    );
+    return normalizePath(USERS[currentUser.value].home + relativePath.slice(1));
   }
 
   if (relativePath.startsWith("/")) {

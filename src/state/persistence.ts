@@ -13,7 +13,7 @@ import {
 
 // Everything the visitor changes lives under this prefix in localStorage
 const PREFIX = "vcangel.";
-const STATE_KEY = `${PREFIX}state.v1`;
+const STATE_KEY = `${PREFIX}state.v2`;
 
 let started = false;
 
