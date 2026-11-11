@@ -2,6 +2,7 @@ import { computed, effect, signal } from "@preact/signals";
 
 import { fs, splitPath } from "../fs/virtualFS.ts";
 import { CommandResponse } from "../models/command.model.ts";
+import { MediaFile } from "../models/fs.model.ts";
 
 // Terminal States
 export const commandHistory = signal<CommandResponse[]>([]);
@@ -16,6 +17,11 @@ export const caretPosition = signal<number>(0);
 
 // Bumped by `fastfetch` to re-run the Preview panel animation
 export const fastfetchRun = signal<number>(0);
+
+// Image viewer (ImageViewer island), opened by `open` and `projects`
+export const imageViewer = signal<
+  { images: MediaFile[]; index: number } | null
+>(null);
 
 // If the working directory gets removed (rm, mv, restore), fall back to the
 // closest ancestor that still exists
@@ -65,4 +71,13 @@ export function clearHistory() {
 
 export function focusTerminal() {
   terminalInputRef.value?.focus();
+}
+
+export function openImageViewer(images: MediaFile[], index: number) {
+  imageViewer.value = { images, index };
+}
+
+export function closeImageViewer() {
+  imageViewer.value = null;
+  focusTerminal();
 }

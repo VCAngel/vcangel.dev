@@ -1,8 +1,10 @@
 import { signal } from "@preact/signals";
 
+import { projects } from "../data/profile.ts";
 import { USERS } from "../data/users.ts";
-import { DirectoryItem, Filesystem } from "../models/fs.model.ts";
+import { DirectoryItem, Filesystem, MediaFile } from "../models/fs.model.ts";
 import { User } from "../models/user.model.ts";
+import { projectImageFile } from "../utils/images.ts";
 import { currentUser, effectiveUser } from "../state/session.state.ts";
 
 // NOTE: Initial FS structure
@@ -45,6 +47,62 @@ const file = (
   size,
 });
 
+// Binary file backed by a real image, viewable with `open`
+const image = ({ name, src, alt }: MediaFile, size?: number) => ({
+  ...file(name, "guest", 0o644, size),
+  media: { src, alt },
+});
+
+// One markdown file per project, grouped by kind (work/ personal/ lab/).
+// Generated from profile.ts so the terminal, the SPA and `cat` never drift.
+const KIND_DIRS = { work: "work", personal: "projects", lab: "lab" } as const;
+
+const slugify = (name: string) =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+const projectMarkdown = (project: (typeof projects)[number]) =>
+  [
+    `# ${project.name}`,
+    `${project.kind}${project.role ? ` · ${project.role}` : ""}`,
+    "",
+    `Stack: ${project.stack.join(", ")}`,
+    ...(project.links.length
+      ? ["", ...project.links.map((l) => `${l.label} -> ${l.url}`)]
+      : []),
+    ...(project.images?.length
+      ? [
+        "",
+        `Screenshots (open <file>): ${
+          project.images
+            .map((shot) =>
+              `${slugify(project.name)}/${projectImageFile(shot).name}`
+            )
+            .join(", ")
+        }`,
+      ]
+      : []),
+  ].join("\n");
+
+// Screenshots live as binary files in a `<slug>/` dir next to the .md
+const projectFiles = (kind: keyof typeof KIND_DIRS) =>
+  projects
+    .filter((project) => project.kind === kind)
+    .map((project) => ({
+      path: `/home/guest/${KIND_DIRS[kind]}/${slugify(project.name)}.md`,
+      name: `${slugify(project.name)}.md`,
+      imageDir: project.images?.length
+        ? `/home/guest/${KIND_DIRS[kind]}/${slugify(project.name)}`
+        : null,
+      project,
+    }));
+
+const allProjectFiles = (
+  Object.keys(KIND_DIRS) as (keyof typeof KIND_DIRS)[]
+).flatMap(projectFiles);
+
 // Stands in for "/" itself, which has no parent listing
 const ROOT_ITEM: DirectoryItem = dir("/");
 
@@ -62,8 +120,38 @@ const initialFS: Filesystem = {
     dir(".secrets", "guest"),
     dir("Documents", "guest"),
     dir("Images", "guest"),
+    ...Object.values(KIND_DIRS).map((name) => dir(name, "guest")),
     file("README.md"),
   ],
+  ...Object.fromEntries(
+    (Object.keys(KIND_DIRS) as (keyof typeof KIND_DIRS)[]).map((kind) => [
+      `/home/guest/${KIND_DIRS[kind]}`,
+      [
+        ...parentRoutes,
+        ...projectFiles(kind).flatMap(({ name, imageDir, project }) => [
+          file(name, "guest"),
+          ...(imageDir ? [dir(slugify(project.name), "guest")] : []),
+        ]),
+      ],
+    ]),
+  ),
+  ...Object.fromEntries(
+    allProjectFiles.flatMap(({ imageDir, project }) =>
+      imageDir
+        ? [
+          [
+            imageDir,
+            [
+              ...parentRoutes,
+              ...(project.images ?? []).map((shot) =>
+                image(projectImageFile(shot))
+              ),
+            ],
+          ],
+        ]
+        : []
+    ),
+  ),
   "/home/guest/.secrets": [...parentRoutes, file(".hint")],
   "/home/guest/Documents": [
     ...parentRoutes,
@@ -71,19 +159,27 @@ const initialFS: Filesystem = {
   ],
   "/home/guest/Images": [
     ...parentRoutes,
-    file("me.png", "guest", 0o644, 51277),
-    file("phrog.gif", "guest", 0o644, 230144),
-    file("le_meme.png", "guest", 0o644, 97310),
+    image(
+      { name: "pfp.png", src: "/img/pfp_1.webp", alt: "That's me!" },
+      51277,
+    ),
+    image(
+      { name: "phrog.gif", src: "/img/phrog.webp", alt: "A phrog" },
+      230144,
+    ),
   ],
-  "/home/vcangel": [
-    ...parentRoutes,
-    file("notes.txt", "vcangel", 0o600),
-  ],
+  "/home/vcangel": [...parentRoutes, file("notes.txt", "vcangel", 0o600)],
 };
 
 // File content storage, keyed by absolute path. Files without an entry
 // (pdf, images) are treated as binaries.
 const initialContents: Record<string, string> = {
+  ...Object.fromEntries(
+    allProjectFiles.map(({ path, project }) => [
+      path,
+      projectMarkdown(project),
+    ]),
+  ),
   "/home/guest/README.md":
     "# Welcome to VCAngel's Terminal\n\nFeel free to explore using the terminal commands!\n\nType `help` to see available commands.\n\nNote: changes you make to the filesystem are saved in your browser's\nlocalStorage, so they survive a reload. Nothing leaves your browser.",
   "/home/guest/.secrets/.hint":
@@ -142,10 +238,7 @@ export function isDir(path: string): boolean {
 function upsertItem(dirPath: string, item: DirectoryItem): Filesystem {
   return {
     ...fs.value,
-    [dirPath]: [
-      ...fs.value[dirPath].filter((i) => i.name !== item.name),
-      item,
-    ],
+    [dirPath]: [...fs.value[dirPath].filter((i) => i.name !== item.name), item],
   };
 }
 
@@ -172,9 +265,10 @@ export function createFile(
 
   if (!fs.value[dirPath]) return false;
 
+  // Text content replaces whatever binary (fake size, image) was there
   const existing = fs.value[dirPath].find((item) => item.name === name);
   const item = existing
-    ? { ...existing, mtime: Date.now(), size: undefined }
+    ? { ...existing, mtime: Date.now(), size: undefined, media: undefined }
     : newItem(name, "file");
 
   fs.value = upsertItem(dirPath, item);
@@ -258,6 +352,7 @@ function transferPath(src: string, dst: string, keepSource: boolean) {
     ? {
       ...newItem(dstName, item.type === "dir" ? "dir" : "file"),
       size: item.size,
+      media: item.media,
     }
     : { ...item, name: dstName };
 
@@ -300,9 +395,7 @@ export function copyPath(src: string, dst: string): boolean {
 // Path utilities
 export function resolvePath(relativePath: string, currentPath: string): string {
   if (relativePath === "~" || relativePath.startsWith("~/")) {
-    return normalizePath(
-      USERS[currentUser.value].home + relativePath.slice(1),
-    );
+    return normalizePath(USERS[currentUser.value].home + relativePath.slice(1));
   }
 
   if (relativePath.startsWith("/")) {

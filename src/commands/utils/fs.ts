@@ -16,8 +16,11 @@ export type ReadResult =
   | { path: string; text: string }
   | { error: string; binary?: true };
 
-// Reads a text file for `cmd`, returning a GNU-style error on failure
-export function readText(cmd: string, arg: string): ReadResult {
+// Resolves a readable regular file for `cmd`, or a GNU-style error
+export function checkFile(
+  cmd: string,
+  arg: string,
+): { path: string; item: DirectoryItem } | { error: string } {
   const path = resolve(arg);
   const item = stat(path);
 
@@ -27,6 +30,15 @@ export function readText(cmd: string, arg: string): ReadResult {
   }
   if (item.type === "dir") return { error: `${cmd}: ${arg}: Is a directory` };
   if (!canRead(path)) return { error: `${cmd}: ${arg}: Permission denied` };
+
+  return { path, item };
+}
+
+// Reads a text file for `cmd`, returning a GNU-style error on failure
+export function readText(cmd: string, arg: string): ReadResult {
+  const checked = checkFile(cmd, arg);
+  if ("error" in checked) return checked;
+  const { path } = checked;
 
   const text = readFile(path);
   if (text === null) {

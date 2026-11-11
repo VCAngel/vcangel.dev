@@ -1,7 +1,8 @@
 import { TypewriterText } from "../../components/TypewriterText.tsx";
 import { projects } from "../../data/profile.ts";
 import { CommandExecutor } from "../../models/command.model.ts";
-import { currentDirectory } from "../../state/app.state.ts";
+import { currentDirectory, openImageViewer } from "../../state/app.state.ts";
+import { projectImageFile } from "../../utils/images.ts";
 
 const LINK_CLASSES =
   "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black";
@@ -20,6 +21,16 @@ export const projectsCommand: CommandExecutor = (_args, fullCommand) => {
                   <TypewriterText
                     text={project.name}
                     key={`projects_${index}-name`}
+                    speed={16}
+                  />
+                </span>
+                {" | "}
+                <span className="text-gray-400">
+                  <TypewriterText
+                    text={
+                      project.kind + (project.role ? ` · ${project.role}` : "")
+                    }
+                    key={`projects_${index}-meta`}
                     speed={16}
                   />
                 </span>
@@ -55,6 +66,36 @@ export const projectsCommand: CommandExecutor = (_args, fullCommand) => {
                   </a>
                 ))}
               </pre>
+              {project.images?.length
+                ? (
+                  <pre>
+                    <TypewriterText
+                      text="  screenshots: "
+                      key={`projects_${index}-img-label`}
+                      speed={16}
+                    />
+                    {project.images.map((image, imageIndex) => (
+                      <button
+                        type="button"
+                        title={image.alt}
+                        onClick={() =>
+                          openImageViewer(
+                            project.images!.map(projectImageFile),
+                            imageIndex,
+                          )}
+                        className={`${LINK_CLASSES} mr-[1ch]`}
+                        key={`projects_${index}-img-${imageIndex}`}
+                      >
+                        <TypewriterText
+                          text={`[${imageIndex + 1}]`}
+                          key={`projects_${index}-img-${imageIndex}-text`}
+                          speed={16}
+                        />
+                      </button>
+                    ))}
+                  </pre>
+                )
+                : null}
               <pre></pre>
             </li>
           ))}

@@ -9,6 +9,7 @@ import { whoAmICommand } from "./bin/whoami.tsx";
 import { contactCommand } from "./bin/contact.tsx";
 import { projectsCommand } from "./bin/projects.tsx";
 import { mkdirCommand } from "./bin/mkdir.tsx";
+import { openCommand } from "./bin/open.tsx";
 import { touchCommand } from "./bin/touch.tsx";
 import { rmCommand, rmdirCommand } from "./bin/rm.tsx";
 import { cpCommand, mvCommand } from "./bin/transfer.tsx";
@@ -134,6 +135,12 @@ const linux: Record<string, Command> = {
     execute: mvCommand,
     help: "Move (rename) files",
     usage: "mv source ... dest",
+  },
+  open: {
+    execute: openCommand,
+    help: "Open a file in its default application (screenshots)",
+    usage: "open file",
+    aliases: ["xdg-open", "feh"],
   },
   pwd: {
     execute: pwdCommand,

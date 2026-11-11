@@ -1,4 +1,5 @@
 import { projects } from "../../data/profile.ts";
+import ProjectGallery from "./ProjectGallery.tsx";
 
 const LINK_CLASSES =
   "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black";
@@ -8,12 +9,19 @@ export default function Projects() {
     <section id="projects" className="flex flex-col gap-[2ch]">
       <h2 className="font-majorMonoDisplay text-2xl">{">"} projects</h2>
       <ul className="flex flex-col gap-[2ch]">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <li
             key={project.name}
-            className="flex flex-col gap-[1ch] p-[2ch] border border-[#cecae0] rounded-sm"
+            className="flex flex-col gap-[1ch] p-[2ch] border border-[#cecae0] rounded-[0.250rem]"
           >
-            <h3 className="text-indigo-400">{project.name}</h3>
+            <h3 className="whitespace-pre-wrap">
+              <span className="text-indigo-400">{project.name}</span>
+              {" | "}
+              <span className="text-gray-400">
+                {project.kind}
+                {project.role ? ` · ${project.role}` : ""}
+              </span>
+            </h3>
             <p>{project.description}</p>
             <p className="text-gray-400">{project.stack.join(" · ")}</p>
             <p className="flex flex-wrap gap-[2ch]">
@@ -28,6 +36,15 @@ export default function Projects() {
                 </a>
               ))}
             </p>
+            {project.images?.length
+              ? (
+                <ProjectGallery
+                  images={project.images}
+                  projectName={project.name}
+                  idPrefix={`project-${index}`}
+                />
+              )
+              : null}
           </li>
         ))}
       </ul>

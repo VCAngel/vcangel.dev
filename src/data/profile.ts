@@ -24,7 +24,7 @@ export const profile: Profile = {
 
 Open Source enthusiast, gamer, and music lover. Feel free to reach out for collaboration or just to say hi!`,
   },
-  avatar: { label: "Avatar:", value: "img/pfp_1.JPG" },
+  avatar: { label: "Avatar:", value: "img/pfp_1.webp" },
   location: {
     label: "Location:",
     value: "Chihuahua, Mexico",
@@ -85,7 +85,8 @@ Open Source enthusiast, gamer, and music lover. Feel free to reach out for colla
   },
   backendCLI: {
     label: "Backend:",
-    value: "[Node.js, Deno, AWS, Express.js, Hono]",
+    value:
+      "[Node.js, Deno, Express.js, Hono, AWS (Lambda, API Gateway, RDS, DynamoDB CloudFormation)]",
   },
   toolsCLI: { label: "Tools:", value: "[Linux, Nvim, Git, Docker, CI/CD]" },
   learningCLI: { label: "Learning:", value: "[Rust, Lua]" },
@@ -98,37 +99,72 @@ Open Source enthusiast, gamer, and music lover. Feel free to reach out for colla
 
 export const projects: Project[] = [
   {
-    name: "vcangel.dev",
-    description:
-      "Terminal-style portfolio website with modular commands and a virtual filesystem. This one right here!",
-    stack: ["Deno", "Fresh", "Preact", "TypeScript", "Tailwind"],
-    links: [
-      {
-        label: "github.com/VCAngel",
-        url: "https://github.com/VCAngel/vcangel.dev",
-      },
-    ],
-  },
-  {
     name: "EZ-Sort",
+    kind: "work",
+    role: "Full-Stack SWE",
     description:
       "SaaS platform that connects manufacturers and suppliers with certified quality partners for streamlining sorting and grading processes.",
-    stack: ["Angular", "TypeScript", "Node.js", "AWS", "Tailwind"],
+    stack: ["Angular", "TypeScript", "Node.js", "AWS", "TailwindCSS"],
     links: [
       {
         label: "app.ezsort.tech",
         url: "https://app.ezsort.tech",
       },
     ],
+    images: [
+      { name: "ez_1", alt: "EZ-Sort login screen" },
+      {
+        name: "ez_2",
+        alt: "Service request detail with inspection conditions",
+      },
+      {
+        name: "ez_3",
+        alt: "Service balance dashboard with pending invoices",
+      },
+    ],
+  },
+  {
+    name: "Portfolio Website",
+    kind: "personal",
+    description:
+      "Terminal-style portfolio website with modular commands and a virtual filesystem. This one right here!",
+    stack: ["Deno", "Fresh", "Preact", "TypeScript", "TailwindCSS"],
+    links: [
+      {
+        label: "GitHub",
+        url: "https://github.com/VCAngel/vcangel.dev",
+      },
+    ],
+    images: [
+      { name: "portfolio_1", alt: "SPA version of this site" },
+      {
+        name: "portfolio_2",
+        alt: "Terminal version running the help command",
+      },
+    ],
+  },
+  {
+    name: "OpenClaw",
+    kind: "lab",
+    description:
+      "Self-hosted AI gateway: an AWS Lightsail instance fronting several agents, with local models served from my desktop over Tailscale.",
+    stack: ["AWS Lightsail", "Ollama", "Tailscale", "Linux"],
+    links: [
+      {
+        label: "claw.vcangel.dev",
+        url: "https://claw.vcangel.dev",
+      },
+    ],
   },
   {
     name: "dotfiles",
+    kind: "lab",
     description:
       "Configuration files for my terminal, editor, and other tools.",
     stack: ["Shell", "Neovim", "tmux", "suckless"],
     links: [
       {
-        label: "github.com/VCAngel",
+        label: "GitHub",
         url: "https://github.com/VCAngel/dotfiles",
       },
     ],
