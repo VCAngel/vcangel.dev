@@ -2,6 +2,7 @@ import { TypewriterText } from "../../components/TypewriterText.tsx";
 import { projects } from "../../data/profile.ts";
 import { CommandExecutor } from "../../models/command.model.ts";
 import { currentDirectory, openImageViewer } from "../../state/app.state.ts";
+import { projectImageFile } from "../../utils/images.ts";
 
 const LINK_CLASSES =
   "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black";
@@ -78,7 +79,10 @@ export const projectsCommand: CommandExecutor = (_args, fullCommand) => {
                         type="button"
                         title={image.alt}
                         onClick={() =>
-                          openImageViewer(project.images!, imageIndex)}
+                          openImageViewer(
+                            project.images!.map(projectImageFile),
+                            imageIndex,
+                          )}
                         className={`${LINK_CLASSES} mr-[1ch]`}
                         key={`projects_${index}-img-${imageIndex}`}
                       >

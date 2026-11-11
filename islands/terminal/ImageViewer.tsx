@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "preact/hooks";
+import { asset } from "fresh/runtime";
+import { useEffect, useRef, useState } from "preact/hooks";
 
 import { closeImageViewer, imageViewer } from "../../src/state/app.state.ts";
 
@@ -6,7 +7,7 @@ const BUTTON_CLASSES =
   "hover:bg-[#C541F2] selection:bg-[#C541F2] text-[#C541F2] hover:text-black px-[0.5ch] text-2xl";
 
 /**
- * Screenshot viewer for the terminal, driven by the `imageViewer` signal
+ * Image viewer for the terminal, driven by the `imageViewer` signal
  * (`open <file>`, `projects` [n] links). Modal <dialog>: Esc, ×, or a click
  * on the backdrop close it, ←/→ browse, and focus goes back to the prompt.
  * Lives outside <Terminal> so its clicks don't trigger `focusTerminal`.
@@ -54,6 +55,7 @@ export default function ImageViewer() {
   };
 
   const image = shown?.images[shown.index];
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const position = shown ? `${shown.index + 1}/${shown.images.length}` : "";
 
   return (
@@ -68,17 +70,28 @@ export default function ImageViewer() {
       {image
         ? (
           <>
-            <img
-              key={image.src}
-              src={image.src}
-              alt={image.alt}
-              decoding="async"
-              className="crt-screen"
-            />
+            {failedSrc === image.src
+              ? (
+                <pre className="text-red-400">
+                  {`open: ${image.name}: failed to load image`}
+                </pre>
+              )
+              : (
+                <img
+                  key={image.src}
+                  src={asset(image.src)}
+                  alt={image.alt ?? image.name}
+                  decoding="async"
+                  className="crt-screen"
+                  onError={() => setFailedSrc(image.src)}
+                />
+              )}
             <p className="flex items-center gap-[2ch] pt-[1ch]">
               <span className="grow">
                 <span className="text-indigo-400">{image.name}</span>
-                <span className="text-gray-400">{` — ${image.alt}`}</span>
+                {image.alt
+                  ? <span className="text-gray-400">{` — ${image.alt}`}</span>
+                  : null}
               </span>
               <span className="text-gray-400">{position}</span>
               {shown && shown.images.length > 1

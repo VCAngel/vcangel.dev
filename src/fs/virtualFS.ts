@@ -2,10 +2,9 @@ import { signal } from "@preact/signals";
 
 import { projects } from "../data/profile.ts";
 import { USERS } from "../data/users.ts";
-import { DirectoryItem, Filesystem } from "../models/fs.model.ts";
-import { ProjectImage } from "../models/project.model.ts";
+import { DirectoryItem, Filesystem, MediaFile } from "../models/fs.model.ts";
 import { User } from "../models/user.model.ts";
-import { projectImageFileName } from "../utils/images.ts";
+import { projectImageFile } from "../utils/images.ts";
 import { currentUser, effectiveUser } from "../state/session.state.ts";
 
 // NOTE: Initial FS structure
@@ -48,6 +47,12 @@ const file = (
   size,
 });
 
+// Binary file backed by a real image, viewable with `open`
+const image = ({ name, src, alt }: MediaFile, size?: number) => ({
+  ...file(name, "guest", 0o644, size),
+  media: { src, alt },
+});
+
 // One markdown file per project, grouped by kind (work/ personal/ lab/).
 // Generated from profile.ts so the terminal, the SPA and `cat` never drift.
 const KIND_DIRS = { work: "work", personal: "projects", lab: "lab" } as const;
@@ -72,9 +77,8 @@ const projectMarkdown = (project: (typeof projects)[number]) =>
         "",
         `Screenshots (open <file>): ${
           project.images
-            .map(
-              (image) =>
-                `${slugify(project.name)}/${projectImageFileName(image.name)}`,
+            .map((shot) =>
+              `${slugify(project.name)}/${projectImageFile(shot).name}`
             )
             .join(", ")
         }`,
@@ -139,8 +143,8 @@ const initialFS: Filesystem = {
             imageDir,
             [
               ...parentRoutes,
-              ...(project.images ?? []).map((image) =>
-                file(projectImageFileName(image.name), "guest")
+              ...(project.images ?? []).map((shot) =>
+                image(projectImageFile(shot))
               ),
             ],
           ],
@@ -155,9 +159,14 @@ const initialFS: Filesystem = {
   ],
   "/home/guest/Images": [
     ...parentRoutes,
-    file("me.png", "guest", 0o644, 51277),
-    file("phrog.gif", "guest", 0o644, 230144),
-    file("le_meme.png", "guest", 0o644, 97310),
+    image(
+      { name: "pfp.png", src: "/img/pfp_1.JPG", alt: "That's me!" },
+      51277,
+    ),
+    image(
+      { name: "phrog.gif", src: "/img/phrog.gif", alt: "A phrog" },
+      230144,
+    ),
   ],
   "/home/vcangel": [...parentRoutes, file("notes.txt", "vcangel", 0o600)],
 };
@@ -256,9 +265,10 @@ export function createFile(
 
   if (!fs.value[dirPath]) return false;
 
+  // Text content replaces whatever binary (fake size, image) was there
   const existing = fs.value[dirPath].find((item) => item.name === name);
   const item = existing
-    ? { ...existing, mtime: Date.now(), size: undefined }
+    ? { ...existing, mtime: Date.now(), size: undefined, media: undefined }
     : newItem(name, "file");
 
   fs.value = upsertItem(dirPath, item);
@@ -293,21 +303,6 @@ export function touchItem(path: string) {
 
 export function readFile(path: string): string | null {
   return fileContents.value[path] ?? null;
-}
-
-/** WARN: Project screenshot behind a VFS file, matched by name so it still opens
- * after `mv`/`cp` (screenshot names are unique across projects)
- */
-export function findProjectImage(
-  fileName: string,
-): { images: ProjectImage[]; index: number } | null {
-  for (const { images = [] } of projects) {
-    const index = images.findIndex(
-      (image) => projectImageFileName(image.name) === fileName,
-    );
-    if (index !== -1) return { images, index };
-  }
-  return null;
 }
 
 export function deleteItem(path: string, name: string): boolean {
@@ -357,6 +352,7 @@ function transferPath(src: string, dst: string, keepSource: boolean) {
     ? {
       ...newItem(dstName, item.type === "dir" ? "dir" : "file"),
       size: item.size,
+      media: item.media,
     }
     : { ...item, name: dstName };
 
