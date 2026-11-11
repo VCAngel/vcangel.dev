@@ -12,10 +12,10 @@ export type FetchField = CLIProfileData;
 } */
 
 export const FASTFETCH_AVATAR_LIST = [
-  "img/pfp_1.JPG",
-  "img/pfp_3.JPG",
-  "img/pfp_2.jpg",
-  "img/phrog.gif",
+  "img/pfp_1.webp",
+  "img/pfp_3.webp",
+  "img/pfp_2.webp",
+  "img/phrog.webp",
 ];
 
 export const FASTFETCH_HANDLE = {

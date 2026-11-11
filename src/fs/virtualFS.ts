@@ -160,11 +160,11 @@ const initialFS: Filesystem = {
   "/home/guest/Images": [
     ...parentRoutes,
     image(
-      { name: "pfp.png", src: "/img/pfp_1.JPG", alt: "That's me!" },
+      { name: "pfp.png", src: "/img/pfp_1.webp", alt: "That's me!" },
       51277,
     ),
     image(
-      { name: "phrog.gif", src: "/img/phrog.gif", alt: "A phrog" },
+      { name: "phrog.gif", src: "/img/phrog.webp", alt: "A phrog" },
       230144,
     ),
   ],

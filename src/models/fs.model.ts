@@ -15,7 +15,7 @@ export interface DirectoryItem {
 }
 
 export interface Media {
-  src: string; // Served path, e.g. "/img/phrog.gif" (asset() applied on use)
+  src: string; // Served path, e.g. "/img/phrog.webp" (asset() applied on use)
   alt?: string;
 }
 

@@ -24,7 +24,7 @@ export const profile: Profile = {
 
 Open Source enthusiast, gamer, and music lover. Feel free to reach out for collaboration or just to say hi!`,
   },
-  avatar: { label: "Avatar:", value: "img/pfp_1.JPG" },
+  avatar: { label: "Avatar:", value: "img/pfp_1.webp" },
   location: {
     label: "Location:",
     value: "Chihuahua, Mexico",
