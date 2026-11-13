@@ -1,7 +1,7 @@
 import { computed, effect, signal } from "@preact/signals";
 
 import { fs, splitPath } from "../fs/virtualFS.ts";
-import { CommandResponse } from "../models/command.model.ts";
+import { CommandResponse, CompletionMenu } from "../models/command.model.ts";
 import { MediaFile } from "../models/fs.model.ts";
 
 // Terminal States
@@ -14,6 +14,10 @@ export const currentDirectory = signal<string>("/home/guest");
 export const terminalInputRef = signal<HTMLInputElement | null>(null);
 export const commandInput = signal<string>("");
 export const caretPosition = signal<number>(0);
+
+// NOTE: Tab completion logic lives in commands/utils/complete.ts, importing
+// the registry here would be circular (commands import this module)
+export const completionMenu = signal<CompletionMenu | null>(null);
 
 // Bumped by `fastfetch` to re-run the Preview panel animation
 export const fastfetchRun = signal<number>(0);
@@ -67,6 +71,19 @@ export function addToHistory(response: CommandResponse) {
 export function clearHistory() {
   displayedHistory.value = [];
   selectedHistoryIndex.value = commandHistory.value.length;
+}
+
+// Replaces the prompt line and moves the caret.
+// WARN: Input value and selection are set synchronously, the keyup handler
+// that runs next reads `selectionStart` back into `caretPosition`
+export function setCommandLine(line: string, caret = line.length) {
+  commandInput.value = line;
+  caretPosition.value = caret;
+  const input = terminalInputRef.value;
+  if (input) {
+    input.value = line;
+    input.setSelectionRange(caret, caret);
+  }
 }
 
 export function focusTerminal() {

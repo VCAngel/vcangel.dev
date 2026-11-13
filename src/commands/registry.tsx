@@ -35,18 +35,24 @@ import {
 } from "./bin/custom.tsx";
 
 import { USERS } from "../data/users.ts";
-import { Command, CommandResponse } from "../models/command.model.ts";
+import {
+  Command,
+  CommandFlag,
+  CommandResponse,
+} from "../models/command.model.ts";
 import { currentUser } from "../state/session.state.ts";
 import { tokenize } from "./utils/args.ts";
 
 const linux: Record<string, Command> = {
   cat: {
     execute: catCommand,
+    complete: "paths",
     help: "Concatenate and print file contents",
     usage: "cat [file ...]",
   },
   cd: {
     execute: cdCommand,
+    complete: "dirs",
     help: "Change the current directory",
     usage: "cd [path]",
   },
@@ -57,12 +63,14 @@ const linux: Record<string, Command> = {
   },
   cp: {
     execute: cpCommand,
+    complete: "paths",
     help: "Copy files and directories",
     usage: "cp [-r] source ... dest",
     flags: [{ flag: "-r, -R", description: "Copy directories recursively" }],
   },
   echo: {
     execute: echoCommand,
+    complete: "paths",
     help: "Display a line of text",
     usage: "echo [text] [> file | >> file]",
     flags: [
@@ -78,6 +86,7 @@ const linux: Record<string, Command> = {
   },
   find: {
     execute: findCommand,
+    complete: "paths",
     help: "Search for files in a directory hierarchy",
     usage: "find [path ...] [-name glob] [-iname glob] [-type f|d]",
     flags: [
@@ -88,6 +97,7 @@ const linux: Record<string, Command> = {
   },
   grep: {
     execute: grepCommand,
+    complete: "paths",
     help: "Print lines that match a pattern",
     usage: "grep [-i -n -r -v] pattern [file ...]",
     flags: [
@@ -99,11 +109,13 @@ const linux: Record<string, Command> = {
   },
   groups: {
     execute: groupsCommand,
+    complete: "users",
     help: "Print the groups a user is in",
     usage: "groups [user ...]",
   },
   head: {
     execute: headCommand,
+    complete: "paths",
     help: "Output the first part of files",
     usage: "head [-n lines] file ...",
     flags: [{ flag: "-n N", description: "Print the first N lines (10)" }],
@@ -115,6 +127,7 @@ const linux: Record<string, Command> = {
   },
   ls: {
     execute: lsCommand,
+    complete: "paths",
     help: "List directory contents",
     usage: "ls [-a -l -h] [path ...]",
     flags: [
@@ -125,6 +138,7 @@ const linux: Record<string, Command> = {
   },
   mkdir: {
     execute: mkdirCommand,
+    complete: "dirs",
     help: "Make directories",
     usage: "mkdir [-p] directory ...",
     flags: [
@@ -133,11 +147,13 @@ const linux: Record<string, Command> = {
   },
   mv: {
     execute: mvCommand,
+    complete: "paths",
     help: "Move (rename) files",
     usage: "mv source ... dest",
   },
   open: {
     execute: openCommand,
+    complete: "paths",
     help: "Open a file in its default application (screenshots)",
     usage: "open file",
     aliases: ["xdg-open", "feh"],
@@ -149,6 +165,7 @@ const linux: Record<string, Command> = {
   },
   rm: {
     execute: rmCommand,
+    complete: "paths",
     help: "Remove files or directories",
     usage: "rm [-r -f] file ...",
     flags: [
@@ -161,11 +178,13 @@ const linux: Record<string, Command> = {
   },
   rmdir: {
     execute: rmdirCommand,
+    complete: "dirs",
     help: "Remove empty directories",
     usage: "rmdir directory ...",
   },
   su: {
     execute: suCommand,
+    complete: "users",
     help: "Switch user",
     usage: "su [user]",
   },
@@ -178,17 +197,20 @@ const linux: Record<string, Command> = {
   },
   tail: {
     execute: tailCommand,
+    complete: "paths",
     help: "Output the last part of files",
     usage: "tail [-n lines] file ...",
     flags: [{ flag: "-n N", description: "Print the last N lines (10)" }],
   },
   touch: {
     execute: touchCommand,
+    complete: "paths",
     help: "Create empty files or update timestamps",
     usage: "touch file ...",
   },
   tree: {
     execute: treeCommand,
+    complete: "dirs",
     help: "List contents of directories in a tree-like format",
     usage: "tree [-a] [path]",
     flags: [{ flag: "-a", description: "Include hidden files" }],
@@ -200,6 +222,7 @@ const linux: Record<string, Command> = {
   },
   wc: {
     execute: wcCommand,
+    complete: "paths",
     help: "Print line, word and byte counts",
     usage: "wc [-l -w -c] file ...",
     flags: [
@@ -218,6 +241,7 @@ const linux: Record<string, Command> = {
 const custom: Record<string, Command> = {
   help: {
     execute: helpCommand,
+    complete: "commands",
     help: "Display help information for commands",
     aliases: ["?"],
   },
@@ -261,6 +285,24 @@ export function lookupCommand(name: string): [string, Command] | undefined {
   if (name === "divider") return undefined;
   if (Object.hasOwn(commands, name)) return [name, commands[name]];
   return Object.entries(commands).find(([, c]) => c.aliases?.includes(name));
+}
+
+// A command's flags plus the help flag every command accepts
+export function commandFlags(command: Command): CommandFlag[] {
+  return [
+    ...(command.flags ?? []),
+    {
+      flag: usesShortHelpFlag(command) ? "--help" : "-h, --help",
+      description: "Show this help",
+    },
+  ];
+}
+
+// Every runnable name, aliases included
+export function commandNames(): string[] {
+  return Object.entries(commands).flatMap(([name, c]) =>
+    name === "divider" ? [] : [name, ...(c.aliases ?? [])]
+  );
 }
 
 // `--help` anywhere before `--`; `-h` too unless the command owns it (ls -h).

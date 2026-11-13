@@ -3,6 +3,8 @@ import { createRef, TargetedEvent } from "preact/compat";
 import { useEffect, useState } from "preact/hooks";
 
 import { executeCommand } from "../../src/commands/registry.tsx";
+import { tabComplete } from "../../src/commands/utils/complete.ts";
+import { CompletionList } from "../../src/components/CompletionList.tsx";
 import { PromptLabel } from "../../src/components/PromptLabel.tsx";
 import { currentUser, promptLocked } from "../../src/state/session.state.ts";
 import {
@@ -10,12 +12,16 @@ import {
   caretPosition,
   commandHistory,
   commandInput,
+  completionMenu,
   currentDirectory,
   displayedHistory,
   focusTerminal,
   selectedHistoryIndex,
+  setCommandLine,
   terminalInputRef,
 } from "../../src/state/app.state.ts";
+
+const MODIFIER_KEYS = ["Shift", "Control", "Alt", "Meta", "CapsLock"];
 
 export function TerminalPrompt() {
   const textRef = createRef<HTMLParagraphElement>();
@@ -54,6 +60,7 @@ export function TerminalPrompt() {
   const handleInput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
     commandInput.value = e.currentTarget.value;
     caretPosition.value = e.currentTarget.selectionStart || 0;
+    completionMenu.value = null; // Edits without a keydown (context-menu paste)
   };
 
   const handleOutput = (e: TargetedEvent<HTMLInputElement, KeyboardEvent>) => {
@@ -61,22 +68,39 @@ export function TerminalPrompt() {
       // Use the current URL path as the command route and command registry to execute the command
       const result = executeCommand(commandInput.value, currentDirectory.value);
       addToHistory(result);
-      commandInput.value = "";
-      caretPosition.value = 0;
+      setCommandLine("");
       return;
     }
 
     caretPosition.value = e.currentTarget.selectionStart || 0;
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = (
+    e: TargetedEvent<HTMLInputElement, KeyboardEvent>,
+  ) => {
+    if (e.key === "Tab") {
+      const { value, selectionStart } = e.currentTarget;
+      // NOTE: Nothing typed → native Tab, so keyboard users can leave the prompt
+      if (
+        !completionMenu.value && !value.slice(0, selectionStart ?? 0).trim()
+      ) {
+        return;
+      }
+      e.preventDefault();
+      tabComplete(e.shiftKey ? -1 : 1);
+      return;
+    }
+
+    // Any other key (Esc included) ends the completion menu, keeping the text
+    if (!MODIFIER_KEYS.includes(e.key)) completionMenu.value = null;
+
     if (e.key === "ArrowUp") {
       e.preventDefault(); // Prevent cursor from moving
       if (commandHistory.value.length === 0) return;
 
       const newIndex = Math.max(0, selectedHistoryIndex.value - 1);
       if (newIndex < commandHistory.value.length) {
-        commandInput.value = commandHistory.value[newIndex].command;
+        setCommandLine(commandHistory.value[newIndex].command);
         selectedHistoryIndex.value = newIndex;
       }
     } else if (e.key === "ArrowDown") {
@@ -86,9 +110,9 @@ export function TerminalPrompt() {
           ? selectedHistoryIndex.value + 1
           : commandHistory.value.length;
       if (newIndex >= 0 && newIndex < commandHistory.value.length) {
-        commandInput.value = commandHistory.value[newIndex].command;
+        setCommandLine(commandHistory.value[newIndex].command);
       } else {
-        commandInput.value = ""; // Clear input if we've gone past the most recent command
+        setCommandLine(""); // Clear input if we've gone past the most recent command
       }
       selectedHistoryIndex.value = newIndex;
     }
@@ -111,6 +135,11 @@ export function TerminalPrompt() {
         className="absolute top-[-1000px] opacity-0"
         id="terminalInput"
         name="terminalInput"
+        autoComplete="off"
+        autoCapitalize="off"
+        spellcheck={false}
+        aria-autocomplete="list"
+        aria-controls="completions"
       />
       <label
         htmlFor="terminalInput"
@@ -133,7 +162,20 @@ export function TerminalPrompt() {
             </div>
           </span>
         </p>
+        {/* Phones have no Tab key */}
+        <button
+          type="button"
+          tabIndex={-1}
+          aria-label="Complete"
+          className="hidden pointer-coarse:inline-flex shrink-0 px-[1ch] border border-current"
+          // NOTE: Keeps focus (and the soft keyboard) on the prompt input
+          onPointerDown={(e) => e.preventDefault()}
+          onClick={() => tabComplete(1)}
+        >
+          ⇥
+        </button>
       </div>
+      <CompletionList />
     </>
   );
 }
@@ -157,7 +199,7 @@ export function Terminal({
         terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
       }
     }, 40);
-  }, [displayedHistory.value]);
+  }, [displayedHistory.value, completionMenu.value]);
 
   return (
     <main ref={terminalRef} className={className} onClick={focusTerminal}>
