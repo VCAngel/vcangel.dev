@@ -5,7 +5,7 @@ import {
   CommandResponse,
 } from "../../models/command.model.ts";
 import { currentDirectory } from "../../state/app.state.ts";
-import { commands, lookupCommand } from "../registry.tsx";
+import { commandFlags, commands, lookupCommand } from "../registry.tsx";
 
 import Banner from "../../../islands/terminal/Banner.tsx";
 
@@ -72,13 +72,7 @@ export const usesShortHelpFlag = (cmd: Command) =>
 
 // Aligned "Options:" block, always ending with the help flag itself
 const helpCommandFlagsFactory = (cmd: Command) => {
-  const flags = [
-    ...(cmd.flags ?? []),
-    {
-      flag: usesShortHelpFlag(cmd) ? "--help" : "-h, --help",
-      description: "Show this help",
-    },
-  ];
+  const flags = commandFlags(cmd);
   const width = Math.max(...flags.map(({ flag }) => flag.length));
   return [
     "Options:",
@@ -162,7 +156,7 @@ export const helpCommand: CommandExecutor = (args, fullCommand) => {
         <br />
         <pre className="text-gray-400">
           Tip: add --help to any command (or run "help &lt;command&gt;") to
-          see its options.
+          see its options. Tab completes commands, paths and flags.
         </pre>
       </>
     ),

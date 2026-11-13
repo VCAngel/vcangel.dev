@@ -6,8 +6,7 @@ import { CommandExecutor } from "../../models/command.model.ts";
 import { currentDirectory } from "../../state/app.state.ts";
 import { parseArgs } from "../utils/args.ts";
 import { resolve } from "../utils/fs.ts";
-
-const DIR_CLASSES = "text-[#41F2A9] selection:bg-[#41F2A9]";
+import { DIR_CLASSES } from "../utils/output.tsx";
 
 const MONTHS = [
   "Jan",
