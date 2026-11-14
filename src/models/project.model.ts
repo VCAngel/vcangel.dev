@@ -17,7 +17,8 @@ export interface ProjectImage {
  * personal: built by me, for real use
  * lab: tinkering and self-hosting, shown for the engineering, not the product
  */
-export type ProjectKind = "work" | "personal" | "lab";
+export const PROJECT_KINDS = ["work", "personal", "lab"] as const;
+export type ProjectKind = (typeof PROJECT_KINDS)[number];
 
 export interface Project {
   name: string;

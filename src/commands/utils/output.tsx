@@ -5,6 +5,9 @@ import { currentDirectory } from "../../state/app.state.ts";
 // Typing speed for bulk output (file dumps, listings)
 export const FAST = 4;
 
+// Directory names (ls, Tab completion)
+export const DIR_CLASSES = "text-[#41F2A9] selection:bg-[#41F2A9]";
+
 export function Lines(
   { lines, id, speed, className }: {
     lines: string[];
