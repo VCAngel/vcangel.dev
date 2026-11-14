@@ -269,6 +269,39 @@ p.block-caret > span > div {
   }
 }
 
+/* SPA project kind filter, zero JS (Projects.tsx)
+   NOTE: Unlayered like .lightbox, so these win over Tailwind utilities
+*/
+.project-filter label {
+  padding-inline: 0.5ch;
+  color: var(--color-gray-400);
+  cursor: pointer;
+}
+
+.project-filter label:hover {
+  color: #c541f2;
+}
+
+.project-filter label:has(:checked) {
+  color: #000;
+  background-color: #c541f2;
+}
+
+.project-filter label:has(:focus-visible) {
+  outline: 2px solid #c541f2;
+  outline-offset: 2px;
+}
+
+/* WARN: One selector per ProjectKind */
+#projects:has([name="project-kind"][value="work"]:checked)
+  [data-kind]:not([data-kind="work"]),
+#projects:has([name="project-kind"][value="personal"]:checked)
+  [data-kind]:not([data-kind="personal"]),
+#projects:has([name="project-kind"][value="lab"]:checked)
+  [data-kind]:not([data-kind="lab"]) {
+  display: none;
+}
+
 /* Screenshot lightbox, shared by the SPA (native popover, ProjectGallery.tsx)
    and the terminal (modal <dialog>, ImageViewer.tsx)
    NOTE: Unlayered, so keep Tailwind utilities off this element: these rules win
